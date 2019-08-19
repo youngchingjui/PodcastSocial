@@ -19,6 +19,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import { DOMParser } from 'xmldom'
 import SoundPlayer from 'react-native-sound-player'
+import ContinePlayingCard from './src/components/ContinuePlayingCard'
 
 export default class App extends Component {
   state = {
@@ -29,10 +30,11 @@ export default class App extends Component {
     subscriptions: [],
     tab: "search",
     isPaused: false,
+    currentPodcast: undefined,
   }
 
   // Runs when the app first launches
-  async componentDidMount() {
+  async componentWillMount() {
     const subscriptions = await AsyncStorage.getItem("subscriptions")
 
     const parsed = subscriptions ? JSON.parse(subscriptions) : []
@@ -40,6 +42,33 @@ export default class App extends Component {
       subscriptions: parsed,
       tab: parsed.length > 0 ? "listen" : "search",
     })
+
+    // Load last listened podcast
+    // Requires podcast to be stored as MP3 on device. If not, requires URL to stream
+    const currentPodcast = await AsyncStorage.getItem("currentPodcast")
+
+    this.setState({
+      currentPodcast: "hello"
+    })
+  }
+
+  // Render the main app
+  render() {
+    const { podcast } = this.state
+
+    return (
+      <ContinePlayingCard podcast={podcast} />
+    )
+  }
+
+  renderMain = () => {
+    const { tab } = this.state
+
+    if (tab === "search") {
+      return this.renderSearch()
+    }
+
+    return this.renderListen()
   }
 
   onChangeTerms = e => {
@@ -131,15 +160,7 @@ export default class App extends Component {
     }
   }
 
-  render() {
-    const { tab } = this.state
 
-    if (tab === "search") {
-      return this.renderSearch()
-    }
-
-    return this.renderListen()
-  }
 
   renderSearch() {
     return (
@@ -151,8 +172,18 @@ export default class App extends Component {
       }}
       >
         {this.renderTabs()}
-        <TextInput style={{ width: "100%", borderColor: "#e0e0e0", borderWidth: 1, borderRadius: 4, padding: 10, }} onChange={this.onChangeTerms} />
-        <Button title="Search" onPress={this.onPressSearch} />
+        <TextInput
+          style={{
+            width: "100%",
+            borderColor: "#e0e0e0",
+            borderWidth: 1,
+            borderRadius: 4,
+            padding: 10,
+          }}
+          onChange={this.onChangeTerms} />
+        <Button
+          title="Search"
+          onPress={this.onPressSearch} />
         {this.renderSearchPodcasts()}
       </View>
     );
@@ -232,8 +263,7 @@ export default class App extends Component {
           flexGrow: 0,
           width: "100%",
           height: "50%",
-        }}
-        >
+        }}>
           {podcast ? this.renderPodcastTracks()
             : subscriptions.map(podcast =>
               this.renderlistenPodcast(podcast),
