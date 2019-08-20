@@ -8,9 +8,19 @@ export default class ContinuePlayingCard extends Component {
 
     render() {
         console.log('Rendering ContinuePlayingCard')
+
+        // Check if there's data in this.props.podcast yet
+        // TODO: This can be written much smoother and re-factored better.
+        if (!this.props.podcast) {
+            image = null
+        } 
+        else {
+            image = this.props.podcast.artworkUrl600
+        }
+
         return (
             <View>
-                <Thumbnails image={this.props.podcast.artworkUrl600} />
+                <Thumbnails image={image} />
                 <Text>Podcast title</Text>
                 <Text>Podcast channel</Text>
                 <PlayButton />

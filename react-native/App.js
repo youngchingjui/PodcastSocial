@@ -20,6 +20,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { DOMParser } from 'xmldom'
 import SoundPlayer from 'react-native-sound-player'
 import ContinePlayingCard from './src/components/ContinuePlayingCard'
+import Playlist from './src/components/Playlist'
 
 export default class App extends Component {
   state = {
@@ -57,7 +58,8 @@ export default class App extends Component {
     const { podcast } = this.state
 
     return (
-      <ContinePlayingCard podcast={podcast} />
+      // <ContinePlayingCard podcast={podcast} />
+      <Playlist/>
     )
   }
 
