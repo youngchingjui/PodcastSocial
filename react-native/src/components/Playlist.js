@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
-import MyPlaylist3 from "./symbols/MyPlaylist3";
+import MyPlaylist from "./symbols/MyPlaylist";
 
 export default class Playlist extends Component {
   render() {
     return (
       <View style={styles.root}>
-        <MyPlaylist3 style={styles.myPlaylist3} />
+        <MyPlaylist style={styles.myPlaylist} />
       </View>
     );
   }
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white"
   },
-  myPlaylist3: {
+  myPlaylist: {
     top: "0%",
     left: "0%",
     width: "100%",

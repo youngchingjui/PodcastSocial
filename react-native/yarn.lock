@@ -5284,6 +5284,16 @@ react-is@^16.8.1, react-is@^16.8.3, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
 
+react-native-sound-player@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/react-native-sound-player/-/react-native-sound-player-0.9.0.tgz#ab63bda0e9fc59e8df5e66d25d0d5bab1952e93b"
+  integrity sha512-gOOfv5d7acHksfW6LMUuZxdk3pWXor/ImQFlRauOwxn+SaSPM59taFDj4P8zVRN0RZoHxWX8rpGbnxMFDPY0TQ==
+
+react-native-svg@^9.6.4:
+  version "9.6.4"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.6.4.tgz#f9ceb228efd07317a5f9c378c6b9c5e13ff50cd0"
+  integrity sha512-6SlbGx0vlXHyDPQXSpX+8o6bNjxKFNJsISoboAkR7YWW6hdnkMg/HJXCgT6oJC0/ClKtSO7ZPrQcK4HR65kDNg==
+
 react-native@0.59.9:
   version "0.59.9"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.59.9.tgz#c94ee4fa35121720c05235a2dd6cdd2784bf5177"
