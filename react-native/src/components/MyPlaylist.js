@@ -1,40 +1,17 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import Svg, { Path, Stop, Defs, LinearGradient } from "react-native-svg";
-import PlaylistDetail3 from "./PlaylistDetail3";
-import PlayButton3 from "./PlayButton3";
-import Navbar3 from "./Navbar3";
+import PlaylistDetail3 from "./symbols/PlaylistDetail3";
+import PlayButton3 from "./symbols/PlayButton3";
+import Navbar3 from "./symbols/Navbar3";
+import PurpleBackdrop from "./PurpleBackdrop"
 
 export default class MyPlaylist extends Component {
   render() {
     return (
       <View style={[styles.root, this.props.style]}>
         <View style={styles.group1}>
-          <View style={styles.rectangle15}>
-            <Svg
-              viewBox={"-0 -0 492.6416781507329 299.4145353491142"}
-              style={styles.path25}
-            >
-              <Defs>
-                <LinearGradient id="gradient4" x1={0} x2={102} y1={0} y2={101}>
-                  <Stop offset="0.00" stopColor="rgba(48,35,174,1)" />
-                  <Stop
-                    offset="1.00"
-                    stopColor="rgba(200,109,215,0.3004132699275363)"
-                  />
-                </LinearGradient>
-              </Defs>
-              <Path
-                strokeWidth={0}
-                fill={"url(#gradient4)"}
-                fillOpacity={0.9}
-                strokeOpacity={0.9}
-                d={
-                  "M13.83 125.80 L295.13 299.41 L492.64 149.59 L492.64 0.00 L0.00 0.00 L13.83 125.80 Z"
-                }
-              />
-            </Svg>
-          </View>
+          <PurpleBackdrop />
         </View>
         <View style={styles.style12}>
           <PlaylistDetail3 style={styles.playlistDetail34} />
@@ -57,7 +34,7 @@ export default class MyPlaylist extends Component {
         </View>
         <Text style={styles.MyPlaylist}>My Playlist</Text>
         <Image
-          source={require("../assets/images/b8561a9c7528866f91c650f8c7cc6b8461b14149.png")}
+          source={require("../../../assets/images/b8561a9c7528866f91c650f8c7cc6b8461b14149.png")}
           style={styles.x600Bb3}
         />
         <View style={styles.container3} />
@@ -107,24 +84,6 @@ const styles = StyleSheet.create({
     width: "131.47%",
     height: "36.95%",
     position: "absolute"
-  },
-  rectangle15: {
-    top: "6.33%",
-    left: "14.20%",
-    width: "76.06%",
-    height: "86.33%",
-    backgroundColor: "transparent",
-    position: "absolute",
-    overflow: "hidden"
-  },
-  path25: {
-    top: "-7.34%",
-    left: "-18.67%",
-    width: "131.37%",
-    height: "115.60%",
-    backgroundColor: "transparent",
-    position: "absolute",
-    borderColor: "transparent"
   },
   style12: {
     top: "52.59%",
