@@ -1,4 +1,5 @@
-import React from "react";
+import React, {Component} from "react";
+import {StyleSheet, View} from "react-native";
 import Svg, { Path, Stop, Defs, LinearGradient } from "react-native-svg";
 
 export default class PurpleBackdrop extends Component {

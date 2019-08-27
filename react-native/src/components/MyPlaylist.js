@@ -34,7 +34,7 @@ export default class MyPlaylist extends Component {
         </View>
         <Text style={styles.MyPlaylist}>My Playlist</Text>
         <Image
-          source={require("../../../assets/images/b8561a9c7528866f91c650f8c7cc6b8461b14149.png")}
+          source={require("../../assets/images/b8561a9c7528866f91c650f8c7cc6b8461b14149.png")}
           style={styles.x600Bb3}
         />
         <View style={styles.container3} />
