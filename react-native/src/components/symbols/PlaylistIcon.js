@@ -2,10 +2,18 @@ import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
-export default class Playlist3 extends Component {
+export default class PlaylistIcon extends Component {
   render() {
     return (
-      <View style={[styles.root, this.props.style]}>
+      <View
+        style={[styles.root, this.props.style]}
+        onPress={() =>
+          this.setState({
+            tab: "Playlist"
+          })
+        }
+      >
+        {/* Drawing the Playlist Icon */}
         <View style={styles.rectangle10} />
         <View style={styles.rectangle11} />
         <View style={styles.rectangle12} />

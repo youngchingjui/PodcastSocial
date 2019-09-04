@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import Play3 from "./Play3";
-import SearchOutline3 from "./SearchOutline3";
-import Playlist3 from "./Playlist3";
-import UiBarsHomeIndicatorHomeIndicatorOnLight3 from "./UiBarsHomeIndicatorHomeIndicatorOnLight3";
+import SearchIcon from "./SearchIcon";
+import PlaylistIcon from "./PlaylistIcon";
 
-export default class Navbar3 extends Component {
+export default class Navbar extends Component {
   render() {
     return (
       <View style={[styles.root, this.props.style]}>
@@ -21,11 +20,11 @@ export default class Navbar3 extends Component {
           />
         </Svg>
         <Play3 style={styles.play3} />
-        <SearchOutline3 style={styles.searchOutline3} />
-        <Playlist3 style={styles.playlist3} />
-        <UiBarsHomeIndicatorHomeIndicatorOnLight3
-          style={styles.uiBarsHomeIndicatorHomeIndicatorOnLight3}
+        <SearchIcon 
+          style={styles.searchIcon} 
+          onPress={() => this.setState({tab: "Playlist"})}
         />
+        <PlaylistIcon style={styles.playlist} />
       </View>
     );
   }
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     position: "absolute"
   },
-  searchOutline3: {
+  searchIcon: {
     top: "32.93%",
     left: "78.13%",
     width: "6.40%",
@@ -75,7 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     position: "absolute"
   },
-  playlist3: {
+  playlist: {
     top: "32.93%",
     left: "17.60%",
     width: "6.40%",

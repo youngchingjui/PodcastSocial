@@ -1,33 +1,32 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
-import Svg, { Path, Stop, Defs, LinearGradient } from "react-native-svg";
-import PlaylistDetail3 from "./symbols/PlaylistDetail3";
-import PlayButton3 from "./symbols/PlayButton3";
-import Navbar from "./symbols/Navbar";
-import PurpleBackdrop from "./PurpleBackdrop"
+import Svg, { Path } from "react-native-svg";
+import PlaylistDetail from "../components/PlaylistDetail";
+import PlayButton from "../components/PlayButton";
+import PurpleBackdrop from "../components/PurpleBackdrop";
 
-export default class MyPlaylist extends Component {
+export default class MyPlaylistScreen extends Component {
   render() {
     return (
       <View style={[styles.root, this.props.style]}>
         <View style={styles.group1}>
-          <PurpleBackdrop />
+          <PurpleBackdrop style={styles.group1} />
         </View>
         <View style={styles.style12}>
-          <PlaylistDetail3 style={styles.playlistDetail34} />
-          <PlayButton3 style={styles.playButton34} />
+          <PlaylistDetail style={styles.playlistDetail34} />
+          <PlayButton style={styles.playButton34} />
         </View>
         <View style={styles.style13}>
-          <PlaylistDetail3 style={styles.playlistDetail35} />
-          <PlayButton3 style={styles.playButton35} />
+          <PlaylistDetail style={styles.playlistDetail35} />
+          <PlayButton style={styles.playButton35} />
         </View>
         <View style={styles.style14}>
-          <PlaylistDetail3 style={styles.playlistDetail36} />
-          <PlayButton3 style={styles.playButton36} />
+          <PlaylistDetail style={styles.playlistDetail36} />
+          <PlayButton style={styles.playButton36} />
         </View>
         <View style={styles.style15}>
-          <PlaylistDetail3 style={styles.playlistDetail37} />
-          <PlayButton3 style={styles.playButton37} />
+          <PlaylistDetail style={styles.playlistDetail37} />
+          <PlayButton style={styles.playButton37} />
         </View>
         <View style={styles.title3}>
           <Text style={styles.upNext3}>UP NEXT</Text>
@@ -67,7 +66,6 @@ export default class MyPlaylist extends Component {
         <Text style={styles.listenMoneyMattersC3}>
           ListenMoneyMatters.com | Andrew Fiebert and Matt Giovanisci
         </Text>
-        <Navbar style={styles.navbar31} />
       </View>
     );
   }
@@ -190,8 +188,8 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     color: "rgba(155,155,155,1)",
     position: "absolute",
-    fontSize: 14,
-    fontFamily: "sfprodisplay-bold"
+    fontSize: 14
+    // fontFamily: "sfprodisplay-bold"
   },
   MyPlaylist: {
     top: "5.67%",
@@ -199,8 +197,8 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     color: "rgba(255,255,255,1)",
     position: "absolute",
-    fontSize: 19,
-    fontFamily: "sfprodisplay-semibold"
+    fontSize: 19
+    // fontFamily: "sfprodisplay-semibold"
   },
   x600Bb3: {
     top: "12.93%",
@@ -250,8 +248,8 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     color: "rgba(255,255,255,1)",
     position: "absolute",
-    fontSize: 14,
-    fontFamily: "sfprodisplay-regular"
+    fontSize: 14
+    // fontFamily: "sfprodisplay-regular"
   },
   theSmartWayToBuy3: {
     top: "15.15%",
@@ -259,8 +257,8 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     color: "rgba(255,255,255,1)",
     position: "absolute",
-    fontSize: 14,
-    fontFamily: "sfprodisplay-regular"
+    fontSize: 14
+    // fontFamily: "sfprodisplay-regular"
   },
   listenMoneyMattersC3: {
     top: "17.12%",
@@ -270,15 +268,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     color: "rgba(255,255,255,1)",
     position: "absolute",
-    fontSize: 10,
-    fontFamily: "sfprodisplay-light"
-  },
-  navbar31: {
-    top: "89.90%",
-    left: "0.00%",
-    width: "100.00%",
-    height: "10.10%",
-    backgroundColor: "transparent",
-    position: "absolute"
-  },
+    fontSize: 10
+    // fontFamily: "sfprodisplay-light"
+  }
 });

@@ -2,10 +2,20 @@ import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
-export default class SearchOutline3 extends Component {
+export default class SearchIcon extends Component {
   render() {
     return (
-      <View style={[styles.root, this.props.style]}>
+      <View 
+        style={[styles.root, this.props.style]} 
+        // onPress={() => 
+        //   {
+        //     console.log("Tapped Playlist Icon")
+        //     this.setState({tab: "Playlist"})
+        //   }
+        // }
+      >
+
+        {/* Drawing the Search Icon */}
         <Svg
           viewBox={"-0 -0 8.984273619533495 8.976890084427007"}
           style={styles.path24}

@@ -20,6 +20,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { DOMParser } from 'xmldom'
 import SoundPlayer from 'react-native-sound-player'
 import MyPlaylist from './src/components/MyPlaylist'
+import Search from './src/components/Search'
 
 export default class App extends Component {
   state = {
@@ -28,7 +29,7 @@ export default class App extends Component {
     podcastDocument: undefined,
     podcasts: undefined,
     subscriptions: [],
-    tab: "search",
+    tab: "Playlist",
     isPaused: false,
     currentPodcast: undefined,
   }
@@ -39,8 +40,8 @@ export default class App extends Component {
 
     const parsed = subscriptions ? JSON.parse(subscriptions) : []
     this.setState({
-      subscriptions: parsed,
-      tab: parsed.length > 0 ? "listen" : "search",
+      subscriptions: parsed
+      // tab: parsed.length > 0 ? "listen" : "search",
     })
 
     // Load last listened podcast
@@ -54,12 +55,17 @@ export default class App extends Component {
 
   // Render the main app
   render() {
-    const { podcast } = this.state
+    const { podcast, tab } = this.state
 
-    return (
-      // <ContinePlayingCard podcast={podcast} />
-      <MyPlaylist/>
-    )
+    if (tab === "Playlist") {
+      return (
+        <MyPlaylist/>
+      )
+    } else {
+      return (
+        <Search/>
+      )
+    }
   }
 
   renderMain = () => {

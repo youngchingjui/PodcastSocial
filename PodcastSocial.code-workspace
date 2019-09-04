@@ -2,7 +2,12 @@
 	"folders": [
 		{
 			"path": "./react-native"
+		},
+		{
+			"path": "PodcastSocial"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"editor.formatOnSave": true
+	}
 }
