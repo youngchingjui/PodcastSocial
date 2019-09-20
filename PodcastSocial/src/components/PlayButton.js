@@ -1,14 +1,41 @@
-import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import Svg, { Path } from "react-native-svg";
+import { Audio } from "expo-av";
+import PlayArrow from "./PlayArrow";
 
-export default class PlayButton extends Component {
-  render() {
-    return (
-      <View style={[styles.root, this.props.style]}>
+const PlayButton = () => {
+  const [isPaused, setIsPaused] = useState(true);
+  // const [soundObject, setSoundObject] = useState(Audio.Sound());
+
+  const onPress = async () => {
+    const soundObject = new Audio.Sound();
+    await soundObject.loadAsync({
+      uri:
+        "https://chtbl.com/track/78898/traffic.megaphone.fm/LMM3137604272.mp3"
+    });
+    if (isPaused) {
+      // Audio is currenlty not playing. Start playing podcast
+      console.log("Playing audio");
+      setIsPaused(false);
+      try {
+        await soundObject.playAsync();
+      } catch (e) {
+        console.log(`Could not play sound player`, e);
+      }
+    } else {
+      // Audio is currently playing. Pause it
+      console.log("Pausing audio");
+      setIsPaused(true);
+      await soundObject.pauseAsync();
+    }
+  };
+
+  return (
+    <View style={styles.root}>
+      <TouchableOpacity onPress={onPress} style={styles.touch}>
         <View style={styles.group}>
-          {/* Drawing the circle */}
-          <View style={[styles.circle, this.props.style]}>
+          <View style={styles.circle}>
             <Svg
               viewBox={
                 "-0.44776119402985076 -0.44776119402985076 61.791044776119406 61.791044776119406"
@@ -25,29 +52,25 @@ export default class PlayButton extends Component {
               />
             </Svg>
           </View>
-          {/* Drawing the arrow */}
-          <View style={[styles.playArrow, this.props.style]}>
-            <Svg viewBox={"-0.75 -0.75 15 18"} style={styles.path}>
-              <Path
-                strokeWidth={1.5}
-                fill={"transparent"}
-                stroke={"rgba(134,109,204,1)"}
-                d={
-                  "M0.75 0.75 L12.75 8.25 L0.75 15.75 L0.75 11.75 L0.75 0.75 L0.75 0.75 Z"
-                }
-              />
-            </Svg>
+
+          <View style={styles.playArrow}>
+            {isPaused ? <PlayArrow /> : <Text>Pause</Text>}
           </View>
         </View>
-      </View>
-    );
-  }
-}
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1
+    width: 100,
+    height: 100,
+    position: "absolute",
+    bottom: "1%",
+    left: 125
   },
+  touch: { flex: 1 },
   circle: {
     flex: 1,
     top: "0.00%",
@@ -92,3 +115,5 @@ const styles = StyleSheet.create({
     borderColor: "transparent"
   }
 });
+
+export default PlayButton;

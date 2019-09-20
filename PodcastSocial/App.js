@@ -15,7 +15,7 @@ export default createAppContainer(
       Search: SearchScreen
     },
     {
-      initialRouteName: "Search",
+      initialRouteName: "Play",
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ focused, horizontal, tintColor }) => {
           const { routeName } = navigation.state;

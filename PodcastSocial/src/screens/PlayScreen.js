@@ -1,20 +1,350 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Image, Text } from "react-native";
+import Svg, { Path } from "react-native-svg";
 import PurpleBackdrop from "../components/PurpleBackdrop";
 import ScreenTitle from "../components/ScreenTitle";
+import PlayButton from "../components/PlayButton";
 
 const PlayScreen = () => {
   return (
     <View style={styles.root}>
       <PurpleBackdrop />
-      <ScreenTitle title={"Now Playing"} />
+      <ScreenTitle title="Now Playing" />
+      <Image
+        source={require("../../assets/images/b8561a9c7528866f91c650f8c7cc6b8461b14149.png")}
+        style={styles.podcastArtwork}
+      />
+      <PlayButton />
+      <View style={styles.rectangle1} />
+      <View style={styles.player}>
+        <View style={styles.nameEpisode}>
+          <Text style={styles.iHaventBeenThis}>
+            I haven’t been this cautious in six years
+          </Text>
+          <Text style={styles.episode147}>EPISODE - 147</Text>
+        </View>
+        <View style={styles.moreIcon}>
+          <Svg viewBox={"-0 -0 18.44000000000005 4.44"} style={styles.path}>
+            <Path
+              strokeWidth={0}
+              fill={"rgba(255,255,255,1)"}
+              d={
+                "M9.22 4.44 C7.99 4.44 7.00 3.45 7.00 2.22 C7.00 0.99 7.99 0.00 9.22 0.00 C10.45 0.00 11.44 0.99 11.44 2.22 C11.44 3.45 10.45 4.44 9.22 4.44 Z M16.22 4.44 C14.99 4.44 14.00 3.45 14.00 2.22 C14.00 0.99 14.99 0.00 16.22 0.00 C17.45 0.00 18.44 0.99 18.44 2.22 C18.44 3.45 17.45 4.44 16.22 4.44 Z M2.22 4.44 C0.99 4.44 0.00 3.45 0.00 2.22 C0.00 0.99 0.99 0.00 2.22 0.00 C3.45 0.00 4.44 0.99 4.44 2.22 C4.44 3.45 3.45 4.44 2.22 4.44 Z"
+              }
+            />
+          </Svg>
+        </View>
+        <View style={styles.scrollBar}>
+          <Svg viewBox={"-1 -1 273 6"} style={styles.line2}>
+            <Path
+              strokeWidth={2}
+              fill={"transparent"}
+              stroke={"rgba(255,255,255,1)"}
+              fillOpacity={0.2}
+              strokeOpacity={0.2}
+              d={"M1.46 2.00 L270.00 2.00 "}
+            />
+          </Svg>
+          <Text style={styles.style}>1:02:52</Text>
+          <Text style={styles.style1}>01:43:00</Text>
+          <Svg viewBox={"-1 -1 157 6"} style={styles.line2Copy}>
+            <Path
+              strokeWidth={2}
+              fill={"transparent"}
+              stroke={"rgba(80,227,194,1)"}
+              d={"M1.00 2.00 L153.85 2.00 "}
+            />
+          </Svg>
+          <Svg viewBox={"-0 -0 10 10"} style={styles.oval}>
+            <Path
+              strokeWidth={0}
+              fill={"rgba(255,255,255,1)"}
+              d={
+                "M5.00 10.00 C7.76 10.00 10.00 7.76 10.00 5.00 C10.00 2.24 7.76 0.00 5.00 0.00 C2.24 0.00 0.00 2.24 0.00 5.00 C0.00 7.76 2.24 10.00 5.00 10.00 Z"
+              }
+            />
+          </Svg>
+        </View>
+        <View style={styles.controls}>
+          <View style={styles.rewind}>
+            <Svg viewBox={"-0 -0 23 27"} style={styles.arrow}>
+              <Path
+                strokeWidth={0}
+                fill={"rgba(255,255,255,1)"}
+                d={
+                  "M17.56 4.18 C16.91 4.12 16.39 3.62 16.39 2.97 L16.39 0.65 C16.39 0.11 15.77 -0.19 15.33 0.13 L8.15 5.48 C7.51 5.96 7.50 6.93 8.15 7.41 L15.33 12.77 C15.77 13.10 16.39 12.79 16.39 12.26 L16.39 10.12 C16.39 9.37 17.06 8.80 17.81 8.91 C23.06 9.69 26.91 14.69 25.71 20.30 C25.47 21.42 25.01 22.47 24.38 23.41 C23.69 24.44 23.97 25.83 24.99 26.54 L25.03 26.57 C26.07 27.30 27.56 27.09 28.27 26.04 C29.78 23.81 30.67 21.13 30.67 18.24 C30.67 10.84 24.90 4.78 17.56 4.18 "
+                }
+              />
+            </Svg>
+            <Text style={styles.style2}>15</Text>
+          </View>
+          <View style={styles.fastForward}>
+            <Svg viewBox={"-0 -0 23 27"} style={styles.arrow1}>
+              <Path
+                strokeWidth={0}
+                fill={"rgba(255,255,255,1)"}
+                d={
+                  "M17.56 4.18 C16.91 4.12 16.39 3.62 16.39 2.97 L16.39 0.65 C16.39 0.11 15.77 -0.19 15.33 0.13 L8.15 5.48 C7.51 5.96 7.50 6.93 8.15 7.41 L15.33 12.77 C15.77 13.10 16.39 12.79 16.39 12.26 L16.39 10.12 C16.39 9.37 17.06 8.80 17.81 8.91 C23.06 9.69 26.91 14.69 25.71 20.30 C25.47 21.42 25.01 22.47 24.38 23.41 C23.69 24.44 23.97 25.83 24.99 26.54 L25.03 26.57 C26.07 27.30 27.56 27.09 28.27 26.04 C29.78 23.81 30.67 21.13 30.67 18.24 C30.67 10.84 24.90 4.78 17.56 4.18 "
+                }
+              />
+            </Svg>
+            <Text style={styles.style3}>15</Text>
+          </View>
+        </View>
+      </View>
+      <View style={styles.recordButton}>
+        <Svg viewBox={"-0 -0 60 60"} style={styles.oval1}>
+          <Path
+            strokeWidth={0}
+            fill={"rgba(217,45,45,1)"}
+            d={
+              "M30.00 60.00 C46.57 60.00 60.00 46.57 60.00 30.00 C60.00 13.43 46.57 0.00 30.00 0.00 C13.43 0.00 0.00 13.43 0.00 30.00 C0.00 46.57 13.43 60.00 30.00 60.00 Z"
+            }
+          />
+        </Svg>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "rgba(255,255,255,1)"
+  },
+  rectangle: {
+    top: "0.00%",
+    left: "0.00%",
+    width: "100.00%",
+    height: "100.00%",
+    backgroundColor: "transparent",
+    position: "absolute",
+    overflow: "hidden"
+  },
+  path2: {
+    top: "-7.34%",
+    left: "-18.67%",
+    width: "131.37%",
+    height: "115.60%",
+    backgroundColor: "transparent",
+    position: "absolute",
+    borderColor: "transparent"
+  },
+  deviceBezelsIPhoneXsDisplayShape5: {
+    top: "0.00%",
+    left: "0.00%",
+    width: "100.00%",
+    height: "100.00%",
+    backgroundColor: "transparent",
+    position: "absolute"
+  },
+  podcastArtwork: {
+    top: "10.22%",
+    left: "0.00%",
+    width: "100.27%",
+    height: "46.31%",
+    backgroundColor: "transparent",
+    position: "absolute"
+  },
+  rectangle1: {
+    top: "56.53%",
+    left: "0.00%",
+    width: "100.27%",
+    height: "33.25%",
+    backgroundColor: "rgba(134,109,204,1)",
+    position: "absolute"
+  },
+  player: {
+    top: "60.59%",
+    left: "7.47%",
+    width: "85.33%",
+    height: "17.73%",
+    position: "absolute"
+  },
+  nameEpisode: {
+    top: "0.00%",
+    left: "0.00%",
+    width: "93.75%",
+    height: "21.53%",
+    position: "absolute"
+  },
+  iHaventBeenThis: {
+    top: "0.00%",
+    left: "0.00%",
+    backgroundColor: "transparent",
+    color: "rgba(255,255,255,1)",
+    position: "absolute",
+    fontSize: 18,
+    // TODO: Load in fonts
+    // fontFamily: "sfprodisplay-medium",
+    lineHeight: 2
+  },
+  episode147: {
+    top: "35.48%",
+    left: "0.00%",
+    backgroundColor: "transparent",
+    color: "rgba(255,255,255,1)",
+    position: "absolute",
+    opacity: 0.5,
+    fontSize: 14
+    // fontFamily: "poppins-regular"
+  },
+  moreIcon: {
+    top: "3.47%",
+    left: "92.97%",
+    width: "5.94%",
+    height: "3.47%",
+    position: "absolute"
+  },
+  path: {
+    top: "0.00%",
+    left: "2.63%",
+    width: "97.05%",
+    height: "88.80%",
+    backgroundColor: "transparent",
+    position: "absolute",
+    borderColor: "transparent"
+  },
+  scrollBar: {
+    top: "32.64%",
+    left: "0.31%",
+    width: "99.69%",
+    height: "21.53%",
+    position: "absolute"
+  },
+  line2: {
+    top: "9.68%",
+    left: "15.36%",
+    width: "85.58%",
+    height: "19.35%",
+    backgroundColor: "transparent",
+    position: "absolute",
+    borderColor: "transparent"
+  },
+  style: {
+    top: "45.16%",
+    left: "0.00%",
+    backgroundColor: "transparent",
+    color: "rgba(255,255,255,1)",
+    position: "absolute",
+    fontSize: 12
+    // fontFamily: "poppins-600"
+  },
+  style1: {
+    top: "45.16%",
+    left: "84.95%",
+    backgroundColor: "transparent",
+    color: "rgba(255,255,255,1)",
+    position: "absolute",
+    fontSize: 12,
+    // fontFamily: "poppins-600",
+    textAlign: "right"
+  },
+  line2Copy: {
+    top: "9.68%",
+    left: "-0.31%",
+    width: "49.22%",
+    height: "19.35%",
+    backgroundColor: "transparent",
+    position: "absolute",
+    borderColor: "transparent"
+  },
+  oval: {
+    top: "0.00%",
+    left: "46.39%",
+    width: "3.13%",
+    height: "32.26%",
+    backgroundColor: "transparent",
+    position: "absolute",
+    borderColor: "transparent"
+  },
+  controls: {
+    top: "75.69%",
+    left: "19.38%",
+    width: "55.00%",
+    height: "24.31%",
+    position: "absolute"
+  },
+  rewind: {
+    top: "0.00%",
+    left: "0.00%",
+    width: "13.07%",
+    height: "91.43%",
+    position: "absolute"
+  },
+  arrow: {
+    top: "0.00%",
+    left: "0.00%",
+    width: "100.00%",
+    height: "84.38%",
+    backgroundColor: "transparent",
+    position: "absolute",
+    borderColor: "transparent"
+  },
+  style2: {
+    top: "40.63%",
+    left: "4.35%",
+    backgroundColor: "transparent",
+    color: "rgba(255,255,255,1)",
+    position: "absolute",
+    fontSize: 14
+    // fontFamily: "avenirnext-bold"
+  },
+  fastForward: {
+    top: "8.57%",
+    left: "86.93%",
+    width: "13.07%",
+    height: "91.43%",
+    position: "absolute"
+  },
+  arrow1: {
+    top: "0.00%",
+    left: "0.00%",
+    width: "100.00%",
+    height: "84.38%",
+    backgroundColor: "transparent",
+    position: "absolute",
+    transform: [
+      {
+        scaleX: -1
+      }
+    ],
+    borderColor: "transparent"
+  },
+  style3: {
+    top: "40.63%",
+    left: "17.39%",
+    backgroundColor: "transparent",
+    color: "rgba(255,255,255,1)",
+    position: "absolute",
+    fontSize: 14
+    // fontFamily: "avenirnext-bold"
+  },
+
+  recordButton: {
+    top: "80.79%",
+    left: "79.47%",
+    width: "16.00%",
+    height: "7.39%",
+    position: "absolute"
+  },
+  oval1: {
+    top: "0.00%",
+    left: "0.00%",
+    width: "100.00%",
+    height: "100.00%",
+    backgroundColor: "transparent",
+    position: "absolute",
+    borderColor: "transparent"
+  },
+  nowPlaying: {
+    top: "5.67%",
+    left: "7.47%",
+    backgroundColor: "transparent",
+    color: "rgba(255,255,255,1)",
+    position: "absolute",
+    fontSize: 19
+    // fontFamily: "sfprodisplay-semibold"
   }
 });
 

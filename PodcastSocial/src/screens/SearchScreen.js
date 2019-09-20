@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  ScrollView,
-  FlatList
-} from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { StyleSheet, View, ScrollView, FlatList } from "react-native";
 import PurpleBackdrop from "../components/PurpleBackdrop";
 import ScreenTitle from "../components/ScreenTitle";
 import useResults from "../hooks/useResults";
