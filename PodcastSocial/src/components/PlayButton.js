@@ -5,19 +5,35 @@ import { Audio } from "expo-av";
 import PlayArrow from "./PlayArrow";
 
 const PlayButton = () => {
-  const [isPaused, setIsPaused] = useState(true);
-  // const [soundObject, setSoundObject] = useState(Audio.Sound());
+  const [isPaused, setPause] = useState(true);
+  const [soundObject, setSoundObject] = useState(null);
+  const [soundObjectLoaded, setSoundObjectLoaded] = useState(false);
+
+  useEffect(() => {
+    const _soundObject = new Audio.Sound();
+
+    console.log("Starting to load sound object!");
+    console.log(_soundObject);
+    setSoundObject(_soundObject);
+    _soundObject
+      .loadAsync({
+        uri:
+          "https://chtbl.com/track/78898/traffic.megaphone.fm/LMM3137604272.mp3"
+      })
+      .then(response => {
+        setSoundObjectLoaded(true);
+        console.log("soundObject loaded!");
+      });
+  }, []);
 
   const onPress = async () => {
-    const soundObject = new Audio.Sound();
-    await soundObject.loadAsync({
-      uri:
-        "https://chtbl.com/track/78898/traffic.megaphone.fm/LMM3137604272.mp3"
-    });
+    console.log("Sound Object within onPress:");
+    console.log(soundObject.constructor.name);
+
     if (isPaused) {
-      // Audio is currenlty not playing. Start playing podcast
+      // Audio is currently not playing. Start playing podcast
       console.log("Playing audio");
-      setIsPaused(false);
+      setPause(false);
       try {
         await soundObject.playAsync();
       } catch (e) {
@@ -26,8 +42,12 @@ const PlayButton = () => {
     } else {
       // Audio is currently playing. Pause it
       console.log("Pausing audio");
-      setIsPaused(true);
-      await soundObject.pauseAsync();
+      setPause(true);
+      try {
+        await soundObject.pauseAsync();
+      } catch (e) {
+        console.log(`Could not pause sound player`, e);
+      }
     }
   };
 
