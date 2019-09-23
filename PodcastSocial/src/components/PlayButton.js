@@ -1,39 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { Audio } from "expo-av";
 import PlayArrow from "./PlayArrow";
+import { Context } from "../context/MusicPlayerContext";
 
 const PlayButton = () => {
-  const [isPaused, setPause] = useState(true);
-  const [soundObject, setSoundObject] = useState(null);
-  const [soundObjectLoaded, setSoundObjectLoaded] = useState(false);
-
+  // const [isPaused, setPause] = useState(true);
+  const { state, changeIsPlaying } = useContext(Context);
+  const { soundObject, isPlaying } = state;
   useEffect(() => {
-    const _soundObject = new Audio.Sound();
-
-    console.log("Starting to load sound object!");
-    console.log(_soundObject);
-    setSoundObject(_soundObject);
-    _soundObject
+    console.log("Starting to load sound object");
+    soundObject
       .loadAsync({
         uri:
           "https://chtbl.com/track/78898/traffic.megaphone.fm/LMM3137604272.mp3"
       })
       .then(response => {
-        setSoundObjectLoaded(true);
-        console.log("soundObject loaded!");
+        // setSoundObjectLoaded(true);
+        console.log("soundObject loaded");
       });
   }, []);
 
   const onPress = async () => {
     console.log("Sound Object within onPress:");
-    console.log(soundObject.constructor.name);
 
-    if (isPaused) {
+    if (!isPlaying) {
       // Audio is currently not playing. Start playing podcast
       console.log("Playing audio");
-      setPause(false);
+      changeIsPlaying(true);
       try {
         await soundObject.playAsync();
       } catch (e) {
@@ -42,7 +37,7 @@ const PlayButton = () => {
     } else {
       // Audio is currently playing. Pause it
       console.log("Pausing audio");
-      setPause(true);
+      changeIsPlaying(false);
       try {
         await soundObject.pauseAsync();
       } catch (e) {
@@ -74,7 +69,7 @@ const PlayButton = () => {
           </View>
 
           <View style={styles.playArrow}>
-            {isPaused ? <PlayArrow /> : <Text>Pause</Text>}
+            {!isPlaying ? <PlayArrow /> : <Text>Pause</Text>}
           </View>
         </View>
       </TouchableOpacity>

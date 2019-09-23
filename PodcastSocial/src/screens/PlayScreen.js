@@ -1,11 +1,14 @@
-import React from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import PurpleBackdrop from "../components/PurpleBackdrop";
 import ScreenTitle from "../components/ScreenTitle";
 import PlayButton from "../components/PlayButton";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Context } from "../context/MusicPlayerContext";
 
 const PlayScreen = () => {
+  const { forward, rewind } = useContext(Context);
   return (
     <View style={styles.root}>
       <PurpleBackdrop />
@@ -15,6 +18,12 @@ const PlayScreen = () => {
         style={styles.podcastArtwork}
       />
       <PlayButton />
+      <TouchableOpacity style={styles.forward} onPress={forward}>
+        <MaterialIcons name="forward-10" size={60} />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.replay} onPress={rewind}>
+        <MaterialIcons name="replay-10" size={60} />
+      </TouchableOpacity>
       <View style={styles.rectangle1} />
       <View style={styles.player}>
         <View style={styles.nameEpisode}>
@@ -65,32 +74,7 @@ const PlayScreen = () => {
             />
           </Svg>
         </View>
-        <View style={styles.controls}>
-          <View style={styles.rewind}>
-            <Svg viewBox={"-0 -0 23 27"} style={styles.arrow}>
-              <Path
-                strokeWidth={0}
-                fill={"rgba(255,255,255,1)"}
-                d={
-                  "M17.56 4.18 C16.91 4.12 16.39 3.62 16.39 2.97 L16.39 0.65 C16.39 0.11 15.77 -0.19 15.33 0.13 L8.15 5.48 C7.51 5.96 7.50 6.93 8.15 7.41 L15.33 12.77 C15.77 13.10 16.39 12.79 16.39 12.26 L16.39 10.12 C16.39 9.37 17.06 8.80 17.81 8.91 C23.06 9.69 26.91 14.69 25.71 20.30 C25.47 21.42 25.01 22.47 24.38 23.41 C23.69 24.44 23.97 25.83 24.99 26.54 L25.03 26.57 C26.07 27.30 27.56 27.09 28.27 26.04 C29.78 23.81 30.67 21.13 30.67 18.24 C30.67 10.84 24.90 4.78 17.56 4.18 "
-                }
-              />
-            </Svg>
-            <Text style={styles.style2}>15</Text>
-          </View>
-          <View style={styles.fastForward}>
-            <Svg viewBox={"-0 -0 23 27"} style={styles.arrow1}>
-              <Path
-                strokeWidth={0}
-                fill={"rgba(255,255,255,1)"}
-                d={
-                  "M17.56 4.18 C16.91 4.12 16.39 3.62 16.39 2.97 L16.39 0.65 C16.39 0.11 15.77 -0.19 15.33 0.13 L8.15 5.48 C7.51 5.96 7.50 6.93 8.15 7.41 L15.33 12.77 C15.77 13.10 16.39 12.79 16.39 12.26 L16.39 10.12 C16.39 9.37 17.06 8.80 17.81 8.91 C23.06 9.69 26.91 14.69 25.71 20.30 C25.47 21.42 25.01 22.47 24.38 23.41 C23.69 24.44 23.97 25.83 24.99 26.54 L25.03 26.57 C26.07 27.30 27.56 27.09 28.27 26.04 C29.78 23.81 30.67 21.13 30.67 18.24 C30.67 10.84 24.90 4.78 17.56 4.18 "
-                }
-              />
-            </Svg>
-            <Text style={styles.style3}>15</Text>
-          </View>
-        </View>
+        <View style={styles.controls}></View>
       </View>
       <View style={styles.recordButton}>
         <Svg viewBox={"-0 -0 60 60"} style={styles.oval1}>
@@ -111,6 +95,16 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: "rgba(255,255,255,1)"
+  },
+  forward: {
+    position: "absolute",
+    bottom: 5,
+    right: 60
+  },
+  replay: {
+    position: "absolute",
+    bottom: 5,
+    left: 60
   },
   rectangle: {
     top: "0.00%",

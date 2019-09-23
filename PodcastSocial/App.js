@@ -1,3 +1,5 @@
+import React from "react";
+import { Provider } from "./src/context/MusicPlayerContext";
 import { createAppContainer } from "react-navigation";
 import MyPlaylistScreen from "./src/screens/MyPlaylistScreen";
 import SearchScreen from "./src/screens/SearchScreen";
@@ -7,7 +9,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-export default createAppContainer(
+const App = createAppContainer(
   createBottomTabNavigator(
     {
       MyPlaylist: MyPlaylistScreen,
@@ -53,3 +55,11 @@ const styles = StyleSheet.create({
     width: 30
   }
 });
+
+export default () => {
+  return (
+    <Provider>
+      <App />
+    </Provider>
+  );
+};
