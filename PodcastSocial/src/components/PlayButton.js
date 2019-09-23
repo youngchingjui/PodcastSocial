@@ -1,26 +1,12 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import Svg, { Path } from "react-native-svg";
-import { Audio } from "expo-av";
 import PlayArrow from "./PlayArrow";
 import { Context } from "../context/MusicPlayerContext";
 
 const PlayButton = () => {
-  // const [isPaused, setPause] = useState(true);
   const { state, changeIsPlaying } = useContext(Context);
   const { soundObject, isPlaying } = state;
-  useEffect(() => {
-    console.log("Starting to load sound object");
-    soundObject
-      .loadAsync({
-        uri:
-          "https://chtbl.com/track/78898/traffic.megaphone.fm/LMM3137604272.mp3"
-      })
-      .then(response => {
-        // setSoundObjectLoaded(true);
-        console.log("soundObject loaded");
-      });
-  }, []);
 
   const onPress = async () => {
     console.log("Sound Object within onPress:");

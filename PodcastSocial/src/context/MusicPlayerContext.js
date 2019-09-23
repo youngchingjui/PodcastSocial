@@ -5,6 +5,16 @@ import { Audio } from "expo-av";
 
 const musicPlayerReducer = (state, action) => {
   switch (action.type) {
+    case "loadSoundObject":
+      const { soundObject, audioURI } = state;
+      console.log("Starting to load sound object");
+      soundObject
+        .loadAsync({
+          uri: audioURI
+        })
+        .then(() => {
+          console.log("soundObject loaded");
+        });
     case "changeIsPlaying":
       return { ...state, isPlaying: action.payload };
     case "forward":
@@ -24,6 +34,12 @@ const musicPlayerReducer = (state, action) => {
     default:
       return state;
   }
+};
+
+const loadSoundObject = dispatch => {
+  return () => {
+    dispatch({ type: "loadSoundObject" });
+  };
 };
 
 const changeIsPlaying = dispatch => {
@@ -51,13 +67,15 @@ export const initialState = {
   soundObject: new Audio.Sound(),
   isLoaded: false,
   isPlaying: false,
-  authState: null
+  authState: null,
+  audioURI:
+    "https://chtbl.com/track/78898/traffic.megaphone.fm/LMM3137604272.mp3"
 };
 
 export const { Context, Provider } = createDataContext(
   musicPlayerReducer,
-  { changeIsPlaying, forward, rewind },
+  { changeIsPlaying, forward, rewind, loadSoundObject },
   initialState
 );
 
-export default Context;
+// export default Context;

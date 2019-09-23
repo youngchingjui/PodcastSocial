@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import PurpleBackdrop from "../components/PurpleBackdrop";
@@ -8,7 +8,11 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Context } from "../context/MusicPlayerContext";
 
 const PlayScreen = () => {
-  const { forward, rewind } = useContext(Context);
+  const { forward, rewind, loadSoundObject } = useContext(Context);
+
+  useEffect(() => {
+    loadSoundObject();
+  }, []);
   return (
     <View style={styles.root}>
       <PurpleBackdrop />
