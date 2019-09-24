@@ -1,30 +1,54 @@
-import React from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
+import React, { useState, useContext, useEffect } from "react";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Context as PlaylistContext } from "../context/PlaylistContext";
 
-const SearchResultDetail = ({ artistName, collectionName, imageUrl }) => {
+const SearchResultDetail = ({ podcast_channel }) => {
+  const { state, addSubscription, removeSubscription } = useContext(
+    PlaylistContext
+  );
+
+  const subscription = state.filter(
+    pod => pod.trackId == podcast_channel.trackId
+  );
   return (
     <View style={styles.root}>
       <Image
         source={{
-          uri: imageUrl
+          uri: podcast_channel.artworkUrl100
         }}
         style={styles.image}
       />
       <View style={styles.text}>
         <Text style={styles.collectionName} numberOfLines={2}>
-          {collectionName}
+          {podcast_channel.collectionName}
         </Text>
         <Text style={styles.artistName} numberOfLines={2}>
-          {artistName}
+          {podcast_channel.artistName}
         </Text>
       </View>
-      <Ionicons
-        name="ios-add-circle-outline"
-        color="#866DCC"
-        size={32}
+      <TouchableOpacity
         style={styles.icon}
-      />
+        onPress={() => {
+          console.log("Subscription is:");
+          console.log(subscription);
+          if (subscription.length > 0) {
+            removeSubscription(subscription[0].id);
+          } else {
+            addSubscription(podcast_channel);
+          }
+        }}
+      >
+        {subscription.length > 0 ? (
+          <Ionicons
+            name="ios-checkmark-circle-outline"
+            color="#866DCC"
+            size={32}
+          />
+        ) : (
+          <Ionicons name="ios-add-circle-outline" color="#866DCC" size={32} />
+        )}
+      </TouchableOpacity>
     </View>
   );
 };

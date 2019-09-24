@@ -1,6 +1,4 @@
-import React from "react";
 import createDataContext from "./createDataContext";
-import localServer from "../api/localServer";
 import { Audio } from "expo-av";
 
 const musicPlayerReducer = (state, action) => {

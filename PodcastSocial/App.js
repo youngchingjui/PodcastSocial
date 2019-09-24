@@ -1,5 +1,6 @@
 import React from "react";
-import { Provider } from "./src/context/MusicPlayerContext";
+import { Provider as MusicPlayerProvider } from "./src/context/MusicPlayerContext";
+import { Provider as PlaylistProvider } from "./src/context/PlaylistContext";
 import { createAppContainer } from "react-navigation";
 import MyPlaylistScreen from "./src/screens/MyPlaylistScreen";
 import SearchScreen from "./src/screens/SearchScreen";
@@ -8,16 +9,19 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import PodcastChannelScreen from "./src/screens/PodcastChannelScreen";
 
 const App = createAppContainer(
   createBottomTabNavigator(
     {
       MyPlaylist: MyPlaylistScreen,
       Play: PlayScreen,
-      Search: SearchScreen
+      Search: SearchScreen,
+      PodcastChannel: PodcastChannelScreen
     },
+    // TODO: Make a stack navigator on top of the search tab
     {
-      initialRouteName: "Play",
+      initialRouteName: "Search",
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ focused, horizontal, tintColor }) => {
           const { routeName } = navigation.state;
@@ -58,8 +62,10 @@ const styles = StyleSheet.create({
 
 export default () => {
   return (
-    <Provider>
-      <App />
-    </Provider>
+    <MusicPlayerProvider>
+      <PlaylistProvider>
+        <App />
+      </PlaylistProvider>
+    </MusicPlayerProvider>
   );
 };

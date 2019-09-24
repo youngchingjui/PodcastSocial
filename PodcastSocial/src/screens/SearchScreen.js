@@ -1,15 +1,29 @@
-import React, { useState } from "react";
-import { StyleSheet, View, ScrollView, FlatList } from "react-native";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  FlatList,
+  TouchableOpacity
+} from "react-native";
 import PurpleBackdrop from "../components/PurpleBackdrop";
 import ScreenTitle from "../components/ScreenTitle";
 import useResults from "../hooks/useResults";
 import SearchResultDetail from "../components/SearchResultDetail";
 import SearchBar from "../components/SearchBar";
+import { Context as PlaylistContext } from "../context/PlaylistContext";
 
-const SearchScreen = () => {
+const SearchScreen = ({ navigation }) => {
   const [term, setTerm] = useState("");
   const [searchApi, results, errorMessage] = useResults();
+  const { state, getSubscriptions } = useContext(PlaylistContext);
 
+  useEffect(() => {
+    getSubscriptions();
+  }, []);
+
+  console.log("Getting state");
+  console.log(state);
   return (
     <View style={styles.root}>
       <PurpleBackdrop />
@@ -30,13 +44,16 @@ const SearchScreen = () => {
           keyExtractor={result => `${result.collectionId}`}
           renderItem={({ item }) => {
             return (
-              <View>
-                <SearchResultDetail
-                  artistName={item.artistName}
-                  collectionName={item.collectionName}
-                  imageUrl={item.artworkUrl100}
-                />
-              </View>
+              <TouchableOpacity
+                onPress={() => {
+                  console.log("Pressed for podcast channel");
+                  navigation.navigate("PodcastChannel", {
+                    podcast_channel: item
+                  });
+                }}
+              >
+                <SearchResultDetail podcast_channel={item} />
+              </TouchableOpacity>
             );
           }}
         />
