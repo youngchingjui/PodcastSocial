@@ -1,5 +1,10 @@
+// I'm trying to combine all Context data in this file now. For now, it includes data for:
+// - Music Player
+// - Search results
+
 import createDataContext from "./createDataContext";
 import { Audio } from "expo-av";
+import { parseString } from "react-native-xml2js";
 
 const musicPlayerReducer = (state, action) => {
   switch (action.type) {
@@ -29,6 +34,10 @@ const musicPlayerReducer = (state, action) => {
         state.soundObject.playFromPositionAsync(current_position - 10000);
       });
       return state;
+    case "updateAudioURI":
+      return { ...state, audioURI: action.payload };
+    case "getEpisodeList":
+      return { ...state, episodeList: action.payload };
     default:
       return state;
   }
@@ -60,6 +69,29 @@ const rewind = dispatch => {
   };
 };
 
+const updateAudioURI = dispatch => {
+  return uri => {
+    console.log(`Updating Audio URI: ${uri}`);
+    dispatch({ type: "updateAudioURI", payload: uri });
+  };
+};
+
+const getEpisodeList = dispatch => {
+  return async feedUrl => {
+    console.log("getEpisodeList");
+    const response = await fetch(feedUrl);
+    const text = await response.text();
+
+    var results;
+    parseString(text, (err, result) => {
+      results = result.rss.channel[0].item;
+    });
+
+    console.log(results[0]);
+    dispatch({ type: "getEpisodeList", payload: results });
+  };
+};
+
 export const initialState = {
   currentUser: {},
   soundObject: new Audio.Sound(),
@@ -67,12 +99,21 @@ export const initialState = {
   isPlaying: false,
   authState: null,
   audioURI:
-    "https://chtbl.com/track/78898/traffic.megaphone.fm/LMM3137604272.mp3"
+    "https://chtbl.com/track/78898/traffic.megaphone.fm/LMM3137604272.mp3",
+  searchResults: [],
+  episodeList: []
 };
 
 export const { Context, Provider } = createDataContext(
   musicPlayerReducer,
-  { changeIsPlaying, forward, rewind, loadSoundObject },
+  {
+    changeIsPlaying,
+    forward,
+    rewind,
+    loadSoundObject,
+    getEpisodeList,
+    updateAudioURI
+  },
   initialState
 );
 

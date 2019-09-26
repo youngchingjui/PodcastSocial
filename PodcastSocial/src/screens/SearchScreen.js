@@ -22,8 +22,6 @@ const SearchScreen = ({ navigation }) => {
     getSubscriptions();
   }, []);
 
-  console.log("Getting state");
-  console.log(state);
   return (
     <View style={styles.root}>
       <PurpleBackdrop />
