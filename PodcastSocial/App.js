@@ -21,7 +21,7 @@ const App = createAppContainer(
     },
     // TODO: Make a stack navigator on top of the search tab
     {
-      initialRouteName: "Search",
+      initialRouteName: "Play",
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ focused, horizontal, tintColor }) => {
           const { routeName } = navigation.state;

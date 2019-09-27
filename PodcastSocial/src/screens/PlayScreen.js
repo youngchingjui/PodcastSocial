@@ -6,13 +6,27 @@ import ScreenTitle from "../components/ScreenTitle";
 import PlayButton from "../components/PlayButton";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Context } from "../context/MusicPlayerContext";
+import * as Permissions from "expo-permissions";
 
 const PlayScreen = () => {
-  const { forward, rewind, loadSoundObject } = useContext(Context);
+  const {
+    state,
+    forward,
+    rewind,
+    loadSoundObject,
+    startRecording,
+    stopRecording,
+    checkRecordingPermissions,
+    requestRecordingPermission
+  } = useContext(Context);
+
+  var { recordingPermissionStatus } = state;
 
   useEffect(() => {
     loadSoundObject();
+    checkRecordingPermissions();
   }, []);
+
   return (
     <View style={styles.root}>
       <PurpleBackdrop />
@@ -80,7 +94,29 @@ const PlayScreen = () => {
         </View>
         <View style={styles.controls}></View>
       </View>
-      <View style={styles.recordButton}>
+      <TouchableOpacity
+        style={styles.recordButton}
+        onPress={() => {
+          console.log(recordingPermissionStatus);
+          if (recordingPermissionStatus == "undetermined") {
+            requestRecordingPermission();
+          } else if (recordingPermissionStatus == "granted") {
+            if (!state.isRecording) {
+              console.log("start recording");
+              startRecording();
+            } else {
+              console.log("stop recording");
+              stopRecording();
+            }
+          } else if (recordingPermissionStatus == "denied") {
+            console.log("Please go to settings and allow recording");
+          } else {
+            console.log(
+              "Could not determine if recording permissions were set"
+            );
+          }
+        }}
+      >
         <Svg viewBox={"-0 -0 60 60"} style={styles.oval1}>
           <Path
             strokeWidth={0}
@@ -90,7 +126,12 @@ const PlayScreen = () => {
             }
           />
         </Svg>
-      </View>
+        {recordingPermissionStatus == "granted" ? (
+          <Text>Tap to record message</Text>
+        ) : (
+          <Text>Tap to grant access to audio recording</Text>
+        )}
+      </TouchableOpacity>
     </View>
   );
 };
