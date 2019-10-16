@@ -1,12 +1,54 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
-import Svg, { Path } from "react-native-svg";
+
 import PlaylistDetail from "../components/PlaylistDetail";
 import PlayButton from "../components/PlayButton";
 import PurpleBackdrop from "../components/PurpleBackdrop";
 import ScreenTitle from "../components/ScreenTitle";
 
-export default MyPlaylistScreen = () => {
+import { Context } from "../context/MusicPlayerContext";
+
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+const MyPlaylistScreen = ({ navigation }) => {
+  const { state, loadSoundObject, changeIsPlaying } = useContext(Context);
+  const {
+    currentPodcast,
+    isPlaying,
+    isCurrentPodcastLoaded,
+    soundObject
+  } = state;
+  useEffect(() => {
+    loadSoundObject();
+    if (isCurrentPodcastLoaded) {
+      console.log(currentPodcast["itunes:image"][0].$.href);
+    }
+  }, []);
+
+  const onPress = async () => {
+    if (!isPlaying) {
+      // Audio is currently not playing. Start playing podcast
+      console.log("Playing audio");
+      changeIsPlaying(true);
+      try {
+        await soundObject.playAsync();
+        navigation.navigate("Play");
+      } catch (e) {
+        console.log(`Could not play sound player`, e);
+      }
+    } else {
+      // Audio is currently playing. Pause it
+      console.log("Pausing audio");
+      changeIsPlaying(false);
+      try {
+        await soundObject.pauseAsync();
+      } catch (e) {
+        console.log(`Could not pause sound player`, e);
+      }
+    }
+  };
   return (
     <View style={styles.root}>
       <PurpleBackdrop />
@@ -30,40 +72,36 @@ export default MyPlaylistScreen = () => {
       <View style={styles.title3}>
         <Text style={styles.upNext3}>UP NEXT</Text>
       </View>
-      <Image
-        source={require("../../assets/images/b8561a9c7528866f91c650f8c7cc6b8461b14149.png")}
-        style={styles.x600Bb3}
-      />
-      <View style={styles.container3} />
-      <View style={styles.playButton3}>
-        <Svg viewBox={"-2.5 -2.5 125 125"} style={styles.oval19}>
-          <Path
-            strokeWidth={5}
-            fill={"transparent"}
-            stroke={"rgba(255,255,255,1)"}
-            d={
-              "M60.00 117.50 C91.76 117.50 117.50 91.76 117.50 60.00 C117.50 28.24 91.76 2.50 60.00 2.50 C28.24 2.50 2.50 28.24 2.50 60.00 C2.50 91.76 28.24 117.50 60.00 117.50 Z"
-            }
+      <TouchableOpacity style={styles.continuePlaying} onPress={onPress}>
+        {isCurrentPodcastLoaded ? (
+          <Image
+            source={{
+              uri: currentPodcast["itunes:image"][0].$.href
+            }}
+            style={styles.artwork}
           />
-        </Svg>
-        <Svg
-          viewBox={"-0 -0 29.33333157333334 37.33333109333334"}
-          style={styles.fill23}
-        >
-          <Path
-            strokeWidth={0}
-            fill={"rgba(255,255,255,1)"}
-            d={"M0.00 0.00 L0.00 37.33 L29.33 18.67 L0.00 0.00 Z"}
-          />
-        </Svg>
-      </View>
-      <Text style={styles.continuePlaying3}>Continue playing</Text>
-      <Text style={styles.theSmartWayToBuy3}>
-        The Smart Way to Buy Property
-      </Text>
-      <Text style={styles.listenMoneyMattersC3}>
-        ListenMoneyMatters.com | Andrew Fiebert and Matt Giovanisci
-      </Text>
+        ) : null}
+        <View style={styles.darken}>
+          {isCurrentPodcastLoaded ? (
+            <View>
+              <Text style={styles.title}>
+                {(currentPodcast["itunes:title"] || currentPodcast["title"])[0]}
+              </Text>
+              <Text style={styles.podcastChannel}>
+                {currentPodcast["collectionName"]}
+              </Text>
+            </View>
+          ) : null}
+          <View style={styles.playButton}>
+            <PlayButton />
+            {isPlaying ? (
+              <Text style={styles.continuePlayingText}>Now playing</Text>
+            ) : (
+              <Text style={styles.continuePlayingText}>Continue playing</Text>
+            )}
+          </View>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -72,6 +110,31 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: "transparent"
+  },
+  continuePlaying: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center"
+  },
+  artwork: {
+    width: 300,
+    height: 300,
+    position: "absolute"
+  },
+  continuePlayingText: {
+    color: "white"
+  },
+  title: {
+    color: "white",
+    fontWeight: "bold"
+  },
+  podcastChannel: {
+    color: "white"
+  },
+  playButton: {
+    paddingTop: 50,
+    alignItems: "center",
+    width: "100%"
   },
   style12: {
     top: "52.59%",
@@ -181,22 +244,11 @@ const styles = StyleSheet.create({
     fontSize: 14
     // fontFamily: "sfprodisplay-bold"
   },
-  x600Bb3: {
-    top: "12.93%",
-    left: "17.60%",
-    width: "71.73%",
-    height: "33.13%",
-    backgroundColor: "transparent",
-    position: "absolute"
-  },
-  container3: {
-    top: "12.93%",
-    left: "17.60%",
-    width: "71.73%",
-    height: "33.13%",
+  darken: {
+    width: 300,
+    height: 300,
     backgroundColor: "rgba(0,0,0,0.77)",
-    position: "absolute",
-    overflow: "hidden"
+    padding: 10
   },
   playButton3: {
     top: "22.41%",
@@ -253,3 +305,10 @@ const styles = StyleSheet.create({
     // fontFamily: "sfprodisplay-light"
   }
 });
+
+MyPlaylistScreen.navigationOptions = {
+  title: "Playlist",
+  tabBarIcon: <MaterialCommunityIcons name="playlist-play" size={30} />
+};
+
+export default MyPlaylistScreen;

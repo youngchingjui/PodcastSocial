@@ -1,19 +1,19 @@
 {
   "folders": [
     {
-      "path": "./react-native"
-    },
-    {
-      "path": "PodcastSocial"
-    },
-    {
-      "path": "jsonserver"
+      "path": "./"
     }
   ],
   "settings": {
     "editor.formatOnSave": true,
     "files.exclude": {
-      "**/.git": false
+      "**/.git": false,
+      "Sketch Files": true,
+      "Sketch to Code": true,
+      "albums": true,
+      ".git": true,
+      "__tests__": true,
+      "Screenshots": true
     }
   }
 }

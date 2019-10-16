@@ -6,20 +6,35 @@ import createDataContext from "./createDataContext";
 import { Audio } from "expo-av";
 import { parseString } from "react-native-xml2js";
 import * as Permissions from "expo-permissions";
+import localServer from "../api/localServer";
 
 const musicPlayerReducer = (state, action) => {
   var { recordObject } = state;
   switch (action.type) {
     case "loadSoundObject":
-      const { soundObject, audioURI } = state;
+      const { soundObject } = state;
       console.log("Starting to load sound object");
-      soundObject
-        .loadAsync({
-          uri: audioURI
-        })
-        .then(() => {
-          console.log("soundObject loaded");
-        });
+      const currentPodcast = action.payload;
+      if (
+        Object.keys(currentPodcast).length === 0 &&
+        currentPodcast.constructor === Object
+      ) {
+        console.log("No podcast is loaded! Not loading sound object");
+      } else {
+        soundObject
+          .loadAsync({
+            // uri: audioURI
+            uri: currentPodcast.enclosure[0].$.url
+          })
+          .then(() => {
+            console.log("soundObject loaded");
+          });
+      }
+      return {
+        ...state,
+        currentPodcast: currentPodcast,
+        isCurrentPodcastLoaded: true
+      };
     case "changeIsPlaying":
       return { ...state, isPlaying: action.payload };
     case "forward":
@@ -85,14 +100,17 @@ const musicPlayerReducer = (state, action) => {
       return { ...state, recordingPermissionStatus: action.payload };
     case "requestRecordingPermission":
       return { ...state, recordingPermissionStatus: action.payload };
+    case "updatePodcast":
+      return { ...state, currentPodcast: action.payload };
     default:
       return state;
   }
 };
 
 const loadSoundObject = dispatch => {
-  return () => {
-    dispatch({ type: "loadSoundObject" });
+  return async () => {
+    const response = await localServer.get("/currentPodcast");
+    dispatch({ type: "loadSoundObject", payload: response.data });
   };
 };
 
@@ -131,10 +149,9 @@ const getEpisodeList = dispatch => {
 
     var results;
     parseString(text, (err, result) => {
-      results = result.rss.channel[0].item;
+      console.log(result);
+      results = result.rss.channel[0];
     });
-
-    console.log(results[0]);
     dispatch({ type: "getEpisodeList", payload: results });
   };
 };
@@ -172,6 +189,16 @@ const requestRecordingPermission = dispatch => {
     });
   };
 };
+
+const updatePodcast = dispatch => {
+  return async podcast => {
+    console.log("Updating current podcast");
+    const response = await localServer.put("/currentPodcast", podcast);
+    console.log(response);
+    dispatch({ type: "updatePodcast", payload: podcast });
+  };
+};
+
 export const initialState = {
   currentUser: {},
   soundObject: new Audio.Sound(),
@@ -184,7 +211,9 @@ export const initialState = {
   episodeList: [],
   recordObject: new Audio.Recording(),
   isRecording: false,
-  recordingPermissionStatus: "undetermined"
+  recordingPermissionStatus: "undetermined",
+  currentPodcast: {},
+  isCurrentPodcastLoaded: false
 };
 
 export const { Context, Provider } = createDataContext(
@@ -199,7 +228,8 @@ export const { Context, Provider } = createDataContext(
     startRecording,
     stopRecording,
     checkRecordingPermissions,
-    requestRecordingPermission
+    requestRecordingPermission,
+    updatePodcast
   },
   initialState
 );

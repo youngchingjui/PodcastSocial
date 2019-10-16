@@ -1,14 +1,15 @@
 import React, { useEffect, useContext } from "react";
-import { StyleSheet, View, Text, FlatList } from "react-native";
+import { Image, StyleSheet, View, Text, FlatList } from "react-native";
 import PurpleBackdrop from "../components/PurpleBackdrop";
 import ScreenTitle from "../components/ScreenTitle";
 import { Context as MusicPlayerContext } from "../context/MusicPlayerContext";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const PodcastChannelScreen = ({ navigation }) => {
-  const { state, getEpisodeList, updateAudioURI } = useContext(
+  const { state, getEpisodeList, updateAudioURI, updatePodcast } = useContext(
     MusicPlayerContext
   );
+  const { episodeList } = state;
   const podcast = navigation.getParam("podcast_channel");
 
   useEffect(() => {
@@ -19,17 +20,22 @@ const PodcastChannelScreen = ({ navigation }) => {
     <View style={styles.root}>
       <PurpleBackdrop />
       <ScreenTitle title={podcast.trackName} />
+      <Image
+        source={{ uri: podcast.artworkUrl600 }}
+        style={styles.podcastArtwork}
+      />
       <FlatList
-        data={state.episodeList}
+        data={episodeList.item}
         keyExtractor={result => `${result.guid[0]._}`}
         style={styles.episodeList}
-        renderItem={({ item }) => {
+        renderItem={({ episode }) => {
           return (
             <TouchableOpacity
               style={styles.item}
               onPressOut={() => {
                 console.log("Pressed to play podcast episode");
-                updateAudioURI(item.enclosure[0].$.url);
+                var {item, ...podcastChannelDetails} = episodeList
+                updatePodcast({...podcastChannelDetails, ...episode});
                 navigation.navigate("Play");
               }}
             >
@@ -53,11 +59,14 @@ const styles = StyleSheet.create({
     flex: 1
   },
   episodeList: {
-    position: "absolute",
     left: "7.47%",
-    right: 10,
-    top: 100,
-    bottom: 10
+    width: 358
+  },
+  podcastArtwork: {
+    width: 300,
+    height: 300,
+    backgroundColor: "transparent",
+    alignSelf: "center"
   },
   item: {
     marginVertical: 10,

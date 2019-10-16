@@ -33,16 +33,8 @@
       "primaryGenreName": "Investing",
       "contentAdvisoryRating": "Clean",
       "artworkUrl600": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/c2/0c/b8/c20cb894-bb77-8ca3-31ad-fef41933ccda/mza_7327177195657909143.jpg/600x600bb.jpg",
-      "genreIds": [
-        "1412",
-        "26",
-        "1321"
-      ],
-      "genres": [
-        "Investing",
-        "Podcasts",
-        "Business"
-      ],
+      "genreIds": ["1412", "26", "1321"],
+      "genres": ["Investing", "Podcasts", "Business"],
       "id": 3
     },
     {
@@ -76,18 +68,8 @@
       "primaryGenreName": "Investing",
       "contentAdvisoryRating": "Explicit",
       "artworkUrl600": "https://is3-ssl.mzstatic.com/image/thumb/Podcasts123/v4/65/70/df/6570dfef-22e1-451d-bff1-64a5cd7054b3/mza_1734377395107061106.png/600x600bb.jpg",
-      "genreIds": [
-        "1412",
-        "26",
-        "1321",
-        "1410"
-      ],
-      "genres": [
-        "Investing",
-        "Podcasts",
-        "Business",
-        "Careers"
-      ],
+      "genreIds": ["1412", "26", "1321", "1410"],
+      "genres": ["Investing", "Podcasts", "Business", "Careers"],
       "id": 4
     },
     {
@@ -122,19 +104,63 @@
       "currency": "USD",
       "primaryGenreName": "Politics",
       "artworkUrl600": "https://is4-ssl.mzstatic.com/image/thumb/Podcasts123/v4/34/e4/2b/34e42b43-280f-7cb6-915e-e806e7c51a36/mza_8877672825561527720.jpeg/600x600bb.jpg",
-      "genreIds": [
-        "1527",
-        "26",
-        "1489",
-        "1324"
-      ],
-      "genres": [
-        "Politics",
-        "Podcasts",
-        "News",
-        "Society & Culture"
-      ],
+      "genreIds": ["1527", "26", "1489", "1324"],
+      "genres": ["Politics", "Podcasts", "News", "Society & Culture"],
       "id": 5
     }
-  ]
+  ],
+  "currentPodcast": {
+    "title": [
+      "Ignore the headlines: Fears of a credit crisis are overblown… (Ep. 686)"
+    ],
+    "itunes:title": [
+      "Ignore the headlines: Fears of a credit crisis are overblown…"
+    ],
+    "pubDate": ["Wed, 11 Sep 2019 20:00:00 +0000"],
+    "guid": [
+      {
+        "_": "1ce26d8feb804a8caf3cdf90494f7060",
+        "$": {
+          "isPermaLink": "false"
+        }
+      }
+    ],
+    "link": [
+      "http://sainvestorradio.chooseyourself.libsynpro.com/ignore-the-headlines-fears-of-a-credit-crisis-are-overblown-heres-why-ep-686"
+    ],
+    "itunes:image": [
+      {
+        "$": {
+          "href": "http://static.libsyn.com/p/assets/0/7/5/6/07562dc2b601cee9/WSU-mic.png"
+        }
+      }
+    ],
+    "description": [
+      "Doom-and-gloom headlines are nothing new. As a rule, they’re generally best ignored. Like headlines warning of a coming credit crisis... Today I explain why we’re not even close to another 2008-level market crash… and why national debt fears are overblown.  Then, in-house junior analyst Daniel Creech takes us through the process of putting together a newsletter… shares a few investment ideas... and what he’s researching right now [29:37]. In my educational segment, I explain the difference between secular and temporary risks... and how the latter can create buying opportunities—like it has with one popular company [57:05].   -------------------------------- Editor’s note: Unlike a lot of the folks on Wall Street, Frank doesn’t believe the world is coming to an end. Quite the contrary—he believes if you know the right people and have access to the right information, there are countless moneymaking opportunities in the markets.  And one of his favorite opportunities today is an under-the-radar weapon being tested by police departments around the country…  and it could return 20x your money. -------------------------------- Enjoyed this episode? Get Wall Street Unplugged delivered FREE to your inbox every Wednesday: https://www.curzioresearch.com/wall-street-unplugged/ -------------------------------- Wall Street Unplugged podcast is available at: --iTunes: https://itunes.apple.com/us/podcast/wall-street-unplugged-frank/ --Stitcher : https://www.stitcher.com/podcast/curzio-research/wall-street-unplugged-2 --Website : https://www.curzioresearch.com/category/podcast/wall-street-unplugged/   Twitter: https://twitter.com/frankcurzio Facebook:. https://www.facebook.com/CurzioResearch/ Linkedin: https://www.linkedin.com/in/frank-curzio-690561a7/ Website: https://www.curzioresearch.com"
+    ],
+    "content:encoded": [
+      "Doom-and-gloom headlines are nothing new. As a rule, they’re generally best ignored. Like headlines warning of a coming credit crisis... Today I explain why we’re not even close to another 2008-level market crash… and why national debt fears are overblown.  Then, in-house junior analyst Daniel Creech takes us through the process of putting together a newsletter… shares a few investment ideas... and what he’s researching right now [29:37]. In my educational segment, I explain the difference between secular and temporary risks... and how the latter can create buying opportunities—like it has with one popular company [57:05].   -------------------------------- Editor’s note: Unlike a lot of the folks on Wall Street, Frank doesn’t believe the world is coming to an end. Quite the contrary—he believes if you know the right people and have access to the right information, there are countless moneymaking opportunities in the markets.  And one of his favorite opportunities today is an under-the-radar weapon being tested by police departments around the country…  and it could return 20x your money. -------------------------------- Enjoyed this episode? Get Wall Street Unplugged delivered FREE to your inbox every Wednesday: https://www.curzioresearch.com/wall-street-unplugged/ -------------------------------- Wall Street Unplugged podcast is available at: --iTunes: https://itunes.apple.com/us/podcast/wall-street-unplugged-frank/ --Stitcher : https://www.stitcher.com/podcast/curzio-research/wall-street-unplugged-2 --Website : https://www.curzioresearch.com/category/podcast/wall-street-unplugged/   Twitter: https://twitter.com/frankcurzio Facebook:. https://www.facebook.com/CurzioResearch/ Linkedin: https://www.linkedin.com/in/frank-curzio-690561a7/ Website: https://www.curzioresearch.com"
+    ],
+    "enclosure": [
+      {
+        "$": {
+          "length": "49979604",
+          "type": "audio/mpeg",
+          "url": "http://traffic.libsyn.com/sainvestorradio/WSU20EP20686.mp3?dest-id=11995"
+        }
+      }
+    ],
+    "itunes:duration": ["01:09:22"],
+    "itunes:explicit": ["clean"],
+    "itunes:keywords": [""],
+    "itunes:subtitle": [
+      "Doom-and-gloom headlines are nothing new. As a rule, they’re generally best ignored. Like headlines warning of a coming credit crisis... Today I explain why we’re not even close to another 2008-level market crash… and why national debt fears are..."
+    ],
+    "itunes:summary": [
+      "Ignore the headlines—we’re not anywhere close to another #2008MarketCrash… and fears over the #NationalDebt are overblown. Plus: Curzio analyst Daniel Creech shares his favorite investment ideas now..."
+    ],
+    "itunes:episode": ["686"],
+    "itunes:episodeType": ["full"],
+    "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpEbGZsaG8xYzVucVM=@34.97.12.232:39786/?outline=1": {}
+  }
 }

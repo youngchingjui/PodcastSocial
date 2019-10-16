@@ -45,6 +45,7 @@ const SearchScreen = ({ navigation }) => {
               <TouchableOpacity
                 onPress={() => {
                   console.log("Pressed for podcast channel");
+                  console.log(item);
                   navigation.navigate("PodcastChannel", {
                     podcast_channel: item
                   });
@@ -62,7 +63,8 @@ const SearchScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1
+    // flex: 1
+    width: "100%"
   },
   iconStyle: {
     fontSize: 35,
@@ -71,12 +73,13 @@ const styles = StyleSheet.create({
     color: "red"
   },
   searchBar: {
-    top: 88,
-    left: 28,
-    width: 333
+    // top: 88,
+    left: 30,
+    width: 358,
+    marginBottom: 10
   },
   scrollView: {
-    top: 120,
+    // top: 120,
     backgroundColor: "white"
   }
 });
