@@ -2,11 +2,13 @@ import React from "react";
 
 import { Provider as MusicPlayerProvider } from "./src/context/MusicPlayerContext";
 import { Provider as PlaylistProvider } from "./src/context/PlaylistContext";
+import { Provider as RecorderProvider } from "./src/context/RecorderContext";
 
 import MyPlaylistScreen from "./src/screens/MyPlaylistScreen";
 import SearchScreen from "./src/screens/SearchScreen";
 import PlayScreen from "./src/screens/PlayScreen";
 import PodcastChannelScreen from "./src/screens/PodcastChannelScreen";
+import RecordingsScreen from "./src/screens/RecordingsScreen";
 
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
@@ -28,10 +30,11 @@ const tabNavigator = createBottomTabNavigator(
   {
     MyPlaylist: MyPlaylistScreen,
     Play: PlayScreen,
-    searchFlow
+    searchFlow,
+    Recordings: RecordingsScreen
   },
   {
-    initialRouteName: "MyPlaylist",
+    initialRouteName: "Recordings",
     tabBarOptions: {
       activeTintColor: "tomato",
       inactiveTintColor: "gray",
@@ -44,10 +47,12 @@ const App = createAppContainer(tabNavigator);
 
 export default () => {
   return (
-    <MusicPlayerProvider>
-      <PlaylistProvider>
-        <App />
-      </PlaylistProvider>
-    </MusicPlayerProvider>
+    <RecorderProvider>
+      <MusicPlayerProvider>
+        <PlaylistProvider>
+          <App />
+        </PlaylistProvider>
+      </MusicPlayerProvider>
+    </RecorderProvider>
   );
 };

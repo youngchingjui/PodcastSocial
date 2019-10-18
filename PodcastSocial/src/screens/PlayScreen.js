@@ -1,30 +1,19 @@
 import React, { useContext, useEffect } from "react";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
-import Svg, { Path, Circle } from "react-native-svg";
 import PurpleBackdrop from "../components/PurpleBackdrop";
 import ScreenTitle from "../components/ScreenTitle";
 import PlayButton from "../components/PlayButton";
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
-import { Context } from "../context/MusicPlayerContext";
+import { Context as MusicPlayerContext } from "../context/MusicPlayerContext";
+
 import { Feather } from "@expo/vector-icons";
+import RecordButton from "../components/RecordButton";
 
 const PlayScreen = () => {
-  const {
-    state,
-    forward,
-    rewind,
-    loadSoundObject,
-    startRecording,
-    stopRecording,
-    checkRecordingPermissions,
-    requestRecordingPermission
-  } = useContext(Context);
-
-  var { recordingPermissionStatus } = state;
+  const { forward, rewind, loadSoundObject } = useContext(MusicPlayerContext);
 
   useEffect(() => {
     loadSoundObject();
-    checkRecordingPermissions();
   }, []);
 
   return (
@@ -44,6 +33,9 @@ const PlayScreen = () => {
             EPISODE - 147
           </Text>
         </View>
+        <View style={styles.recordButton}>
+          <RecordButton />
+        </View>
         <View style={styles.playerControls}>
           <TouchableOpacity style={styles.replay} onPress={rewind}>
             <MaterialIcons name="replay-10" size={60} color="white" />
@@ -54,46 +46,6 @@ const PlayScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity
-        style={styles.recordButton}
-        onPress={() => {
-          console.log(recordingPermissionStatus);
-          if (recordingPermissionStatus == "undetermined") {
-            requestRecordingPermission();
-          } else if (recordingPermissionStatus == "granted") {
-            if (!state.isRecording) {
-              console.log("start recording");
-              startRecording();
-            } else {
-              console.log("stop recording");
-              stopRecording();
-            }
-          } else if (recordingPermissionStatus == "denied") {
-            console.log("Please go to settings and allow recording");
-          } else {
-            console.log(
-              "Could not determine if recording permissions were set"
-            );
-          }
-        }}
-      >
-        <Svg height="100%" width="100%" style={styles.recordButtonBackground}>
-          <Circle cx="50%" cy="50%" r="50%" fill="red" style={styles.oval1} />
-        </Svg>
-        <FontAwesome
-          name="microphone"
-          size={50}
-          style={styles.microphone}
-          color="white"
-        />
-        {recordingPermissionStatus == "granted" ? (
-          <Text style={styles.recordText}>Record message</Text>
-        ) : (
-          <Text style={styles.recordText}>
-            Tap to grant access to audio recording
-          </Text>
-        )}
-      </TouchableOpacity>
     </View>
   );
 };
@@ -146,31 +98,11 @@ const styles = StyleSheet.create({
     fontSize: 14
     // fontFamily: "poppins-regular"
   },
-
   recordButton: {
-    top: "75%",
-    left: "71%",
-    width: 100,
-    height: 100,
-    position: "absolute"
-  },
-  recordButtonBackground: {
-    position: "absolute"
-  },
-  microphone: {
-    marginTop: "auto",
-    marginBottom: "auto",
-    marginLeft: "auto",
-    marginRight: "auto"
-  },
-  recordText: {
-    color: "white",
-    // position: "absolute",
-    textAlign: "center",
-    width: "100%",
-    fontSize: 12,
-    paddingHorizontal: 7,
-    paddingBottom: 6
+    position: "absolute",
+    right: "5%",
+    bottom: "25%",
+    zIndex: 1
   },
   oval1: {
     top: "0.00%",

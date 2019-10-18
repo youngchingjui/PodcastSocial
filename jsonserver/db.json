@@ -162,5 +162,32 @@
     "itunes:episode": ["686"],
     "itunes:episodeType": ["full"],
     "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpEbGZsaG8xYzVucVM=@34.97.12.232:39786/?outline=1": {}
-  }
+  },
+  "recordings": [
+    {
+      "uri": "file:///Users/youngchingjui/Library/Developer/CoreSimulator/Devices/1364C3A2-6C3F-45EF-9321-6A691DFC2630/data/Containers/Data/Application/52A6D98D-6D5C-4477-8031-EA9A6EFF4033/Library/Caches/ExponentExperienceData/%2540youngchingjui%252FPodcastSocial/AV/recording-8D0429FD-6C5B-434B-9386-9E04705F8AFE.caf",
+      "durationMillis": 8474,
+      "id": 1
+    },
+    {
+      "uri": "file:///Users/youngchingjui/Library/Developer/CoreSimulator/Devices/1364C3A2-6C3F-45EF-9321-6A691DFC2630/data/Containers/Data/Application/52A6D98D-6D5C-4477-8031-EA9A6EFF4033/Library/Caches/ExponentExperienceData/%2540youngchingjui%252FPodcastSocial/AV/recording-444C5A7E-606D-4A1E-BBBC-980BAE910E5C.caf",
+      "durationMillis": 23603,
+      "id": 2
+    },
+    {
+      "uri": "file:///Users/youngchingjui/Library/Developer/CoreSimulator/Devices/1364C3A2-6C3F-45EF-9321-6A691DFC2630/data/Containers/Data/Application/52A6D98D-6D5C-4477-8031-EA9A6EFF4033/Library/Caches/ExponentExperienceData/%2540youngchingjui%252FPodcastSocial/AV/recording-BC4BA692-6976-4013-9F9F-84489172ADF2.caf",
+      "durationMillis": 5176,
+      "id": 3
+    },
+    {
+      "uri": "file:///Users/youngchingjui/Library/Developer/CoreSimulator/Devices/1364C3A2-6C3F-45EF-9321-6A691DFC2630/data/Containers/Data/Application/52A6D98D-6D5C-4477-8031-EA9A6EFF4033/Library/Caches/ExponentExperienceData/%2540youngchingjui%252FPodcastSocial/AV/recording-E2F8CA94-E713-44EF-B24B-3C1827557E63.caf",
+      "durationMillis": 1405,
+      "id": 4
+    },
+    {
+      "uri": "file:///Users/youngchingjui/Library/Developer/CoreSimulator/Devices/1364C3A2-6C3F-45EF-9321-6A691DFC2630/data/Containers/Data/Application/52A6D98D-6D5C-4477-8031-EA9A6EFF4033/Library/Caches/ExponentExperienceData/%2540youngchingjui%252FPodcastSocial/AV/recording-F67BD5E6-E89D-4944-9FF1-DD3BBBD7D7DC.caf",
+      "durationMillis": 1879,
+      "id": 5
+    }
+  ]
 }

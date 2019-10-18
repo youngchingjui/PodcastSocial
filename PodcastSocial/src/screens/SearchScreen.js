@@ -16,7 +16,7 @@ import { Context as PlaylistContext } from "../context/PlaylistContext";
 const SearchScreen = ({ navigation }) => {
   const [term, setTerm] = useState("");
   const [searchApi, results, errorMessage] = useResults();
-  const { state, getSubscriptions } = useContext(PlaylistContext);
+  const { getSubscriptions } = useContext(PlaylistContext);
 
   useEffect(() => {
     getSubscriptions();

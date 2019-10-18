@@ -4,7 +4,7 @@ import { View, StyleSheet, Text } from "react-native";
 const ScreenTitle = ({ title }) => {
   return (
     <View style={styles.mainView}>
-      <Text style={styles.MyPlaylist} numberOfLines={2}>
+      <Text style={styles.title} numberOfLines={2}>
         {title}
       </Text>
     </View>
@@ -17,9 +17,9 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     marginBottom: 15
   },
-  MyPlaylist: {
+  title: {
     top: "5.67%",
-    left: "7.47%",
+    left: 35,
     backgroundColor: "transparent",
     color: "rgba(255,255,255,1)",
     fontSize: 26,

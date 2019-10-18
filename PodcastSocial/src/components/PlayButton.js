@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
-import Svg, { Path } from "react-native-svg";
-import PlayArrow from "./PlayArrow";
+import { StyleSheet, TouchableOpacity} from "react-native";
 import { Context } from "../context/MusicPlayerContext";
 import { AntDesign } from "@expo/vector-icons";
 
