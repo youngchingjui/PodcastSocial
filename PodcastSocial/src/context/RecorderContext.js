@@ -4,6 +4,8 @@ import createDataContext from "./createDataContext";
 import { Audio } from "expo-av";
 import * as Permissions from "expo-permissions";
 import localServer from "../api/localServer";
+import * as MailComposer from "expo-mail-composer";
+import * as FileSystem from "expo-file-system";
 
 const musicPlayerReducer = (state, action) => {
   switch (action.type) {
@@ -107,8 +109,28 @@ const saveRecordingMetadata = async data => {
   const response = await localServer.post("/recordings", data);
   console.log(response);
 };
-const sendRecording = dispatch => () => {
+const sendRecording = dispatch => async (recipients, attachment) => {
   console.log("Sending recording to podcaster");
+  const testing_response = await FileSystem.getInfoAsync(attachment);
+  console.log(testing_response);
+  const uri = await FileSystem.getContentUriAsync(attachment);
+  console.log(uri);
+  options = {
+    recipients: recipients,
+    subject: "Testing sending mail and attachment from React Native",
+    body: "This is a test body message",
+    isHtml: true,
+    attachments: [uri]
+  };
+  const response = await MailComposer.composeAsync(options);
+
+  console.log(response);
+};
+const deleteRecording = dispatch => () => {
+  console.log("Deleting recording");
+};
+const playRecording = dispatch => () => {
+  console.log("Playing recording");
 };
 
 export const initialState = {
@@ -126,7 +148,9 @@ export const { Context, Provider } = createDataContext(
     checkRecordingPermissions,
     requestRecordingPermission,
     sendRecording,
-    loadRecordings
+    loadRecordings,
+    deleteRecording,
+    playRecording
   },
   initialState
 );

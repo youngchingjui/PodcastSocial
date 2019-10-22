@@ -28,23 +28,24 @@ const PodcastChannelScreen = ({ navigation }) => {
         data={episodeList.item}
         keyExtractor={result => `${result.guid[0]._}`}
         style={styles.episodeList}
-        renderItem={({ episode }) => {
+        renderItem={episode => {
+          const episode_item = episode.item;
           return (
             <TouchableOpacity
               style={styles.item}
               onPressOut={() => {
                 console.log("Pressed to play podcast episode");
-                var {item, ...podcastChannelDetails} = episodeList
-                updatePodcast({...podcastChannelDetails, ...episode});
+                var { item, ...podcastChannelDetails } = episodeList;
+                updatePodcast({ ...podcastChannelDetails, ...episode_item });
                 navigation.navigate("Play");
               }}
             >
               <Text style={styles.title} numberOfLines={2}>
-                {item.title}
+                {episode_item.title}
               </Text>
-              <Text style={styles.pubDate}>{item.pubDate}</Text>
+              <Text style={styles.pubDate}>{episode_item.pubDate}</Text>
               <Text style={styles.description} numberOfLines={2}>
-                {item.description}
+                {episode_item.description}
               </Text>
             </TouchableOpacity>
           );

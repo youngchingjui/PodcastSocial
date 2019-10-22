@@ -33,8 +33,16 @@
       "primaryGenreName": "Investing",
       "contentAdvisoryRating": "Clean",
       "artworkUrl600": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/c2/0c/b8/c20cb894-bb77-8ca3-31ad-fef41933ccda/mza_7327177195657909143.jpg/600x600bb.jpg",
-      "genreIds": ["1412", "26", "1321"],
-      "genres": ["Investing", "Podcasts", "Business"],
+      "genreIds": [
+        "1412",
+        "26",
+        "1321"
+      ],
+      "genres": [
+        "Investing",
+        "Podcasts",
+        "Business"
+      ],
       "id": 3
     },
     {
@@ -68,8 +76,18 @@
       "primaryGenreName": "Investing",
       "contentAdvisoryRating": "Explicit",
       "artworkUrl600": "https://is3-ssl.mzstatic.com/image/thumb/Podcasts123/v4/65/70/df/6570dfef-22e1-451d-bff1-64a5cd7054b3/mza_1734377395107061106.png/600x600bb.jpg",
-      "genreIds": ["1412", "26", "1321", "1410"],
-      "genres": ["Investing", "Podcasts", "Business", "Careers"],
+      "genreIds": [
+        "1412",
+        "26",
+        "1321",
+        "1410"
+      ],
+      "genres": [
+        "Investing",
+        "Podcasts",
+        "Business",
+        "Careers"
+      ],
       "id": 4
     },
     {
@@ -104,64 +122,168 @@
       "currency": "USD",
       "primaryGenreName": "Politics",
       "artworkUrl600": "https://is4-ssl.mzstatic.com/image/thumb/Podcasts123/v4/34/e4/2b/34e42b43-280f-7cb6-915e-e806e7c51a36/mza_8877672825561527720.jpeg/600x600bb.jpg",
-      "genreIds": ["1527", "26", "1489", "1324"],
-      "genres": ["Politics", "Podcasts", "News", "Society & Culture"],
+      "genreIds": [
+        "1527",
+        "26",
+        "1489",
+        "1324"
+      ],
+      "genres": [
+        "Politics",
+        "Podcasts",
+        "News",
+        "Society & Culture"
+      ],
       "id": 5
     }
   ],
   "currentPodcast": {
+    "atom:link": [
+      {
+        "$": {
+          "href": "http://radicalpersonalfinance.libsyn.com/rss",
+          "rel": "self",
+          "type": "application/rss+xml"
+        }
+      }
+    ],
     "title": [
-      "Ignore the headlines: Fears of a credit crisis are overblown… (Ep. 686)"
+      "673-How To Read A Book"
+    ],
+    "pubDate": [
+      "Wed, 09 Oct 2019 23:11:21 +0000"
+    ],
+    "lastBuildDate": [
+      "Sun, 20 Oct 2019 13:49:24 +0000"
+    ],
+    "generator": [
+      "Libsyn WebEngine 2.0"
+    ],
+    "link": [
+      "http://radicalpersonalfinance.libsyn.com/673-how-to-read-a-book"
+    ],
+    "language": [
+      "en-US"
+    ],
+    "copyright": [
+      ""
+    ],
+    "docs": [
+      "http://radicalpersonalfinance.com"
+    ],
+    "managingEditor": [
+      "joshua@radicalpersonalfinance.com (Joshua J. Sheats, CFP®, CLU®, ChFC®, CASL®, CAP®, RHU®, REBC®: CERTIFIED FINANCIAL PLANNER™, Coach, and Teacher) (joshua@radicalpersonalfinance.com (Joshua J. Sheats, CFP®, CLU®, ChFC®, CASL®, CAP®, RHU®, REBC®: CERTIFIED FINANCIAL PLANNER™, Coach, and Teacher))"
+    ],
+    "itunes:summary": [
+      "Reading can provide you with all of the knowledge you need to crush some very large goals in a very short time.\r\n\r\nBut you need to know how to read effectively.\r\n\r\nToday, I teach you how.\r\n\r\nJoshua\r\n\r\n    Get my recommended reading list here: http://RadicalBookList.com "
+    ],
+    "image": [
+      {
+        "url": [
+          "http://static.libsyn.com/p/assets/7/5/8/4/7584cac99bc7f29e/RLM_radicalpersonalfinance_1400x1400.jpeg"
+        ],
+        "title": [
+          "Radical Personal Finance"
+        ],
+        "link": [
+          "http://radicalpersonalfinance.com"
+        ]
+      }
+    ],
+    "itunes:author": [
+      "Joshua Sheats"
+    ],
+    "itunes:keywords": [
+      ""
+    ],
+    "itunes:category": [
+      {
+        "$": {
+          "text": "Business"
+        }
+      },
+      {
+        "$": {
+          "text": "Business"
+        },
+        "itunes:category": [
+          {
+            "$": {
+              "text": "Investing"
+            }
+          }
+        ]
+      },
+      {
+        "$": {
+          "text": "Education"
+        }
+      }
+    ],
+    "itunes:image": [
+      {
+        "$": {
+          "href": "http://static.libsyn.com/p/assets/7/5/8/4/7584cac99bc7f29e/RLM_radicalpersonalfinance_1400x1400.jpeg"
+        }
+      }
+    ],
+    "itunes:explicit": [
+      "no"
+    ],
+    "itunes:owner": [
+      {
+        "itunes:name": [
+          "Joshua J. Sheats, MSFS, CFP, CLU, ChFC, CASL, CAP, RHU, REBC: CERTIFIED FINANCIAL PLANNER, Advisor,"
+        ],
+        "itunes:email": [
+          "joshua@radicalpersonalfinance.com (Joshua J. Sheats, MSFS, CFP, CLU, ChFC, CASL, CAP, RHU, REBC: CER"
+        ]
+      }
+    ],
+    "description": [
+      "<p>Reading can provide you with all of the knowledge you need to crush some very large goals in a very short time.</p> <p>But you need to know how to read effectively.</p> <p>Today, I teach you how.</p> <p>Joshua</p> <ul> <li>Get my recommended reading list here: <a href= \"http://RadicalBookList.com\">http://RadicalBookList.com</a></li> </ul>"
+    ],
+    "itunes:subtitle": [
+      "Reading can provide you with all of the knowledge you need to crush some very large goals in a very short time. But you need to know how to read effectively. Today, I teach you how. Joshua  Get my recommended reading list here: http://RadicalBookList.com"
+    ],
+    "itunes:type": [
+      "episodic"
+    ],
+    "itunes:new-feed-url": [
+      "http://radicalpersonalfinance.libsyn.com/rss"
     ],
     "itunes:title": [
-      "Ignore the headlines: Fears of a credit crisis are overblown…"
+      "How To Read A Book"
     ],
-    "pubDate": ["Wed, 11 Sep 2019 20:00:00 +0000"],
     "guid": [
       {
-        "_": "1ce26d8feb804a8caf3cdf90494f7060",
+        "_": "90a19a63352b4af9994c4fe6e9691879",
         "$": {
           "isPermaLink": "false"
         }
       }
     ],
-    "link": [
-      "http://sainvestorradio.chooseyourself.libsynpro.com/ignore-the-headlines-fears-of-a-credit-crisis-are-overblown-heres-why-ep-686"
-    ],
-    "itunes:image": [
-      {
-        "$": {
-          "href": "http://static.libsyn.com/p/assets/0/7/5/6/07562dc2b601cee9/WSU-mic.png"
-        }
-      }
-    ],
-    "description": [
-      "Doom-and-gloom headlines are nothing new. As a rule, they’re generally best ignored. Like headlines warning of a coming credit crisis... Today I explain why we’re not even close to another 2008-level market crash… and why national debt fears are overblown.  Then, in-house junior analyst Daniel Creech takes us through the process of putting together a newsletter… shares a few investment ideas... and what he’s researching right now [29:37]. In my educational segment, I explain the difference between secular and temporary risks... and how the latter can create buying opportunities—like it has with one popular company [57:05].   -------------------------------- Editor’s note: Unlike a lot of the folks on Wall Street, Frank doesn’t believe the world is coming to an end. Quite the contrary—he believes if you know the right people and have access to the right information, there are countless moneymaking opportunities in the markets.  And one of his favorite opportunities today is an under-the-radar weapon being tested by police departments around the country…  and it could return 20x your money. -------------------------------- Enjoyed this episode? Get Wall Street Unplugged delivered FREE to your inbox every Wednesday: https://www.curzioresearch.com/wall-street-unplugged/ -------------------------------- Wall Street Unplugged podcast is available at: --iTunes: https://itunes.apple.com/us/podcast/wall-street-unplugged-frank/ --Stitcher : https://www.stitcher.com/podcast/curzio-research/wall-street-unplugged-2 --Website : https://www.curzioresearch.com/category/podcast/wall-street-unplugged/   Twitter: https://twitter.com/frankcurzio Facebook:. https://www.facebook.com/CurzioResearch/ Linkedin: https://www.linkedin.com/in/frank-curzio-690561a7/ Website: https://www.curzioresearch.com"
-    ],
     "content:encoded": [
-      "Doom-and-gloom headlines are nothing new. As a rule, they’re generally best ignored. Like headlines warning of a coming credit crisis... Today I explain why we’re not even close to another 2008-level market crash… and why national debt fears are overblown.  Then, in-house junior analyst Daniel Creech takes us through the process of putting together a newsletter… shares a few investment ideas... and what he’s researching right now [29:37]. In my educational segment, I explain the difference between secular and temporary risks... and how the latter can create buying opportunities—like it has with one popular company [57:05].   -------------------------------- Editor’s note: Unlike a lot of the folks on Wall Street, Frank doesn’t believe the world is coming to an end. Quite the contrary—he believes if you know the right people and have access to the right information, there are countless moneymaking opportunities in the markets.  And one of his favorite opportunities today is an under-the-radar weapon being tested by police departments around the country…  and it could return 20x your money. -------------------------------- Enjoyed this episode? Get Wall Street Unplugged delivered FREE to your inbox every Wednesday: https://www.curzioresearch.com/wall-street-unplugged/ -------------------------------- Wall Street Unplugged podcast is available at: --iTunes: https://itunes.apple.com/us/podcast/wall-street-unplugged-frank/ --Stitcher : https://www.stitcher.com/podcast/curzio-research/wall-street-unplugged-2 --Website : https://www.curzioresearch.com/category/podcast/wall-street-unplugged/   Twitter: https://twitter.com/frankcurzio Facebook:. https://www.facebook.com/CurzioResearch/ Linkedin: https://www.linkedin.com/in/frank-curzio-690561a7/ Website: https://www.curzioresearch.com"
+      "<p>Reading can provide you with all of the knowledge you need to crush some very large goals in a very short time.</p> <p>But you need to know how to read effectively.</p> <p>Today, I teach you how.</p> <p>Joshua</p> <ul> <li>Get my recommended reading list here: <a href= \"http://RadicalBookList.com\">http://RadicalBookList.com</a></li> </ul>"
     ],
     "enclosure": [
       {
         "$": {
-          "length": "49979604",
+          "length": "96867350",
           "type": "audio/mpeg",
-          "url": "http://traffic.libsyn.com/sainvestorradio/WSU20EP20686.mp3?dest-id=11995"
+          "url": "http://traffic.libsyn.com/radicalpersonalfinance/RPF0673-How_To_Read_A_Book.mp3?dest-id=152630"
         }
       }
     ],
-    "itunes:duration": ["01:09:22"],
-    "itunes:explicit": ["clean"],
-    "itunes:keywords": [""],
-    "itunes:subtitle": [
-      "Doom-and-gloom headlines are nothing new. As a rule, they’re generally best ignored. Like headlines warning of a coming credit crisis... Today I explain why we’re not even close to another 2008-level market crash… and why national debt fears are..."
+    "itunes:duration": [
+      "01:39:45"
     ],
-    "itunes:summary": [
-      "Ignore the headlines—we’re not anywhere close to another #2008MarketCrash… and fears over the #NationalDebt are overblown. Plus: Curzio analyst Daniel Creech shares his favorite investment ideas now..."
+    "itunes:episode": [
+      "673"
     ],
-    "itunes:episode": ["686"],
-    "itunes:episodeType": ["full"],
-    "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpEbGZsaG8xYzVucVM=@34.97.12.232:39786/?outline=1": {}
+    "itunes:episodeType": [
+      "full"
+    ]
   },
   "recordings": [
     {
@@ -188,6 +310,16 @@
       "uri": "file:///Users/youngchingjui/Library/Developer/CoreSimulator/Devices/1364C3A2-6C3F-45EF-9321-6A691DFC2630/data/Containers/Data/Application/52A6D98D-6D5C-4477-8031-EA9A6EFF4033/Library/Caches/ExponentExperienceData/%2540youngchingjui%252FPodcastSocial/AV/recording-F67BD5E6-E89D-4944-9FF1-DD3BBBD7D7DC.caf",
       "durationMillis": 1879,
       "id": 5
+    },
+    {
+      "uri": "file:///var/mobile/Containers/Data/Application/CBB9D654-71D3-43F1-9078-86981769B30C/Library/Caches/ExponentExperienceData/%2540youngchingjui%252FPodcastSocial/AV/recording-7714C7ED-B882-4234-9119-78999061C3A6.caf",
+      "durationMillis": 993,
+      "id": 6
+    },
+    {
+      "uri": "file:///var/mobile/Containers/Data/Application/CBB9D654-71D3-43F1-9078-86981769B30C/Library/Caches/ExponentExperienceData/%2540youngchingjui%252FPodcastSocial/AV/recording-A6FE9563-2537-415D-9C79-BFBEAA95A49E.caf",
+      "durationMillis": 3005,
+      "id": 7
     }
   ]
 }

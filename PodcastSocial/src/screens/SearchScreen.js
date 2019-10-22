@@ -73,13 +73,11 @@ const styles = StyleSheet.create({
     color: "red"
   },
   searchBar: {
-    // top: 88,
     left: 30,
     width: 358,
     marginBottom: 10
   },
   scrollView: {
-    // top: 120,
     backgroundColor: "white"
   }
 });

@@ -1,22 +1,51 @@
 import React, { useEffect, useContext } from "react";
 import { StyleSheet, View, Text } from "react-native";
-import PurpleBackdrop from "../components/PurpleBackdrop";
-import ScreenTitle from "../components/ScreenTitle";
-
-import { Context as RecorderContext } from "../context/RecorderContext";
-
-import { Ionicons } from "@expo/vector-icons";
 import {
   ScrollView,
   FlatList,
   TouchableOpacity
 } from "react-native-gesture-handler";
 
+import PurpleBackdrop from "../components/PurpleBackdrop";
+import ScreenTitle from "../components/ScreenTitle";
+
+import { Context as RecorderContext } from "../context/RecorderContext";
+
+import {
+  Feather,
+  FontAwesome,
+  Ionicons,
+  MaterialIcons
+} from "@expo/vector-icons";
+
 const RecordingsScreen = () => {
   const {
     state: { recordings },
-    loadRecordings
+    loadRecordings,
+    sendRecording,
+    deleteRecording,
+    playRecording
   } = useContext(RecorderContext);
+
+  const msToTime = s => {
+    const pad = (n, z) => {
+      z = z || 2;
+      return ("00" + n).slice(-z);
+    };
+
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+    var hrs = (s - mins) / 60;
+
+    if (hrs == 0) {
+      return pad(mins) + ":" + pad(secs);
+    } else {
+      return pad(hrs) + ":" + pad(mins) + ":" + pad(secs);
+    }
+  };
 
   useEffect(() => {
     loadRecordings();
@@ -33,9 +62,39 @@ const RecordingsScreen = () => {
           keyExtractor={result => `${result.id}`}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity style={styles.item}>
-                <Text>{item.durationMillis}</Text>
-              </TouchableOpacity>
+              <View style={styles.item}>
+                <TouchableOpacity
+                  style={styles.details}
+                  onPress={playRecording}
+                >
+                  <Feather name="play" size={40} />
+                  <Text style={styles.duration}>
+                    {msToTime(item.durationMillis)}
+                  </Text>
+                  <View style={styles.textDetails}>
+                    <Text>While playing</Text>
+                    <Text>Title of podcast</Text>
+                    <Text>@ 2:13 </Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.delete}
+                  onPress={deleteRecording}
+                >
+                  <MaterialIcons name="delete" size={30} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.email}
+                  onPress={() => {
+                    sendRecording(
+                      (recipients = ["young.chingjui@gmail.com"]),
+                      (attachment = item.uri)
+                    );
+                  }}
+                >
+                  <FontAwesome name="send" size={30} />
+                </TouchableOpacity>
+              </View>
             );
           }}
         />
@@ -51,9 +110,34 @@ RecordingsScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
-  scrollView: { borderColor: "red", borderWidth: 5, marginHorizontal: 35 },
-  flatList: { borderColor: "green", borderWidth: 5 },
-  item: { borderColor: "blue", borderWidth: 5, height: 75, marginVertical: 10 }
+  scrollView: { marginHorizontal: 35 },
+  flatList: {},
+  item: {
+    height: 110,
+    marginVertical: 10,
+    backgroundColor: "white",
+    shadowColor: "black",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    borderRadius: 5,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center"
+  },
+  details: {
+    height: "100%",
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center"
+  },
+  duration: {
+    marginHorizontal: 5,
+    fontSize: 24
+  }
 });
 
 export default RecordingsScreen;
