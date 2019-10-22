@@ -6,6 +6,7 @@ import * as Permissions from "expo-permissions";
 import localServer from "../api/localServer";
 import * as MailComposer from "expo-mail-composer";
 import * as FileSystem from "expo-file-system";
+import { readDirectoryAsync } from "expo-file-system";
 
 const musicPlayerReducer = (state, action) => {
   switch (action.type) {
@@ -19,6 +20,8 @@ const musicPlayerReducer = (state, action) => {
       return { ...state, recordingPermissionStatus: action.payload };
     case "loadRecordings":
       return { ...state, recordings: action.payload };
+    case "createTestFile":
+      return { ...state, uri: action.payload };
     default:
       return state;
   }
@@ -111,16 +114,44 @@ const saveRecordingMetadata = async data => {
 };
 const sendRecording = dispatch => async (recipients, attachment) => {
   console.log("Sending recording to podcaster");
-  const testing_response = await FileSystem.getInfoAsync(attachment);
-  console.log(testing_response);
-  const uri = await FileSystem.getContentUriAsync(attachment);
-  console.log(uri);
+  console.log(attachment);
+
+  // var filename = attachment.replace(/^.*[\\\/]/, "");
+  // console.log(filename);
+
+  // // Make sure documentDirector/AV/ folder exists
+  // const documentDirectory = await FileSystem.getInfoAsync(
+  //   FileSystem.documentDirectory + "AV/"
+  // );
+  // if (!documentDirectory.exists) {
+  //   await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + "AV/");
+  // }
+
+  // const newFile = FileSystem.documentDirectory + "AV/" + filename;
+  // // Copy the file from the cache folder to documentDirectory folder. For some reason, cannot upload attachment from cache folder into email
+  // try {
+  //   copyAsyncOptions = {
+  //     from: attachment,
+  //     to: newFile
+  //   };
+  //   await FileSystem.copyAsync(copyAsyncOptions);
+  // } catch (e) {
+  //   console.log("There was an error trying to copy the file");
+  //   console.log(e);
+  // }
+
+  // // Check that the new file is there
+  // const readDirectoryResponse = await FileSystem.readDirectoryAsync(
+  //   FileSystem.documentDirectory + "AV/"
+  // );
+  // console.log(readDirectoryResponse);
+
   options = {
     recipients: recipients,
     subject: "Testing sending mail and attachment from React Native",
     body: "This is a test body message",
     isHtml: true,
-    attachments: [uri]
+    attachments: [attachment]
   };
   const response = await MailComposer.composeAsync(options);
 
@@ -133,11 +164,26 @@ const playRecording = dispatch => () => {
   console.log("Playing recording");
 };
 
+const createTestFile = dispatch => {
+  return async () => {
+    console.log("Creating new test file");
+    const uri = FileSystem.documentDirectory + "AV/test.txt";
+    const writeResponse = await FileSystem.writeAsStringAsync(
+      uri,
+      "testing text"
+    );
+    console.log("Finished creating document");
+    console.log(writeResponse);
+    dispatch({ type: "createTestFile", payload: uri });
+  };
+};
+
 export const initialState = {
   recordObject: null,
   isRecording: false,
   recordingPermissionStatus: "undetermined",
-  recordings: []
+  recordings: [],
+  uri: ""
 };
 
 export const { Context, Provider } = createDataContext(
@@ -150,7 +196,8 @@ export const { Context, Provider } = createDataContext(
     sendRecording,
     loadRecordings,
     deleteRecording,
-    playRecording
+    playRecording,
+    createTestFile
   },
   initialState
 );

@@ -20,11 +20,12 @@ import {
 
 const RecordingsScreen = () => {
   const {
-    state: { recordings },
+    state: { recordings, uri },
     loadRecordings,
     sendRecording,
     deleteRecording,
-    playRecording
+    playRecording,
+    createTestFile
   } = useContext(RecorderContext);
 
   const msToTime = s => {
@@ -49,6 +50,7 @@ const RecordingsScreen = () => {
 
   useEffect(() => {
     loadRecordings();
+    createTestFile();
   }, []);
 
   return (
@@ -86,10 +88,7 @@ const RecordingsScreen = () => {
                 <TouchableOpacity
                   style={styles.email}
                   onPress={() => {
-                    sendRecording(
-                      (recipients = ["young.chingjui@gmail.com"]),
-                      (attachment = item.uri)
-                    );
+                    sendRecording(["young.chingjui@gmail.com"], item.uri);
                   }}
                 >
                   <FontAwesome name="send" size={30} />

@@ -5,7 +5,12 @@
 		},
 		{
 			"path": "/Users/youngchingjui/Documents/PodcastSocial/jsonserver"
+		},
+		{
+			"path": "/Users/youngchingjui/Documents/PodcastSocial/RecordAndEmail"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"editor.formatOnSave": true
+	}
 }
