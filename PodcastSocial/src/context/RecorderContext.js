@@ -8,6 +8,12 @@ import * as MailComposer from "expo-mail-composer";
 import * as FileSystem from "expo-file-system";
 import { readDirectoryAsync } from "expo-file-system";
 
+// import Storage from "@aws-amplify/storage";
+// import API from "@aws-amplify/api";
+
+// import config from "../../aws-exports";
+// API.configure(config);
+
 const musicPlayerReducer = (state, action) => {
   switch (action.type) {
     case "startRecording":
@@ -174,6 +180,12 @@ const createTestFile = dispatch => {
     );
     console.log("Finished creating document");
     console.log(writeResponse);
+
+    console.log("TEST uploading to S3 TEST");
+
+    const result = await Storage.put("test.txt", "Hello");
+    console.log(result);
+
     dispatch({ type: "createTestFile", payload: uri });
   };
 };

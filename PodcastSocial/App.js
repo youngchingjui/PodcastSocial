@@ -1,5 +1,12 @@
 import React from "react";
 
+import { Feather } from "@expo/vector-icons";
+
+import Storage from "@aws-amplify/storage";
+import API from "@aws-amplify/storage";
+
+import config from "./aws-exports";
+
 import { Provider as MusicPlayerProvider } from "./src/context/MusicPlayerContext";
 import { Provider as PlaylistProvider } from "./src/context/PlaylistContext";
 import { Provider as RecorderProvider } from "./src/context/RecorderContext";
@@ -10,11 +17,13 @@ import PlayScreen from "./src/screens/PlayScreen";
 import PodcastChannelScreen from "./src/screens/PodcastChannelScreen";
 import RecordingsScreen from "./src/screens/RecordingsScreen";
 
+import Amplify, { Storage } from "aws-amplify";
+
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
-import { Feather } from "@expo/vector-icons";
+API.configure(config);
 
 const searchFlow = createStackNavigator({
   Search: SearchScreen,
