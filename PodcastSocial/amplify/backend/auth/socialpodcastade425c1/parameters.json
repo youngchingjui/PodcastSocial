@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "socialpodcast680b9ca5_identitypool_680b9ca5",
+    "identityPoolName": "socialpodcastade425c1_identitypool_ade425c1",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "social680b9ca5",
-    "userPoolName": "socialpodcast680b9ca5_userpool_680b9ca5",
+    "resourceNameTruncated": "socialade425c1",
+    "userPoolName": "socialpodcastade425c1_userpool_ade425c1",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,9 +28,9 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "social680b9ca5_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "socialade425c1_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "resourceName": "socialpodcast680b9ca5",
+    "resourceName": "socialpodcastade425c1",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -46,7 +46,7 @@
     },
     "useDefault": "default",
     "usernameAttributes": [
-        "phone_number"
+        "email"
     ],
     "dependsOn": []
 }
