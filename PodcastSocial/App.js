@@ -40,7 +40,7 @@ const tabNavigator = createBottomTabNavigator(
     Playground: PlaygroundScreen
   },
   {
-    initialRouteName: "Playground",
+    initialRouteName: "Recordings",
     tabBarOptions: {
       activeTintColor: "tomato",
       inactiveTintColor: "gray",

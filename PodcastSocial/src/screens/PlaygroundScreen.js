@@ -14,6 +14,7 @@ import RecordButton from "../components/RecordButton";
 import ScreenTitle from "../components/ScreenTitle";
 
 import { Context as MusicPlayerContext } from "../context/MusicPlayerContext";
+import { Context as RecorderContext } from "../context/RecorderContext";
 
 import * as FileSystem from "expo-file-system";
 
@@ -21,22 +22,14 @@ import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 
 import Storage from "@aws-amplify/storage";
-// import API from "@aws-amplify/api";
 import { API } from "aws-amplify";
 
 const PlaygroundScreen = () => {
-  const { forward } = useContext(MusicPlayerContext);
+  const { recordIntentToSend } = useContext(RecorderContext);
 
   const buttonPush = async () => {
     console.log("Pushed the button");
-    const path = "/recordings";
-    try {
-      const apiResponse = await API.get("apiResource", path);
-      console.log(apiResponse);
-    } catch (err) {
-      console.log("There was an error");
-      console.log(err);
-    }
+    recordIntentToSend();
   };
 
   return (

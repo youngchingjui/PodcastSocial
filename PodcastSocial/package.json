@@ -35,10 +35,12 @@
     "react-navigation": "^4.0.0",
     "react-navigation-stack": "^1.5.1",
     "react-navigation-tabs": "^2.3.0",
-    "xmldom": "^0.1.27"
+    "xmldom": "^0.1.27",
+    "expo-constants": "~6.0.0"
   },
   "devDependencies": {
-    "babel-preset-expo": "^6.0.0"
+    "babel-preset-expo": "^6.0.0",
+    "metro-react-native-babel-preset": "^0.56.3"
   },
   "private": true
 }

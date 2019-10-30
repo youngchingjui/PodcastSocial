@@ -9,7 +9,8 @@ import * as FileSystem from "expo-file-system";
 import * as Permissions from "expo-permissions";
 
 import Storage from "@aws-amplify/storage";
-import API from "@aws-amplify/api";
+
+import airtable from "../api/airtable";
 
 const musicPlayerReducer = (state, action) => {
   switch (action.type) {
@@ -119,6 +120,28 @@ const sendRecording = dispatch => async (recipients, uri) => {
   //TODO: Implementation on hold.
 };
 
+const recordIntentToSend = dispatch => async (
+  file_name,
+  podcaster_email,
+  recording_address,
+  user_id
+) => {
+  try {
+    const data = {
+      fields: {
+        file_name,
+        podcaster_email,
+        recording_address,
+        user_id
+      }
+    };
+    const response = await airtable.post("/send_recording_logs", data);
+    console.log(response);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const deleteRecording = dispatch => () => {
   console.log("Deleting recording");
 };
@@ -188,7 +211,8 @@ export const { Context, Provider } = createDataContext(
     loadRecordings,
     deleteRecording,
     playRecording,
-    msToTime
+    msToTime,
+    recordIntentToSend
   },
   initialState
 );

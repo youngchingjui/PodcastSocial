@@ -22,10 +22,10 @@ const RecordingsScreen = () => {
   const {
     state: { recordings, uri },
     loadRecordings,
-    sendRecording,
     deleteRecording,
     playRecording,
-    msToTime
+    msToTime,
+    recordIntentToSend
   } = useContext(RecorderContext);
 
   useEffect(() => {
@@ -67,7 +67,12 @@ const RecordingsScreen = () => {
                 <TouchableOpacity
                   style={styles.email}
                   onPress={() => {
-                    sendRecording(["young.chingjui@gmail.com"], item.uri);
+                    recordIntentToSend(
+                      file_name,
+                      podcaster_email,
+                      recording_address,
+                      user_id
+                    );
                   }}
                 >
                   <FontAwesome name="send" size={30} />
