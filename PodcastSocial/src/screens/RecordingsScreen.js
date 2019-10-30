@@ -25,32 +25,11 @@ const RecordingsScreen = () => {
     sendRecording,
     deleteRecording,
     playRecording,
-    createTestFile
+    msToTime
   } = useContext(RecorderContext);
-
-  const msToTime = s => {
-    const pad = (n, z) => {
-      z = z || 2;
-      return ("00" + n).slice(-z);
-    };
-
-    var ms = s % 1000;
-    s = (s - ms) / 1000;
-    var secs = s % 60;
-    s = (s - secs) / 60;
-    var mins = s % 60;
-    var hrs = (s - mins) / 60;
-
-    if (hrs == 0) {
-      return pad(mins) + ":" + pad(secs);
-    } else {
-      return pad(hrs) + ":" + pad(mins) + ":" + pad(secs);
-    }
-  };
 
   useEffect(() => {
     loadRecordings();
-    createTestFile();
   }, []);
 
   return (

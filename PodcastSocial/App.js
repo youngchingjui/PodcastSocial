@@ -2,13 +2,9 @@ import React from "react";
 
 import { Feather } from "@expo/vector-icons";
 
-// import Storage from "@aws-amplify/storage";
-// import API from "@aws-amplify/storage";
-
-import Amplify, { Storage } from "aws-amplify";
-import config from "./aws-exports";
-import { withAuthenticator } from "aws-amplify-react-native";
-Amplify.configure(config);
+import Amplify from "aws-amplify";
+import awsmobile from "./aws-exports";
+Amplify.configure(awsmobile);
 
 import { Provider as MusicPlayerProvider } from "./src/context/MusicPlayerContext";
 import { Provider as PlaylistProvider } from "./src/context/PlaylistContext";
@@ -19,7 +15,7 @@ import SearchScreen from "./src/screens/SearchScreen";
 import PlayScreen from "./src/screens/PlayScreen";
 import PodcastChannelScreen from "./src/screens/PodcastChannelScreen";
 import RecordingsScreen from "./src/screens/RecordingsScreen";
-import Playground from "./src/screens/PlaygroundScreen";
+import PlaygroundScreen from "./src/screens/PlaygroundScreen";
 
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
@@ -40,10 +36,11 @@ const tabNavigator = createBottomTabNavigator(
     MyPlaylist: MyPlaylistScreen,
     Play: PlayScreen,
     searchFlow,
-    Recordings: RecordingsScreen
+    Recordings: RecordingsScreen,
+    Playground: PlaygroundScreen
   },
   {
-    initialRouteName: "Recordings",
+    initialRouteName: "Playground",
     tabBarOptions: {
       activeTintColor: "tomato",
       inactiveTintColor: "gray",
@@ -52,9 +49,10 @@ const tabNavigator = createBottomTabNavigator(
   }
 );
 
-const appContainer = createAppContainer(tabNavigator);
-const signUpConfig = { usernameAttributes: "email" };
-const App = withAuthenticator(appContainer, { signUpConfig });
+const App = createAppContainer(tabNavigator);
+// const appContainer = createAppContainer(tabNavigator);
+// const signUpConfig = { usernameAttributes: "email" };
+// const App = withAuthenticator(appContainer, { signUpConfig });
 
 export default () => {
   return (

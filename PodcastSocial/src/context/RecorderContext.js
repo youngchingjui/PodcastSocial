@@ -1,18 +1,15 @@
 // RecordContext.js;
 
 import createDataContext from "./createDataContext";
-import { Audio } from "expo-av";
-import * as Permissions from "expo-permissions";
+
 import localServer from "../api/localServer";
-import * as MailComposer from "expo-mail-composer";
+
+import { Audio } from "expo-av";
 import * as FileSystem from "expo-file-system";
-import { readDirectoryAsync } from "expo-file-system";
+import * as Permissions from "expo-permissions";
 
-// import Storage from "@aws-amplify/storage";
-// import API from "@aws-amplify/api";
-
-// import config from "../../aws-exports";
-// API.configure(config);
+import Storage from "@aws-amplify/storage";
+import API from "@aws-amplify/api";
 
 const musicPlayerReducer = (state, action) => {
   switch (action.type) {
@@ -34,8 +31,10 @@ const musicPlayerReducer = (state, action) => {
 };
 
 const startRecording = dispatch => {
-  return () => {
+  return async () => {
     console.log("Trying to record");
+
+    //TODO: Stop podcast from playing
     Audio.setAudioModeAsync({
       allowsRecordingIOS: true,
       interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
@@ -47,16 +46,15 @@ const startRecording = dispatch => {
     });
     const recordObject = new Audio.Recording();
     try {
-      recordObject
-        .prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY)
-        .then(() => {
-          console.log(recordObject);
-          if (recordObject._canRecord) {
-            recordObject.startAsync();
-          } else {
-            console.log("record Object is not prepared to record");
-          }
-        });
+      await recordObject.prepareToRecordAsync(
+        Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+      );
+      console.log(recordObject);
+      if (recordObject._canRecord) {
+        recordObject.startAsync();
+      } else {
+        console.log("record Object is not prepared to record");
+      }
     } catch (error) {
       console.log("There was an error with trying to record a message");
       console.log(error);
@@ -75,7 +73,10 @@ const stopRecording = dispatch => {
       console.log("Stopped recording, here's response:");
       console.log(response);
       payload["durationMillis"] = response.durationMillis;
+      payload["podcast"] = {};
+      payload["podcastTimestamp"] = {};
       saveRecordingMetadata(payload);
+      uploadRecording(payload);
     } catch (error) {
       console.log("There was an error with trying to stop recording");
       console.log(error);
@@ -112,82 +113,60 @@ const loadRecordings = dispatch => {
   };
 };
 
+const sendRecording = dispatch => async (recipients, uri) => {
+  console.log("Sending recording to podcaster");
+
+  //TODO: Implementation on hold.
+};
+
+const deleteRecording = dispatch => () => {
+  console.log("Deleting recording");
+};
+
+const playRecording = dispatch => () => {
+  console.log("Playing recording");
+};
+
+const msToTime = dispatch => s => {
+  const pad = (n, z) => {
+    z = z || 2;
+    return ("00" + n).slice(-z);
+  };
+
+  var ms = s % 1000;
+  s = (s - ms) / 1000;
+  var secs = s % 60;
+  s = (s - secs) / 60;
+  var mins = s % 60;
+  var hrs = (s - mins) / 60;
+
+  if (hrs == 0) {
+    return pad(mins) + ":" + pad(secs);
+  } else {
+    return pad(hrs) + ":" + pad(mins) + ":" + pad(secs);
+  }
+};
+
+// Helper functions for RecorderContext. Not exported.
 const saveRecordingMetadata = async data => {
   console.log("Saving recording data:");
   console.log(data);
   const response = await localServer.post("/recordings", data);
   console.log(response);
 };
-const sendRecording = dispatch => async (recipients, attachment) => {
-  console.log("Sending recording to podcaster");
-  console.log(attachment);
 
-  // var filename = attachment.replace(/^.*[\\\/]/, "");
-  // console.log(filename);
-
-  // // Make sure documentDirector/AV/ folder exists
-  // const documentDirectory = await FileSystem.getInfoAsync(
-  //   FileSystem.documentDirectory + "AV/"
-  // );
-  // if (!documentDirectory.exists) {
-  //   await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + "AV/");
-  // }
-
-  // const newFile = FileSystem.documentDirectory + "AV/" + filename;
-  // // Copy the file from the cache folder to documentDirectory folder. For some reason, cannot upload attachment from cache folder into email
-  // try {
-  //   copyAsyncOptions = {
-  //     from: attachment,
-  //     to: newFile
-  //   };
-  //   await FileSystem.copyAsync(copyAsyncOptions);
-  // } catch (e) {
-  //   console.log("There was an error trying to copy the file");
-  //   console.log(e);
-  // }
-
-  // // Check that the new file is there
-  // const readDirectoryResponse = await FileSystem.readDirectoryAsync(
-  //   FileSystem.documentDirectory + "AV/"
-  // );
-  // console.log(readDirectoryResponse);
-
-  options = {
-    recipients: recipients,
-    subject: "Testing sending mail and attachment from React Native",
-    body: "This is a test body message",
-    isHtml: true,
-    attachments: [attachment]
-  };
-  const response = await MailComposer.composeAsync(options);
-
-  console.log(response);
-};
-const deleteRecording = dispatch => () => {
-  console.log("Deleting recording");
-};
-const playRecording = dispatch => () => {
-  console.log("Playing recording");
-};
-
-const createTestFile = dispatch => {
-  return async () => {
-    console.log("Creating new test file");
-    const uri = FileSystem.documentDirectory + "AV/test.txt";
-    const writeResponse = await FileSystem.writeAsStringAsync(
-      uri,
-      "testing text"
-    );
-    console.log("Finished creating document");
-    console.log(writeResponse);
-
-    console.log("TEST uploading to S3 TEST");
-
-    const result = await Storage.put("test.txt", "Hello");
-    console.log(result);
-
-    dispatch({ type: "createTestFile", payload: uri });
-  };
+const uploadRecording = async payload => {
+  console.log("Uploading recording to S3");
+  const { uri } = payload;
+  try {
+    const fileResponse = await fetch(uri);
+    const blob = await fileResponse.blob();
+    const filename = uri.replace(/^.*[\\\/]/, "");
+    const response = await Storage.put(filename, blob);
+    console.log(response);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const initialState = {
@@ -209,7 +188,7 @@ export const { Context, Provider } = createDataContext(
     loadRecordings,
     deleteRecording,
     playRecording,
-    createTestFile
+    msToTime
   },
   initialState
 );
