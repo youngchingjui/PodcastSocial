@@ -5,6 +5,8 @@ import PlaylistDetail from "../components/PlaylistDetail";
 import PlayButton from "../components/PlayButton";
 import PurpleBackdrop from "../components/PurpleBackdrop";
 import ScreenTitle from "../components/ScreenTitle";
+import ContinuePlaying from "../components/ContinuePlaying";
+import UpNext from "../components/UpNext";
 
 import { Context } from "../context/MusicPlayerContext";
 
@@ -12,96 +14,14 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const MyPlaylistScreen = ({ navigation }) => {
-  const { state, loadSoundObject, changeIsPlaying } = useContext(Context);
-  const {
-    currentPodcast,
-    isPlaying,
-    isCurrentPodcastLoaded,
-    soundObject
-  } = state;
-  useEffect(() => {
-    loadSoundObject();
-    if (isCurrentPodcastLoaded) {
-      console.log(currentPodcast["itunes:image"][0].$.href);
-    }
-  }, []);
-
-  const onPress = async () => {
-    if (!isPlaying) {
-      // Audio is currently not playing. Start playing podcast
-      console.log("Playing audio");
-      changeIsPlaying(true);
-      try {
-        await soundObject.playAsync();
-        navigation.navigate("Play");
-      } catch (e) {
-        console.log(`Could not play sound player`, e);
-      }
-    } else {
-      // Audio is currently playing. Pause it
-      console.log("Pausing audio");
-      changeIsPlaying(false);
-      try {
-        await soundObject.pauseAsync();
-      } catch (e) {
-        console.log(`Could not pause sound player`, e);
-      }
-    }
-  };
+const MyPlaylistScreen = () => {
   return (
     <View style={styles.root}>
       <PurpleBackdrop />
       <ScreenTitle title="My Playlist" />
-      <View style={styles.style12}>
-        <PlaylistDetail style={styles.playlistDetail34} />
-        <PlayButton style={styles.playButton34} />
-      </View>
-      <View style={styles.style13}>
-        <PlaylistDetail style={styles.playlistDetail35} />
-        <PlayButton style={styles.playButton35} />
-      </View>
-      <View style={styles.style14}>
-        <PlaylistDetail style={styles.playlistDetail36} />
-        <PlayButton style={styles.playButton36} />
-      </View>
-      <View style={styles.style15}>
-        <PlaylistDetail style={styles.playlistDetail37} />
-        <PlayButton style={styles.playButton37} />
-      </View>
-      <View style={styles.title3}>
-        <Text style={styles.upNext3}>UP NEXT</Text>
-      </View>
-      <TouchableOpacity style={styles.continuePlaying} onPress={onPress}>
-        {isCurrentPodcastLoaded ? (
-          <Image
-            source={{
-              uri: currentPodcast["itunes:image"][0].$.href
-            }}
-            style={styles.artwork}
-          />
-        ) : null}
-        <View style={styles.darken}>
-          {isCurrentPodcastLoaded ? (
-            <View>
-              <Text style={styles.title}>
-                {(currentPodcast["itunes:title"] || currentPodcast["title"])[0]}
-              </Text>
-              <Text style={styles.podcastChannel}>
-                {currentPodcast["collectionName"]}
-              </Text>
-            </View>
-          ) : null}
-          <View style={styles.playButton}>
-            <PlayButton />
-            {isPlaying ? (
-              <Text style={styles.continuePlayingText}>Now playing</Text>
-            ) : (
-              <Text style={styles.continuePlayingText}>Continue playing</Text>
-            )}
-          </View>
-        </View>
-      </TouchableOpacity>
+      <ContinuePlaying />
+      <Text style={styles.upNextHeader}>Up Next</Text>
+      <UpNext />
     </View>
   );
 };
@@ -135,6 +55,12 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     alignItems: "center",
     width: "100%"
+  },
+  upNextHeader: {
+    fontSize: 24,
+    marginTop: 15,
+    marginBottom: 10,
+    marginLeft: 28
   },
   style12: {
     top: "52.59%",

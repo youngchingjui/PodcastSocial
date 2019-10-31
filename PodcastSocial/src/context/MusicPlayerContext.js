@@ -116,8 +116,7 @@ const getEpisodeList = dispatch => {
 const updatePodcast = dispatch => {
   return async podcast => {
     console.log("Updating current podcast");
-    const response = await localServer.put("/currentPodcast", podcast);
-    console.log(response);
+    await localServer.put("/currentPodcast", podcast);
     dispatch({ type: "updatePodcast", payload: podcast });
   };
 };

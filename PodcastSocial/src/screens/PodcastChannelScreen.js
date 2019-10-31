@@ -6,10 +6,11 @@ import { Context as MusicPlayerContext } from "../context/MusicPlayerContext";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const PodcastChannelScreen = ({ navigation }) => {
-  const { state, getEpisodeList, updateAudioURI, updatePodcast } = useContext(
-    MusicPlayerContext
-  );
-  const { episodeList } = state;
+  const {
+    state: { episodeList },
+    getEpisodeList,
+    updatePodcast
+  } = useContext(MusicPlayerContext);
   const podcast = navigation.getParam("podcast_channel");
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const PodcastChannelScreen = ({ navigation }) => {
           return (
             <TouchableOpacity
               style={styles.item}
-              onPressOut={() => {
+              onPress={() => {
                 console.log("Pressed to play podcast episode");
                 var { item, ...podcastChannelDetails } = episodeList;
                 updatePodcast({ ...podcastChannelDetails, ...episode_item });

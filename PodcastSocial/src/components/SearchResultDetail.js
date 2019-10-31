@@ -4,13 +4,17 @@ import { Ionicons } from "@expo/vector-icons";
 import { Context as PlaylistContext } from "../context/PlaylistContext";
 
 const SearchResultDetail = ({ podcast_channel }) => {
-  const { state, addSubscription, removeSubscription } = useContext(
-    PlaylistContext
-  );
+  const {
+    state: { subscriptions },
+    addSubscription,
+    removeSubscription
+  } = useContext(PlaylistContext);
 
-  const subscription = state.filter(
+  var isSubscribed = false;
+  const subscription = subscriptions.filter(
     pod => pod.trackId == podcast_channel.trackId
   );
+  subscription.length > 0 ? (isSubscribed = true) : (isSubscribed = false);
   return (
     <View style={styles.root}>
       <Image
@@ -30,16 +34,14 @@ const SearchResultDetail = ({ podcast_channel }) => {
       <TouchableOpacity
         style={styles.icon}
         onPress={() => {
-          console.log("Subscription is:");
-          console.log(subscription);
-          if (subscription.length > 0) {
+          if (isSubscribed) {
             removeSubscription(subscription[0].id);
           } else {
             addSubscription(podcast_channel);
           }
         }}
       >
-        {subscription.length > 0 ? (
+        {isSubscribed ? (
           <Ionicons
             name="ios-checkmark-circle-outline"
             color="#866DCC"

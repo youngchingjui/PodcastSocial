@@ -20,37 +20,59 @@ import PlaygroundScreen from "./src/screens/PlaygroundScreen";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
+import NavigationService from "./NavigationService";
 
-const searchFlow = createStackNavigator({
+// Creating searchFlow Stack Navigation
+const searchRouteConfig = {
   Search: SearchScreen,
   PodcastChannel: PodcastChannelScreen
-});
-
+};
+const searchStackNavigatorConfig = {
+  headerMode: "none"
+};
+const searchFlow = createStackNavigator(
+  searchRouteConfig,
+  searchStackNavigatorConfig
+);
 searchFlow.navigationOptions = {
   title: "Discover",
-  tabBarIcon: <Feather name="search" size={25} />
+  tabBarIcon: <Feather name="search" size={25} />,
+  headerMode: "none"
 };
 
-const tabNavigator = createBottomTabNavigator(
-  {
-    MyPlaylist: MyPlaylistScreen,
-    Play: PlayScreen,
-    searchFlow,
-    Recordings: RecordingsScreen,
-    Playground: PlaygroundScreen
-  },
-  {
-    initialRouteName: "Recordings",
-    tabBarOptions: {
-      activeTintColor: "tomato",
-      inactiveTintColor: "gray",
-      showIcon: true
-    }
+// Creating main bottomTabNavigator
+const tabNavigatorRoute = {
+  MyPlaylist: MyPlaylistScreen,
+  Play: PlayScreen,
+  searchFlow,
+  Recordings: RecordingsScreen,
+  Playground: PlaygroundScreen
+};
+const tabNavigatorConfig = {
+  initialRouteName: "MyPlaylist",
+  tabBarOptions: {
+    activeTintColor: "tomato",
+    inactiveTintColor: "gray",
+    showIcon: true
   }
+};
+const tabNavigator = createBottomTabNavigator(
+  tabNavigatorRoute,
+  tabNavigatorConfig
 );
 
-const App = createAppContainer(tabNavigator);
-// const appContainer = createAppContainer(tabNavigator);
+// Creating main App Container
+const AppContainer = createAppContainer(tabNavigator);
+const App = () => {
+  return (
+    <AppContainer
+      ref={navigatorRef => {
+        NavigationService.setTopLevelNavigator(navigatorRef);
+      }}
+    />
+  );
+};
+
 // const signUpConfig = { usernameAttributes: "email" };
 // const App = withAuthenticator(appContainer, { signUpConfig });
 
