@@ -135,6 +135,96 @@
         "Careers"
       ],
       "id": 8
+    },
+    {
+      "wrapperType": "track",
+      "kind": "podcast",
+      "collectionId": 818198322,
+      "trackId": 818198322,
+      "artistName": "Rhonda Patrick, Ph.D.",
+      "collectionName": "FoundMyFitness",
+      "trackName": "FoundMyFitness",
+      "collectionCensoredName": "FoundMyFitness",
+      "trackCensoredName": "FoundMyFitness",
+      "collectionViewUrl": "https://podcasts.apple.com/us/podcast/foundmyfitness/id818198322?uo=4",
+      "feedUrl": "http://podcast.foundmyfitness.com/rss.xml",
+      "trackViewUrl": "https://podcasts.apple.com/us/podcast/foundmyfitness/id818198322?uo=4",
+      "artworkUrl30": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/25/0a/96/250a9664-fbe3-1f58-950e-10a33f99c452/mza_3617567724554997189.jpg/30x30bb.jpg",
+      "artworkUrl60": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/25/0a/96/250a9664-fbe3-1f58-950e-10a33f99c452/mza_3617567724554997189.jpg/60x60bb.jpg",
+      "artworkUrl100": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/25/0a/96/250a9664-fbe3-1f58-950e-10a33f99c452/mza_3617567724554997189.jpg/100x100bb.jpg",
+      "collectionPrice": 0,
+      "trackPrice": 0,
+      "trackRentalPrice": 0,
+      "collectionHdPrice": 0,
+      "trackHdPrice": 0,
+      "trackHdRentalPrice": 0,
+      "releaseDate": "2019-09-16T14:24:00Z",
+      "collectionExplicitness": "cleaned",
+      "trackExplicitness": "cleaned",
+      "trackCount": 45,
+      "country": "USA",
+      "currency": "USD",
+      "primaryGenreName": "Medicine",
+      "contentAdvisoryRating": "Clean",
+      "artworkUrl600": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/25/0a/96/250a9664-fbe3-1f58-950e-10a33f99c452/mza_3617567724554997189.jpg/600x600bb.jpg",
+      "genreIds": [
+        "1518",
+        "26",
+        "1512",
+        "1515"
+      ],
+      "genres": [
+        "Medicine",
+        "Podcasts",
+        "Health & Fitness",
+        "Nutrition"
+      ],
+      "id": 9
+    },
+    {
+      "wrapperType": "track",
+      "kind": "podcast",
+      "artistId": 121664449,
+      "collectionId": 1200361736,
+      "trackId": 1200361736,
+      "artistName": "The New York Times",
+      "collectionName": "The Daily",
+      "trackName": "The Daily",
+      "collectionCensoredName": "The Daily",
+      "trackCensoredName": "The Daily",
+      "artistViewUrl": "https://podcasts.apple.com/us/artist/the-new-york-times/121664449?uo=4",
+      "collectionViewUrl": "https://podcasts.apple.com/us/podcast/the-daily/id1200361736?uo=4",
+      "feedUrl": "http://rss.art19.com/the-daily",
+      "trackViewUrl": "https://podcasts.apple.com/us/podcast/the-daily/id1200361736?uo=4",
+      "artworkUrl30": "https://is5-ssl.mzstatic.com/image/thumb/Podcasts113/v4/57/9e/80/579e802f-63e7-e5b8-1e2f-8bcb4a1968f7/mza_4646561600001809308.jpeg/30x30bb.jpg",
+      "artworkUrl60": "https://is5-ssl.mzstatic.com/image/thumb/Podcasts113/v4/57/9e/80/579e802f-63e7-e5b8-1e2f-8bcb4a1968f7/mza_4646561600001809308.jpeg/60x60bb.jpg",
+      "artworkUrl100": "https://is5-ssl.mzstatic.com/image/thumb/Podcasts113/v4/57/9e/80/579e802f-63e7-e5b8-1e2f-8bcb4a1968f7/mza_4646561600001809308.jpeg/100x100bb.jpg",
+      "collectionPrice": 0,
+      "trackPrice": 0,
+      "trackRentalPrice": 0,
+      "collectionHdPrice": 0,
+      "trackHdPrice": 0,
+      "trackHdRentalPrice": 0,
+      "releaseDate": "2019-10-31T09:54:00Z",
+      "collectionExplicitness": "cleaned",
+      "trackExplicitness": "cleaned",
+      "trackCount": 300,
+      "country": "USA",
+      "currency": "USD",
+      "primaryGenreName": "Daily News",
+      "contentAdvisoryRating": "Clean",
+      "artworkUrl600": "https://is5-ssl.mzstatic.com/image/thumb/Podcasts113/v4/57/9e/80/579e802f-63e7-e5b8-1e2f-8bcb4a1968f7/mza_4646561600001809308.jpeg/600x600bb.jpg",
+      "genreIds": [
+        "1526",
+        "26",
+        "1489"
+      ],
+      "genres": [
+        "Daily News",
+        "Podcasts",
+        "News"
+      ],
+      "id": 10
     }
   ],
   "upNext": [
@@ -985,12 +1075,12 @@
       ]
     }
   ],
-  "currentPodcast": {
+  "currentEpisode": {
     "title": [
-      "House Resolution & Infectious Power (with Edward Norton)"
+      "Taylor's Testimony & Full Circle (with Cameron Douglas)"
     ],
     "description": [
-      "\n        <p>On this week’s Stay Tuned, \"House Resolution &amp; Infectious Power,\" Preet answers your questions about:</p><p>-- Key revelations from Ukraine expert Lieutenant Colonel Alexander Vindman’s testimony in the House impeachment inquiry—and the baseless attacks waged against him </p><p>-- The upcoming House Resolution vote on impeachment </p><p>-- Finding hope in stressful times</p><p>Edward Norton is this week’s guest on&nbsp;<em>Stay Tuned</em>. He is a writer, director, and three-time Academy Award-nominated actor. He joins Preet for a wide-ranging conversation that covers his latest film,&nbsp;<em>Motherless Brooklyn</em>, and today’s political climate. </p><p>To hear bonus clips from the interview, try two free weeks of&nbsp;<a href=\"http://cafe.com/insider\" target=\"_blank\">CAFE Insider membership</a>.</p><p><a href=\"https://www.cafe.com/the-stay-tuned-newsletter/\" target=\"_blank\">Sign up</a>&nbsp;to receive free references and supplemental materials for Stay Tuned episodes, a weekly newsletter, and updates from Preet.</p><p>As always, tweet your questions to @PreetBharara with hashtag #askpreet, email us at&nbsp;<a href=\"mailto:staytuned@cafe.com\" target=\"_blank\">staytuned@cafe.com</a>, or call 699-247-7338 to leave a voicemail.</p>\n      "
+      "\n        <p>On this week’s Stay Tuned, \"Taylor's Testimony &amp; Full Circle,\" Preet answers your questions about:</p><p>-- The White House’s position not to comply with subpoenas issued in the impeachment inquiry</p><p>-- Bill Taylor’s explosive testimony and what it means for the articles of impeachment</p><p>-- The Republicans’ reaction to Taylor’s testimony</p><p>Cameron Douglas, the son of Michael Douglas and grandson of Kirk Douglas, served almost eight years in federal prison for drug trafficking, a business he entered to support his addiction to cocaine and heroin. He joins Preet to discuss his battle for sobriety and freedom in his new, brutally honest memoir, <em>Long Way Home</em>.</p><p>To hear bonus clips from the interview, try two free weeks of&nbsp;<a href=\"http://cafe.com/insider\" target=\"_blank\">CAFE Insider membership</a>.</p><p><a href=\"https://www.cafe.com/the-stay-tuned-newsletter/\" target=\"_blank\">Sign up</a>&nbsp;to receive free references and supplemental materials for Stay Tuned episodes, a weekly newsletter, and updates from Preet.</p><p>As always, tweet your questions to @PreetBharara with hashtag #askpreet, email us at&nbsp;<a href=\"mailto:staytuned@cafe.com\" target=\"_blank\">staytuned@cafe.com</a>, or call 699-247-7338 to leave a voicemail.&nbsp;</p>\n      "
     ],
     "managingEditor": [
       "staytuned@cafe.com (Some Spider, Inc.)"
@@ -1030,7 +1120,7 @@
       "CAFE"
     ],
     "itunes:summary": [
-      "On this week’s Stay Tuned, \"House Resolution &amp; Infectious Power,\" Preet answers your questions about:\n\n-- Key revelations from Ukraine expert Lieutenant Colonel Alexander Vindman’s testimony in the House impeachment inquiry—and the baseless attacks waged against him \n\n-- The upcoming House Resolution vote on impeachment \n\n-- Finding hope in stressful times\n\nEdward Norton is this week’s guest on Stay Tuned. He is a writer, director, and three-time Academy Award-nominated actor. He joins Preet for a wide-ranging conversation that covers his latest film, Motherless Brooklyn, and today’s political climate. \n\nTo hear bonus clips from the interview, try two free weeks of CAFE Insider membership.\n\nSign up to receive free references and supplemental materials for Stay Tuned episodes, a weekly newsletter, and updates from Preet.\n\nAs always, tweet your questions to @PreetBharara with hashtag #askpreet, email us at staytuned@cafe.com, or call 699-247-7338 to leave a voicemail."
+      "On this week’s Stay Tuned, \"Taylor's Testimony &amp; Full Circle,\" Preet answers your questions about:\n\n-- The White House’s position not to comply with subpoenas issued in the impeachment inquiry\n\n-- Bill Taylor’s explosive testimony and what it means for the articles of impeachment\n\n-- The Republicans’ reaction to Taylor’s testimony\n\nCameron Douglas, the son of Michael Douglas and grandson of Kirk Douglas, served almost eight years in federal prison for drug trafficking, a business he entered to support his addiction to cocaine and heroin. He joins Preet to discuss his battle for sobriety and freedom in his new, brutally honest memoir, Long Way Home.\n\nTo hear bonus clips from the interview, try two free weeks of CAFE Insider membership.\n\nSign up to receive free references and supplemental materials for Stay Tuned episodes, a weekly newsletter, and updates from Preet.\n\nAs always, tweet your questions to @PreetBharara with hashtag #askpreet, email us at staytuned@cafe.com, or call 699-247-7338 to leave a voicemail. "
     ],
     "language": [
       "en"
@@ -1060,7 +1150,7 @@
       }
     ],
     "itunes:keywords": [
-      "york,New,POLITICS,government,Legal,law,JUSTICE,bharara,preet"
+      "york,New,POLITICS,GOVERNMENT,Legal,law,JUSTICE,bharara,preet"
     ],
     "itunes:type": [
       "episodic"
@@ -1086,37 +1176,37 @@
       }
     ],
     "itunes:title": [
-      "House Resolution & Infectious Power (with Edward Norton)"
+      "Taylor's Testimony & Full Circle (with Cameron Douglas)"
     ],
     "itunes:episodeType": [
       "full"
     ],
     "itunes:episode": [
-      "110"
+      "109"
     ],
     "content:encoded": [
-      "\n        <p>On this week’s Stay Tuned, \"House Resolution &amp; Infectious Power,\" Preet answers your questions about:</p><p>-- Key revelations from Ukraine expert Lieutenant Colonel Alexander Vindman’s testimony in the House impeachment inquiry—and the baseless attacks waged against him </p><p>-- The upcoming House Resolution vote on impeachment </p><p>-- Finding hope in stressful times</p><p>Edward Norton is this week’s guest on&nbsp;<em>Stay Tuned</em>. He is a writer, director, and three-time Academy Award-nominated actor. He joins Preet for a wide-ranging conversation that covers his latest film,&nbsp;<em>Motherless Brooklyn</em>, and today’s political climate. </p><p>To hear bonus clips from the interview, try two free weeks of&nbsp;<a href=\"http://cafe.com/insider\" target=\"_blank\">CAFE Insider membership</a>.</p><p><a href=\"https://www.cafe.com/the-stay-tuned-newsletter/\" target=\"_blank\">Sign up</a>&nbsp;to receive free references and supplemental materials for Stay Tuned episodes, a weekly newsletter, and updates from Preet.</p><p>As always, tweet your questions to @PreetBharara with hashtag #askpreet, email us at&nbsp;<a href=\"mailto:staytuned@cafe.com\" target=\"_blank\">staytuned@cafe.com</a>, or call 699-247-7338 to leave a voicemail.</p>\n      "
+      "\n        <p>On this week’s Stay Tuned, \"Taylor's Testimony &amp; Full Circle,\" Preet answers your questions about:</p><p>-- The White House’s position not to comply with subpoenas issued in the impeachment inquiry</p><p>-- Bill Taylor’s explosive testimony and what it means for the articles of impeachment</p><p>-- The Republicans’ reaction to Taylor’s testimony</p><p>Cameron Douglas, the son of Michael Douglas and grandson of Kirk Douglas, served almost eight years in federal prison for drug trafficking, a business he entered to support his addiction to cocaine and heroin. He joins Preet to discuss his battle for sobriety and freedom in his new, brutally honest memoir, <em>Long Way Home</em>.</p><p>To hear bonus clips from the interview, try two free weeks of&nbsp;<a href=\"http://cafe.com/insider\" target=\"_blank\">CAFE Insider membership</a>.</p><p><a href=\"https://www.cafe.com/the-stay-tuned-newsletter/\" target=\"_blank\">Sign up</a>&nbsp;to receive free references and supplemental materials for Stay Tuned episodes, a weekly newsletter, and updates from Preet.</p><p>As always, tweet your questions to @PreetBharara with hashtag #askpreet, email us at&nbsp;<a href=\"mailto:staytuned@cafe.com\" target=\"_blank\">staytuned@cafe.com</a>, or call 699-247-7338 to leave a voicemail.&nbsp;</p>\n      "
     ],
     "guid": [
       {
-        "_": "gid://art19-episode-locator/V0/oOUpiLqWsRK5VeddVej31wEHhFiHsC0rwpPtUcODOS4",
+        "_": "gid://art19-episode-locator/V0/u9LC2yHc3OK_g3i8llx940Ks3ul_W6Wttb63CIUI1Rc",
         "$": {
           "isPermaLink": "false"
         }
       }
     ],
     "pubDate": [
-      "Thu, 31 Oct 2019 08:00:00 -0000"
+      "Thu, 24 Oct 2019 08:00:00 -0000"
     ],
     "itunes:duration": [
-      "01:02:07"
+      "01:15:39"
     ],
     "enclosure": [
       {
         "$": {
-          "url": "https://rss.art19.com/episodes/83031fd5-1b51-4ea6-bdb4-f5a7ce01030b.mp3",
+          "url": "https://rss.art19.com/episodes/5759c41f-2771-407f-bbaa-801ac06ac10a.mp3",
           "type": "audio/mpeg",
-          "length": "59632744"
+          "length": "72628767"
         }
       }
     ]
@@ -1186,6 +1276,20 @@
       "uri": "file:///Users/youngchingjui/Library/Developer/CoreSimulator/Devices/1364C3A2-6C3F-45EF-9321-6A691DFC2630/data/Containers/Data/Application/52A6D98D-6D5C-4477-8031-EA9A6EFF4033/Library/Caches/ExponentExperienceData/%2540youngchingjui%252FPodcastSocial/AV/recording-C7CED088-EA05-430F-8982-525E0C65EDAE.caf",
       "durationMillis": 3113,
       "id": 13
+    },
+    {
+      "uri": "file:///Users/youngchingjui/Library/Developer/CoreSimulator/Devices/1364C3A2-6C3F-45EF-9321-6A691DFC2630/data/Containers/Data/Application/52A6D98D-6D5C-4477-8031-EA9A6EFF4033/Library/Caches/ExponentExperienceData/%2540youngchingjui%252FPodcastSocial/AV/recording-4608A730-BE8D-4895-BBE0-7F0055C4D1D8.caf",
+      "durationMillis": 3960,
+      "podcast": {},
+      "podcastTimestamp": {},
+      "id": 14
+    },
+    {
+      "uri": "file:///Users/youngchingjui/Library/Developer/CoreSimulator/Devices/1364C3A2-6C3F-45EF-9321-6A691DFC2630/data/Containers/Data/Application/52A6D98D-6D5C-4477-8031-EA9A6EFF4033/Library/Caches/ExponentExperienceData/%2540youngchingjui%252FPodcastSocial/AV/recording-65D2BFD6-8EA8-41BB-B546-23C9F8F0790E.caf",
+      "durationMillis": 1071,
+      "podcast": {},
+      "podcastTimestamp": {},
+      "id": 15
     }
   ],
   "testing": [

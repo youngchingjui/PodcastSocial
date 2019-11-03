@@ -1,17 +1,24 @@
 import React, { useContext, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import Svg, { Circle } from "react-native-svg";
+
 import { Context as RecorderContext } from "../context/RecorderContext";
+import { Context as MusicPlayerContext } from "../context/MusicPlayerContext";
+
 import { FontAwesome } from "@expo/vector-icons";
 
 const RecordButton = () => {
   const {
-    state: { recordingPermissionStatus, isRecording, recordObject },
+    state: { recordingPermissionStatus, isRecording, recordObject, recordings },
     startRecording,
     stopRecording,
     checkRecordingPermissions,
     requestRecordingPermission
   } = useContext(RecorderContext);
+
+  const {
+    state: { currentEpisode }
+  } = useContext(MusicPlayerContext);
 
   useEffect(() => {
     checkRecordingPermissions();
@@ -30,7 +37,7 @@ const RecordButton = () => {
             startRecording();
           } else {
             console.log("stop recording");
-            stopRecording(recordObject);
+            stopRecording(recordObject, recordings, currentEpisode);
           }
         } else if (recordingPermissionStatus == "denied") {
           console.log("Please go to settings and allow recording");

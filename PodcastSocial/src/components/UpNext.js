@@ -19,28 +19,27 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import NavigationService from "../../NavigationService";
 
 const UpNext = () => {
-  const {
-    state: { currentPodcast, isPlaying, isCurrentPodcastLoaded, soundObject },
-    loadSoundObject,
-    changeIsPlaying,
-    updatePodcast
-  } = useContext(MusicPlayerContext);
+  const { updateCurrentEpisode } = useContext(MusicPlayerContext);
 
   const {
-    state: { upNextList },
+    state: { upNextList, subscriptions },
     loadUpNextList,
-    updateUpNextList
+    updateUpNextList,
+    getSubscriptions
   } = useContext(PlaylistContext);
 
   useEffect(() => {
-    updateUpNextList();
-    loadUpNextList();
+    getSubscriptions();
   }, []);
+
+  useEffect(() => {
+    updateUpNextList(subscriptions);
+  }, [subscriptions]);
 
   const onPress = episode => {
     console.log("Pressed upcoming podcast");
-    updatePodcast(episode);
-    // NavigationService.navigate("Play");
+    updateCurrentEpisode(episode);
+    NavigationService.navigate("Play");
   };
 
   return (
@@ -48,7 +47,7 @@ const UpNext = () => {
       <FlatList
         style={styles.list}
         data={upNextList}
-        keyExtractor={episode => `${episode.guid[0]._}`}
+        keyExtractor={episode => `${episode.id}`}
         extraData={upNextList}
         renderItem={({ item }) => {
           return (

@@ -5,48 +5,47 @@ import ScreenTitle from "../components/ScreenTitle";
 import { Context as MusicPlayerContext } from "../context/MusicPlayerContext";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const PodcastChannelScreen = ({ navigation }) => {
+const EpisodeScreen = ({ navigation }) => {
   const {
     state: { episodeList },
     getEpisodeList,
-    updatePodcast
+    updateCurrentEpisode
   } = useContext(MusicPlayerContext);
   const podcast = navigation.getParam("podcast_channel");
 
   useEffect(() => {
-    getEpisodeList(podcast.feedUrl);
+    getEpisodeList(podcast.id);
   }, []);
 
   return (
     <View style={styles.root}>
       <PurpleBackdrop />
-      <ScreenTitle title={podcast.trackName} />
-      <Image
-        source={{ uri: podcast.artworkUrl600 }}
-        style={styles.podcastArtwork}
-      />
+      <ScreenTitle title={podcast.title} />
+      <Image source={{ uri: podcast.image }} style={styles.podcastArtwork} />
       <FlatList
-        data={episodeList.item}
-        keyExtractor={result => `${result.guid[0]._}`}
+        data={episodeList.episodes}
+        keyExtractor={episode => `${episode.id}`}
         style={styles.episodeList}
-        renderItem={episode => {
-          const episode_item = episode.item;
+        renderItem={({ item }) => {
           return (
             <TouchableOpacity
               style={styles.item}
               onPress={() => {
                 console.log("Pressed to play podcast episode");
-                var { item, ...podcastChannelDetails } = episodeList;
-                updatePodcast({ ...podcastChannelDetails, ...episode_item });
+                var { episodes, ...podcastChannelDetails } = episodeList;
+                updateCurrentEpisode({
+                  podcast: podcastChannelDetails,
+                  ...item
+                });
                 navigation.navigate("Play");
               }}
             >
               <Text style={styles.title} numberOfLines={2}>
-                {episode_item.title}
+                {item.title}
               </Text>
-              <Text style={styles.pubDate}>{episode_item.pubDate}</Text>
+              <Text style={styles.pubDate}>{item.pub_date_ms}</Text>
               <Text style={styles.description} numberOfLines={2}>
-                {episode_item.description}
+                {item.description}
               </Text>
             </TouchableOpacity>
           );
@@ -88,4 +87,4 @@ const styles = StyleSheet.create({
   description: { fontSize: 12, fontWeight: "100" }
 });
 
-export default PodcastChannelScreen;
+export default EpisodeScreen;

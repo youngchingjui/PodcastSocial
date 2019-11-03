@@ -1,16 +1,22 @@
 import React, { useContext, useEffect } from "react";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
-import PurpleBackdrop from "../components/PurpleBackdrop";
-import ScreenTitle from "../components/ScreenTitle";
+
 import PlayButton from "../components/PlayButton";
-import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
+import PurpleBackdrop from "../components/PurpleBackdrop";
+import RecordButton from "../components/RecordButton";
+import ScreenTitle from "../components/ScreenTitle";
+
 import { Context as MusicPlayerContext } from "../context/MusicPlayerContext";
 
-import { Feather } from "@expo/vector-icons";
-import RecordButton from "../components/RecordButton";
+import { MaterialIcons, Feather } from "@expo/vector-icons";
 
 const PlayScreen = () => {
-  const { forward, rewind, loadSoundObject } = useContext(MusicPlayerContext);
+  const {
+    state: { currentEpisode },
+    forward,
+    rewind,
+    loadSoundObject
+  } = useContext(MusicPlayerContext);
 
   useEffect(() => {
     loadSoundObject();
@@ -21,16 +27,16 @@ const PlayScreen = () => {
       <PurpleBackdrop />
       <ScreenTitle title="Now Playing" />
       <Image
-        source={require("../../assets/images/b8561a9c7528866f91c650f8c7cc6b8461b14149.png")}
+        source={{ uri: currentEpisode.image }}
         style={styles.podcastArtwork}
       />
       <View style={styles.playPodcastBottom}>
         <View style={styles.episodeDetails}>
           <Text style={styles.episodeTitle} numberOfLines={2}>
-            I haven’t been this cautious in six years
+            {currentEpisode.title}
           </Text>
           <Text style={styles.episodeDescription} numberOfLines={2}>
-            EPISODE - 147
+            {currentEpisode.description}
           </Text>
         </View>
         <View style={styles.recordButton}>

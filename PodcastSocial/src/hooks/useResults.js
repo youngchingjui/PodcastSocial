@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import itunes from "../api/itunes";
+import listenNotes from "../api/listennotes";
 
 export default () => {
   const [results, setResults] = useState([]);
@@ -7,10 +8,10 @@ export default () => {
 
   const searchApi = async searchTerm => {
     try {
-      const response = await itunes.get("/search", {
+      const response = await listenNotes.get("/search", {
         params: {
-          media: "podcast",
-          term: searchTerm
+          q: searchTerm,
+          type: "podcast"
         }
       });
       setResults(response.data.results);

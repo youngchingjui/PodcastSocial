@@ -2,10 +2,6 @@ import React from "react";
 
 import { Feather } from "@expo/vector-icons";
 
-import Amplify from "aws-amplify";
-import awsmobile from "./aws-exports";
-Amplify.configure(awsmobile);
-
 import { Provider as MusicPlayerProvider } from "./src/context/MusicPlayerContext";
 import { Provider as PlaylistProvider } from "./src/context/PlaylistContext";
 import { Provider as RecorderProvider } from "./src/context/RecorderContext";
@@ -13,7 +9,7 @@ import { Provider as RecorderProvider } from "./src/context/RecorderContext";
 import MyPlaylistScreen from "./src/screens/MyPlaylistScreen";
 import SearchScreen from "./src/screens/SearchScreen";
 import PlayScreen from "./src/screens/PlayScreen";
-import PodcastChannelScreen from "./src/screens/PodcastChannelScreen";
+import EpisodeScreen from "./src/screens/EpisodeScreen";
 import RecordingsScreen from "./src/screens/RecordingsScreen";
 import PlaygroundScreen from "./src/screens/PlaygroundScreen";
 
@@ -25,7 +21,7 @@ import NavigationService from "./NavigationService";
 // Creating searchFlow Stack Navigation
 const searchRouteConfig = {
   Search: SearchScreen,
-  PodcastChannel: PodcastChannelScreen
+  Episodes: EpisodeScreen
 };
 const searchStackNavigatorConfig = {
   headerMode: "none"
@@ -63,6 +59,7 @@ const tabNavigator = createBottomTabNavigator(
 
 // Creating main App Container
 const AppContainer = createAppContainer(tabNavigator);
+
 const App = () => {
   return (
     <AppContainer
@@ -72,9 +69,6 @@ const App = () => {
     />
   );
 };
-
-// const signUpConfig = { usernameAttributes: "email" };
-// const App = withAuthenticator(appContainer, { signUpConfig });
 
 export default () => {
   return (

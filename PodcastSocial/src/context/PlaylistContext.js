@@ -1,16 +1,17 @@
 import createDataContext from "./createDataContext";
 
-import localServer from "../api/localServer";
-
+import { AsyncStorage } from "react-native";
 import { parseString } from "react-native-xml2js";
+var DOMParser = require("xmldom").DOMParser;
+
+import listenNotes from "../api/listennotes";
 
 const playlistReducer = (state, action) => {
   switch (action.type) {
     case "getSubscriptions":
       return { ...state, subscriptions: action.payload };
-    case "addSubscription":
-      var subscriptions = [...state.subscriptions, action.payload];
-      return { ...state, subscriptions };
+    case "updateSubscriptions":
+      return { ...state, subscriptions: action.payload };
     case "updateUpNextList":
       return { ...state, upNextList: action.payload };
     default:
@@ -20,83 +21,113 @@ const playlistReducer = (state, action) => {
 
 const getSubscriptions = dispatch => {
   return async () => {
-    const response = await localServer.get("/subscriptions");
-    dispatch({ type: "getSubscriptions", payload: response.data });
+    try {
+      const subscriptions = await AsyncStorage.getItem("subscriptions");
+      if (subscriptions !== null) {
+        dispatch({
+          type: "getSubscriptions",
+          payload: JSON.parse(subscriptions)
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
-const addSubscription = dispatch => {
-  return async subscription => {
-    console.log("Adding subscription");
-    const response = await localServer.post("/subscriptions", subscription);
-    console.log(response);
-    dispatch({ type: "addSubscription", payload: response.data });
-  };
-};
-
-const removeSubscription = dispatch => {
-  return async id => {
-    console.log("Removing subscription");
-    await localServer.delete(`/subscriptions/${id}`);
-    const response = await localServer.get("/subscriptions");
-    dispatch({ type: "getSubscriptions", payload: response.data });
+const updateSubscriptions = dispatch => {
+  return async (subscription, subscriptions, action) => {
+    if (action == "add") {
+      console.log("Adding subscription");
+      subscriptions.push(subscription);
+      try {
+        await AsyncStorage.setItem(
+          "subscriptions",
+          JSON.stringify(subscriptions)
+        );
+        dispatch({ type: "updateSubscriptions", payload: subscriptions });
+      } catch (err) {
+        console.log(err);
+      }
+    } else if (action == "remove") {
+      console.log("Removing subscription");
+      subscriptions = subscriptions.filter(
+        pod => pod.collectionId !== subscription.collectionId
+      );
+      try {
+        await AsyncStorage.setItem(
+          "subscriptions",
+          JSON.stringify(subscriptions)
+        );
+        dispatch({ type: "updateSubscriptions", payload: subscriptions });
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      console.log(
+        "Error with updating subscriptions. Did not provide correct action. Provide either add or remove"
+      );
+    }
   };
 };
 
 const loadUpNextList = dispatch => {
   console.log("Loading upNext List");
   return async () => {
-    const upNext = await localServer.get("/upNext");
-    dispatch({ type: "updateUpNextList", payload: upNext.data });
+    try {
+      const upNext = await AsyncStorage.getItem("upNext");
+      dispatch({ type: "updateUpNextList", payload: JSON.parse(upNext) });
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
 const updateUpNextList = dispatch => {
   console.log("Updating upNext List");
-  return async () => {
-    try {
-      const subscriptions = await localServer.get("/subscriptions");
-      console.log(subscriptions);
-
-      var allPodcastEpisodes = [];
-      for (var channel of subscriptions.data) {
-        const response = await fetch(channel.feedUrl);
-        const text = await response.text();
-
-        var results;
-        parseString(text, (err, result) => {
-          console.log(result);
-          results = result.rss.channel[0];
-          const { item, ...channelData } = results;
-          for (var i of item.slice(0, 3)) {
-            allPodcastEpisodes.push({ ...channelData, ...i });
-          }
-        });
-        // Sort podcast episodes in reverse chronological order
+  return async subscriptions => {
+    var allPodcastEpisodes = [];
+    for (var subscription of subscriptions) {
+      try {
+        const response = await listenNotes.get(`podcasts/${subscription.id}`);
+        const { episodes, ...podcast } = response.data;
+        for (const episode of episodes.slice(0, 3)) {
+          allPodcastEpisodes.push({ ...episode, podcast });
+        }
+      } catch (err) {
+        console.log("Error in getting recent podcasts");
+        console.log(err.message);
       }
-      allPodcastEpisodes.sort((a, b) =>
-        new Date(a.pubDate[0]) > new Date(b.pubDate[0]) ? 1 : -1
-      );
-      console.log(allPodcastEpisodes);
-    } catch (err) {
-      console.log("Error in getting recent podcasts");
-      console.log(err.message);
     }
-    try {
-      const response = await localServer.post(
-        "/upNext",
-        allPodcastEpisodes.slice(0, 10)
-      );
-      console.log("here's the response");
-      console.log(response);
-      dispatch({
-        type: "updateUpNextList",
-        payload: allPodcastEpisodes.slice(0, 10)
-      });
-    } catch (err) {
-      console.log("Error in updating upNext list");
-      console.log(err.message);
-    }
+
+    // for (var channel of subscriptions) {
+    //   const response = await fetch(channel.feedUrl);
+    //   const text = await response.text();
+    //   var xmlStringSerialized = new DOMParser().parseFromString(
+    //     text,
+    //     "text/xml"
+    //   );
+
+    //   parseString(xmlStringSerialized, (err, result) => {i
+    //     const results = result.rss.channel[0];
+    //     const { item, ...channelData } = results;
+    //     for (var i of item.slice(0, 3)) {
+    //       allPodcastEpisodes.push({ ...channelData, ...i });
+    //     }
+    //   });
+    // Sort podcast episodes in reverse chronological order
+    // }
+    allPodcastEpisodes.sort((a, b) =>
+      new Date(a.pub_date_ms[0]) > new Date(b.pub_date_ms[0]) ? 1 : -1
+    );
+    await AsyncStorage.setItem(
+      "upNext",
+      JSON.stringify(allPodcastEpisodes.slice(0, 10))
+    );
+    dispatch({
+      type: "updateUpNextList",
+      payload: allPodcastEpisodes.slice(0, 10)
+    });
   };
 };
 
@@ -106,8 +137,7 @@ export const { Context, Provider } = createDataContext(
   playlistReducer,
   {
     getSubscriptions,
-    addSubscription,
-    removeSubscription,
+    updateSubscriptions,
     loadUpNextList,
     updateUpNextList
   },

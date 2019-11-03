@@ -39,14 +39,14 @@ const SearchScreen = ({ navigation }) => {
       <ScrollView style={styles.scrollView}>
         <FlatList
           data={results}
-          keyExtractor={result => `${result.collectionId}`}
+          keyExtractor={result => `${result.id}`}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
                 onPress={() => {
                   console.log("Pressed for podcast channel");
                   console.log(item);
-                  navigation.navigate("PodcastChannel", {
+                  navigation.navigate("Episodes", {
                     podcast_channel: item
                   });
                 }}

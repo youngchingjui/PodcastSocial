@@ -6,38 +6,38 @@ import { Context as PlaylistContext } from "../context/PlaylistContext";
 const SearchResultDetail = ({ podcast_channel }) => {
   const {
     state: { subscriptions },
-    addSubscription,
-    removeSubscription
+    updateSubscriptions
+    // removeSubscription
   } = useContext(PlaylistContext);
 
   var isSubscribed = false;
   const subscription = subscriptions.filter(
-    pod => pod.trackId == podcast_channel.trackId
+    pod => pod.id == podcast_channel.id
   );
   subscription.length > 0 ? (isSubscribed = true) : (isSubscribed = false);
   return (
     <View style={styles.root}>
       <Image
         source={{
-          uri: podcast_channel.artworkUrl100
+          uri: podcast_channel.thumbnail
         }}
         style={styles.image}
       />
       <View style={styles.text}>
         <Text style={styles.collectionName} numberOfLines={2}>
-          {podcast_channel.collectionName}
+          {podcast_channel.title_original}
         </Text>
         <Text style={styles.artistName} numberOfLines={2}>
-          {podcast_channel.artistName}
+          {podcast_channel.publisher_original}
         </Text>
       </View>
       <TouchableOpacity
         style={styles.icon}
         onPress={() => {
           if (isSubscribed) {
-            removeSubscription(subscription[0].id);
+            updateSubscriptions(subscription[0], subscriptions, "remove");
           } else {
-            addSubscription(podcast_channel);
+            updateSubscriptions(podcast_channel, subscriptions, "add");
           }
         }}
       >

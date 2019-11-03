@@ -11,7 +11,7 @@ import NavigationService from "../../NavigationService";
 
 const ContinuePlaying = () => {
   const {
-    state: { currentPodcast, isPlaying, isCurrentPodcastLoaded, soundObject },
+    state: { currentEpisode, isPlaying, isCurrentEpisodeLoaded, soundObject },
     loadSoundObject,
     changeIsPlaying
   } = useContext(MusicPlayerContext);
@@ -45,22 +45,20 @@ const ContinuePlaying = () => {
 
   return (
     <TouchableOpacity style={styles.continuePlaying} onPress={onPress}>
-      {isCurrentPodcastLoaded ? (
+      {isCurrentEpisodeLoaded ? (
         <Image
           source={{
-            uri: currentPodcast["itunes:image"][0].$.href
+            uri: currentEpisode.image
           }}
           style={styles.artwork}
         />
       ) : null}
       <View style={styles.darken}>
-        {isCurrentPodcastLoaded ? (
+        {isCurrentEpisodeLoaded ? (
           <View>
-            <Text style={styles.title}>
-              {(currentPodcast["itunes:title"] || currentPodcast["title"])[0]}
-            </Text>
+            <Text style={styles.title}>{currentEpisode.title}</Text>
             <Text style={styles.podcastChannel}>
-              {currentPodcast["collectionName"]}
+              {currentEpisode.podcast.title}
             </Text>
           </View>
         ) : null}

@@ -1,21 +1,18 @@
-// I'm trying to combine all Context data in this file now. For now, it includes data for:
-// - Music Player
-// - Search results
-
 import createDataContext from "./createDataContext";
+import { AsyncStorage } from "react-native";
 import { Audio } from "expo-av";
 import { parseString } from "react-native-xml2js";
 import * as Permissions from "expo-permissions";
-import localServer from "../api/localServer";
+import listenNotes from "../api/listennotes";
 
 const musicPlayerReducer = (state, action) => {
   switch (action.type) {
     case "loadSoundObject":
       const { soundObject } = state;
-      const currentPodcast = action.payload;
+      const currentEpisode = action.payload;
       if (
-        Object.keys(currentPodcast).length === 0 &&
-        currentPodcast.constructor === Object
+        Object.keys(currentEpisode).length === 0 &&
+        currentEpisode.constructor === Object
       ) {
         console.log("No podcast is loaded! Not loading sound object");
       } else {
@@ -23,8 +20,7 @@ const musicPlayerReducer = (state, action) => {
           console.log("Starting to load sound object");
           soundObject
             .loadAsync({
-              // uri: audioURI
-              uri: currentPodcast.enclosure[0].$.url
+              uri: currentEpisode.audio
             })
             .then(() => {
               console.log("soundObject loaded");
@@ -33,8 +29,8 @@ const musicPlayerReducer = (state, action) => {
       }
       return {
         ...state,
-        currentPodcast: currentPodcast,
-        isCurrentPodcastLoaded: true
+        currentEpisode,
+        isCurrentEpisodeLoaded: true
       };
     case "changeIsPlaying":
       return { ...state, isPlaying: action.payload };
@@ -57,8 +53,8 @@ const musicPlayerReducer = (state, action) => {
     case "getEpisodeList":
       return { ...state, episodeList: action.payload };
 
-    case "updatePodcast":
-      return { ...state, currentPodcast: action.payload };
+    case "updateCurrentEpisode":
+      return { ...state, currentEpisode: action.payload };
     default:
       return state;
   }
@@ -66,8 +62,17 @@ const musicPlayerReducer = (state, action) => {
 
 const loadSoundObject = dispatch => {
   return async () => {
-    const response = await localServer.get("/currentPodcast");
-    dispatch({ type: "loadSoundObject", payload: response.data });
+    try {
+      const currentEpisode = await AsyncStorage.getItem("currentEpisode");
+      if (currentEpisode !== null) {
+        dispatch({
+          type: "loadSoundObject",
+          payload: JSON.parse(currentEpisode)
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
@@ -99,25 +104,31 @@ const updateAudioURI = dispatch => {
 };
 
 const getEpisodeList = dispatch => {
-  return async feedUrl => {
+  return async podcastId => {
     console.log("getEpisodeList");
-    const response = await fetch(feedUrl);
-    const text = await response.text();
+    const response = await listenNotes(`/podcasts/${podcastId}`);
 
-    var results;
-    parseString(text, (err, result) => {
-      console.log(result);
-      results = result.rss.channel[0];
-    });
-    dispatch({ type: "getEpisodeList", payload: results });
+    // const text = await response.text();
+
+    // var results;
+    // parseString(text, (err, result) => {
+    //   console.log(result);
+    //   results = result.rss.channel[0];
+    // });
+    dispatch({ type: "getEpisodeList", payload: response.data });
   };
 };
 
-const updatePodcast = dispatch => {
-  return async podcast => {
-    console.log("Updating current podcast");
-    await localServer.put("/currentPodcast", podcast);
-    dispatch({ type: "updatePodcast", payload: podcast });
+const updateCurrentEpisode = dispatch => {
+  return async episode => {
+    console.log("Updating current episode");
+
+    try {
+      await AsyncStorage.setItem("currentEpisode", JSON.stringify(episode));
+      dispatch({ type: "updateCurrentEpisode", payload: episode });
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
@@ -131,8 +142,8 @@ export const initialState = {
     "https://chtbl.com/track/78898/traffic.megaphone.fm/LMM3137604272.mp3",
   searchResults: [],
   episodeList: [],
-  currentPodcast: {},
-  isCurrentPodcastLoaded: false
+  currentEpisode: {},
+  isCurrentEpisodeLoaded: false
 };
 
 export const { Context, Provider } = createDataContext(
@@ -144,7 +155,7 @@ export const { Context, Provider } = createDataContext(
     loadSoundObject,
     getEpisodeList,
     updateAudioURI,
-    updatePodcast
+    updateCurrentEpisode
   },
   initialState
 );

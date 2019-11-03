@@ -24,12 +24,13 @@ import { Feather } from "@expo/vector-icons";
 import Storage from "@aws-amplify/storage";
 import { API } from "aws-amplify";
 
+import { AsyncStorage } from "react-native";
 const PlaygroundScreen = () => {
   const { recordIntentToSend } = useContext(RecorderContext);
 
   const buttonPush = async () => {
     console.log("Pushed the button");
-    recordIntentToSend();
+    AsyncStorage.clear();
   };
 
   return (

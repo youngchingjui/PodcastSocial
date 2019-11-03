@@ -1,23 +1,20 @@
 // RecordContext.js;
 
+import { AsyncStorage } from "react-native";
+
 import createDataContext from "./createDataContext";
 
-import localServer from "../api/localServer";
+import airtable from "../api/airtable";
 
 import { Audio } from "expo-av";
-import * as FileSystem from "expo-file-system";
 import * as Permissions from "expo-permissions";
-
-import Storage from "@aws-amplify/storage";
-
-import airtable from "../api/airtable";
 
 const musicPlayerReducer = (state, action) => {
   switch (action.type) {
     case "startRecording":
       return { ...state, recordObject: action.recordObject, isRecording: true };
     case "stopRecording":
-      return { ...state, isRecording: false };
+      return { ...state, recordings: action.payload, isRecording: false };
     case "checkRecordingPermissions":
       return { ...state, recordingPermissionStatus: action.payload };
     case "requestRecordingPermission":
@@ -65,24 +62,30 @@ const startRecording = dispatch => {
 };
 
 const stopRecording = dispatch => {
-  return async recordObject => {
+  return async (recordObject, recordings, currentEpisode) => {
     console.log("Trying to stop recording");
     try {
-      const payload = {};
-      payload["uri"] = recordObject._uri;
-      const response = await recordObject.stopAndUnloadAsync();
+      const newRecording = await recordObject.stopAndUnloadAsync();
       console.log("Stopped recording, here's response:");
-      console.log(response);
-      payload["durationMillis"] = response.durationMillis;
-      payload["podcast"] = {};
-      payload["podcastTimestamp"] = {};
-      saveRecordingMetadata(payload);
-      uploadRecording(payload);
+      console.log(newRecording);
+      newRecording["uri"] = recordObject._uri;
+      newRecording["episode"] = currentEpisode;
+
+      // uploadRecording(payload);
+
+      console.log("Saving recording data:");
+      if (recordings) {
+        recordings.push(newRecording);
+      } else {
+        recordings = Array(newRecording);
+      }
+      await AsyncStorage.setItem("recordings", JSON.stringify(recordings));
+
+      dispatch({ type: "stopRecording", payload: recordings });
     } catch (error) {
       console.log("There was an error with trying to stop recording");
       console.log(error);
     }
-    dispatch({ type: "stopRecording" });
   };
 };
 
@@ -109,8 +112,8 @@ const requestRecordingPermission = dispatch => {
 
 const loadRecordings = dispatch => {
   return async () => {
-    const recordings = await localServer.get("/recordings");
-    dispatch({ type: "loadRecordings", payload: recordings.data });
+    const recordings = await AsyncStorage.getItem("recordings");
+    dispatch({ type: "loadRecordings", payload: JSON.parse(recordings) });
   };
 };
 
@@ -171,26 +174,28 @@ const msToTime = dispatch => s => {
 };
 
 // Helper functions for RecorderContext. Not exported.
-const saveRecordingMetadata = async data => {
+const saveRecordingMetadata = async (newRecording, recordings) => {
   console.log("Saving recording data:");
-  console.log(data);
-  const response = await localServer.post("/recordings", data);
-  console.log(response);
+  recordings.push(newRecording);
+  await AsyncStorage.setItem("recordings", JSON.stringify(recordings));
+  return recordings;
+  // const response = await localServer.post("/recordings", data);
+  // console.log(response);
 };
 
-const uploadRecording = async payload => {
-  console.log("Uploading recording to S3");
-  const { uri } = payload;
-  try {
-    const fileResponse = await fetch(uri);
-    const blob = await fileResponse.blob();
-    const filename = uri.replace(/^.*[\\\/]/, "");
-    const response = await Storage.put(filename, blob);
-    console.log(response);
-  } catch (err) {
-    console.log(err);
-  }
-};
+// const uploadRecording = async payload => {
+//   console.log("Uploading recording to S3");
+//   const { uri } = payload;
+//   try {
+//     const fileResponse = await fetch(uri);
+//     const blob = await fileResponse.blob();
+//     const filename = uri.replace(/^.*[\\\/]/, "");
+//     const response = await Storage.put(filename, blob);
+//     console.log(response);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 export const initialState = {
   recordObject: null,

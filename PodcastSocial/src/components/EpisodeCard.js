@@ -6,16 +6,12 @@ import { Context as PlaylistContext } from "../context/PlaylistContext";
 const Content = ({ episode }) => {
   return (
     <>
-      {episode ? (
-        <>
-          <Text style={styles.podcastTitle} numberOfLines={2}>
-            {episode.image[0].title[0]}
-          </Text>
-          <Text style={styles.episodeTitle} numberOfLines={2}>
-            {episode["itunes:title"]}
-          </Text>
-        </>
-      ) : null}
+      <Text style={styles.podcastTitle} numberOfLines={2}>
+        {episode.podcast.title}
+      </Text>
+      <Text style={styles.episodeTitle} numberOfLines={2}>
+        {episode.title}
+      </Text>
     </>
   );
 };
@@ -25,7 +21,7 @@ const EpisodeCard = ({ episode }) => {
     <View style={styles.root}>
       <Image
         source={{
-          uri: episode.image[0].url[0]
+          uri: episode.thumbnail
         }}
         style={styles.image}
       />
