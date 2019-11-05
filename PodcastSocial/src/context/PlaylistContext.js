@@ -1,8 +1,6 @@
 import createDataContext from "./createDataContext";
 
 import { AsyncStorage } from "react-native";
-import { parseString } from "react-native-xml2js";
-var DOMParser = require("xmldom").DOMParser;
 
 import listenNotes from "../api/listennotes";
 
@@ -14,6 +12,12 @@ const playlistReducer = (state, action) => {
       return { ...state, subscriptions: action.payload };
     case "updateUpNextList":
       return { ...state, upNextList: action.payload };
+    case "loadPlaylistState":
+      return {
+        ...state,
+        subscriptions: action.payload.subscriptions,
+        upNext: action.payload.upNext
+      };
     default:
       return state;
   }
@@ -21,6 +25,7 @@ const playlistReducer = (state, action) => {
 
 const getSubscriptions = dispatch => {
   return async () => {
+    console.log("Getting subscriptions");
     try {
       const subscriptions = await AsyncStorage.getItem("subscriptions");
       if (subscriptions !== null) {
@@ -99,25 +104,7 @@ const updateUpNextList = dispatch => {
         console.log(err.message);
       }
     }
-
-    // for (var channel of subscriptions) {
-    //   const response = await fetch(channel.feedUrl);
-    //   const text = await response.text();
-    //   var xmlStringSerialized = new DOMParser().parseFromString(
-    //     text,
-    //     "text/xml"
-    //   );
-
-    //   parseString(xmlStringSerialized, (err, result) => {i
-    //     const results = result.rss.channel[0];
-    //     const { item, ...channelData } = results;
-    //     for (var i of item.slice(0, 3)) {
-    //       allPodcastEpisodes.push({ ...channelData, ...i });
-    //     }
-    //   });
-    // Sort podcast episodes in reverse chronological order
-    // }
-    allPodcastEpisodes.sort((a, b) =>
+    allPodcastEpisodes = allPodcastEpisodes.sort((a, b) =>
       new Date(a.pub_date_ms[0]) > new Date(b.pub_date_ms[0]) ? 1 : -1
     );
     await AsyncStorage.setItem(
@@ -131,6 +118,19 @@ const updateUpNextList = dispatch => {
   };
 };
 
+const loadPlaylistState = dispatch => async () => {
+  console.log("Updating Playlist State");
+
+  // As we add more variables stored on local storage, add them here.
+  const sub = await AsyncStorage.getItem("subscriptions");
+  const subscriptions = JSON.parse(sub);
+
+  const upn = await AsyncStorage.getItem("upNext");
+  const upNext = JSON.parse(upn);
+
+  dispatch({ type: "loadPlaylistState", payload: { subscriptions, upNext } });
+};
+
 export const initialState = { upNextList: null, subscriptions: [] };
 
 export const { Context, Provider } = createDataContext(
@@ -139,7 +139,8 @@ export const { Context, Provider } = createDataContext(
     getSubscriptions,
     updateSubscriptions,
     loadUpNextList,
-    updateUpNextList
+    updateUpNextList,
+    loadPlaylistState
   },
   initialState
 );

@@ -40,7 +40,7 @@ const RecordingsScreen = () => {
         <FlatList
           style={styles.flatList}
           data={recordings}
-          keyExtractor={result => `${result.id}`}
+          keyExtractor={result => `${result.uri}`}
           renderItem={({ item }) => {
             return (
               <View style={styles.item}>
@@ -54,13 +54,18 @@ const RecordingsScreen = () => {
                   </Text>
                   <View style={styles.textDetails}>
                     <Text>While playing</Text>
-                    <Text>Title of podcast</Text>
+                    <Text numberOfLines={1} style={styles.episodeTitle}>
+                      {item.episode.title}
+                    </Text>
+                    <Text numberOfLines={1} style={styles.podcastTitle}>
+                      {item.episode.podcast.title}
+                    </Text>
                     <Text>@ 2:13 </Text>
                   </View>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.delete}
-                  onPress={deleteRecording}
+                  onPress={() => deleteRecording(item, recordings)}
                 >
                   <MaterialIcons name="delete" size={30} />
                 </TouchableOpacity>
@@ -120,6 +125,12 @@ const styles = StyleSheet.create({
   duration: {
     marginHorizontal: 5,
     fontSize: 24
+  },
+  episodeTitle: {
+    width: 100
+  },
+  podcastTitle: {
+    width: 100
   }
 });
 

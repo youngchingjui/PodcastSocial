@@ -1,35 +1,13 @@
 import createDataContext from "./createDataContext";
 import { AsyncStorage } from "react-native";
 import { Audio } from "expo-av";
-import { parseString } from "react-native-xml2js";
-import * as Permissions from "expo-permissions";
 import listenNotes from "../api/listennotes";
 
 const musicPlayerReducer = (state, action) => {
   switch (action.type) {
     case "loadSoundObject":
-      const { soundObject } = state;
-      const currentEpisode = action.payload;
-      if (
-        Object.keys(currentEpisode).length === 0 &&
-        currentEpisode.constructor === Object
-      ) {
-        console.log("No podcast is loaded! Not loading sound object");
-      } else {
-        if (!soundObject._loaded) {
-          console.log("Starting to load sound object");
-          soundObject
-            .loadAsync({
-              uri: currentEpisode.audio
-            })
-            .then(() => {
-              console.log("soundObject loaded");
-            });
-        }
-      }
       return {
         ...state,
-        currentEpisode,
         isCurrentEpisodeLoaded: true
       };
     case "changeIsPlaying":
@@ -55,23 +33,34 @@ const musicPlayerReducer = (state, action) => {
 
     case "updateCurrentEpisode":
       return { ...state, currentEpisode: action.payload };
+    case "loadMusicPlayerState":
+      return { ...state, currentEpisode: action.payload.currentEpisode };
     default:
       return state;
   }
 };
 
 const loadSoundObject = dispatch => {
-  return async () => {
-    try {
-      const currentEpisode = await AsyncStorage.getItem("currentEpisode");
-      if (currentEpisode !== null) {
-        dispatch({
-          type: "loadSoundObject",
-          payload: JSON.parse(currentEpisode)
+  return async (currentEpisode, soundObject) => {
+    if (
+      Object.entries(currentEpisode).length === 0 &&
+      currentEpisode.constructor === Object
+    ) {
+      console.log("currentEpisode not loaded:" + currentEpisode);
+    } else {
+      if (!soundObject._loaded) {
+        console.log("Starting to load sound object");
+        await soundObject.loadAsync({
+          uri: currentEpisode.audio
         });
+        console.log("soundObject loaded");
+        dispatch({
+          type: "loadSoundObject"
+        });
+      } else {
+        console.warn("soundObject already loaded");
+        console.log(soundObject);
       }
-    } catch (err) {
-      console.log(err);
     }
   };
 };
@@ -132,6 +121,16 @@ const updateCurrentEpisode = dispatch => {
   };
 };
 
+const loadMusicPlayerState = dispatch => async () => {
+  console.log("Updating Music Player State");
+
+  // As we add more variables stored on local storage, add them here.
+  const response = await AsyncStorage.getItem("currentEpisode");
+  const currentEpisode = JSON.parse(response);
+  console.log("Finished updating music player state");
+  dispatch({ type: "loadMusicPlayerState", payload: { currentEpisode } });
+};
+
 export const initialState = {
   currentUser: {},
   soundObject: new Audio.Sound(),
@@ -155,7 +154,8 @@ export const { Context, Provider } = createDataContext(
     loadSoundObject,
     getEpisodeList,
     updateAudioURI,
-    updateCurrentEpisode
+    updateCurrentEpisode,
+    loadMusicPlayerState
   },
   initialState
 );

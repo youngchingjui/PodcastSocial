@@ -1,0 +1,19 @@
+{
+    "sopoenv": {
+        "awscloudformation": {
+            "AuthRoleName": "socialpodcast-sopoenv-20191104201554-authRole",
+            "UnauthRoleArn": "arn:aws:iam::362142771237:role/socialpodcast-sopoenv-20191104201554-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::362142771237:role/socialpodcast-sopoenv-20191104201554-authRole",
+            "Region": "ap-northeast-2",
+            "DeploymentBucketName": "socialpodcast-sopoenv-20191104201554-deployment",
+            "UnauthRoleName": "socialpodcast-sopoenv-20191104201554-unauthRole",
+            "StackName": "socialpodcast-sopoenv-20191104201554",
+            "StackId": "arn:aws:cloudformation:ap-northeast-2:362142771237:stack/socialpodcast-sopoenv-20191104201554/d98c8730-fefc-11e9-b7d7-0689b5dc6f6c"
+        },
+        "categories": {
+            "auth": {
+                "socialpodcast403ccd15": {}
+            }
+        }
+    }
+}

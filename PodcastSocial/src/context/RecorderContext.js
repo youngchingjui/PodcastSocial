@@ -8,6 +8,9 @@ import airtable from "../api/airtable";
 
 import { Audio } from "expo-av";
 import * as Permissions from "expo-permissions";
+import * as FileSystem from "expo-file-system";
+
+import { Storage } from "aws-amplify";
 
 const musicPlayerReducer = (state, action) => {
   switch (action.type) {
@@ -23,6 +26,10 @@ const musicPlayerReducer = (state, action) => {
       return { ...state, recordings: action.payload };
     case "createTestFile":
       return { ...state, uri: action.payload };
+    case "deleteRecording":
+      return { ...state, recordings: action.payload };
+    case "loadRecorderState":
+      return { ...state, recordings: action.payload.recordings };
     default:
       return state;
   }
@@ -71,7 +78,8 @@ const stopRecording = dispatch => {
       newRecording["uri"] = recordObject._uri;
       newRecording["episode"] = currentEpisode;
 
-      // uploadRecording(payload);
+      // Upload to S3
+      uploadRecording(newRecording);
 
       console.log("Saving recording data:");
       if (recordings) {
@@ -111,6 +119,7 @@ const requestRecordingPermission = dispatch => {
 };
 
 const loadRecordings = dispatch => {
+  console.log("Loading recordings");
   return async () => {
     const recordings = await AsyncStorage.getItem("recordings");
     dispatch({ type: "loadRecordings", payload: JSON.parse(recordings) });
@@ -145,8 +154,25 @@ const recordIntentToSend = dispatch => async (
   }
 };
 
-const deleteRecording = dispatch => () => {
+const deleteRecording = dispatch => {
   console.log("Deleting recording");
+  return async (recording, recordings) => {
+    // Delete from state
+    recordings = recordings.filter(rec => rec.uri != recording.uri);
+    dispatch({ type: "deleteRecording", payload: recordings });
+
+    // Delete from local storage
+    const file = await FileSystem.getInfoAsync(recording.uri);
+    if (file.exists) {
+      FileSystem.deleteAsync(recording.uri);
+    } else {
+      console.warn("File does not exist: " + recording.uri);
+    }
+    // Delete metadata from local storage
+    await AsyncStorage.setItem("recordings", JSON.stringify(recordings));
+
+    // Delete from S3
+  };
 };
 
 const playRecording = dispatch => () => {
@@ -173,29 +199,31 @@ const msToTime = dispatch => s => {
   }
 };
 
-// Helper functions for RecorderContext. Not exported.
-const saveRecordingMetadata = async (newRecording, recordings) => {
-  console.log("Saving recording data:");
-  recordings.push(newRecording);
-  await AsyncStorage.setItem("recordings", JSON.stringify(recordings));
-  return recordings;
-  // const response = await localServer.post("/recordings", data);
-  // console.log(response);
+const loadRecorderState = dispatch => async () => {
+  console.log("Updating Recorder State");
+
+  // As we add more variables stored on local storage, add them here.
+  const rec = await AsyncStorage.getItem("recordings");
+  const recordings = JSON.parse(rec);
+
+  dispatch({ type: "loadRecorderState", payload: { recordings } });
 };
 
-// const uploadRecording = async payload => {
-//   console.log("Uploading recording to S3");
-//   const { uri } = payload;
-//   try {
-//     const fileResponse = await fetch(uri);
-//     const blob = await fileResponse.blob();
-//     const filename = uri.replace(/^.*[\\\/]/, "");
-//     const response = await Storage.put(filename, blob);
-//     console.log(response);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
+// Helper functions for RecorderContext. Not exported.
+
+const uploadRecording = async payload => {
+  console.log("Uploading recording to S3");
+  const { uri } = payload;
+  try {
+    const fileResponse = await fetch(uri);
+    const blob = await fileResponse.blob();
+    const filename = uri.replace(/^.*[\\\/]/, "");
+    const response = await Storage.put(filename, blob);
+    console.log(response);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export const initialState = {
   recordObject: null,
@@ -217,7 +245,8 @@ export const { Context, Provider } = createDataContext(
     deleteRecording,
     playRecording,
     msToTime,
-    recordIntentToSend
+    recordIntentToSend,
+    loadRecorderState
   },
   initialState
 );

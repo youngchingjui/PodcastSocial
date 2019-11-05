@@ -1,0 +1,15 @@
+{
+	"auth": {
+		"socialpodcast403ccd15": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	},
+	"storage": {
+		"sopobucketresource": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}

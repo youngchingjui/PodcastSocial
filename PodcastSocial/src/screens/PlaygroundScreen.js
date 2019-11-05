@@ -16,8 +16,6 @@ import ScreenTitle from "../components/ScreenTitle";
 import { Context as MusicPlayerContext } from "../context/MusicPlayerContext";
 import { Context as RecorderContext } from "../context/RecorderContext";
 
-import * as FileSystem from "expo-file-system";
-
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 

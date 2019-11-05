@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 
 import { Feather } from "@expo/vector-icons";
 
-import { Provider as MusicPlayerProvider } from "./src/context/MusicPlayerContext";
-import { Provider as PlaylistProvider } from "./src/context/PlaylistContext";
-import { Provider as RecorderProvider } from "./src/context/RecorderContext";
+import {
+  Provider as MusicPlayerProvider,
+  Context as MusicPlayerContext
+} from "./src/context/MusicPlayerContext";
+import {
+  Provider as PlaylistProvider,
+  Context as PlaylistContext
+} from "./src/context/PlaylistContext";
+import {
+  Provider as RecorderProvider,
+  Context as RecorderContext
+} from "./src/context/RecorderContext";
 
 import MyPlaylistScreen from "./src/screens/MyPlaylistScreen";
 import SearchScreen from "./src/screens/SearchScreen";
@@ -41,11 +50,10 @@ const tabNavigatorRoute = {
   MyPlaylist: MyPlaylistScreen,
   Play: PlayScreen,
   searchFlow,
-  Recordings: RecordingsScreen,
-  Playground: PlaygroundScreen
+  Recordings: RecordingsScreen
 };
 const tabNavigatorConfig = {
-  initialRouteName: "MyPlaylist",
+  initialRouteName: "Recordings",
   tabBarOptions: {
     activeTintColor: "tomato",
     inactiveTintColor: "gray",
@@ -61,6 +69,33 @@ const tabNavigator = createBottomTabNavigator(
 const AppContainer = createAppContainer(tabNavigator);
 
 const App = () => {
+  const {
+    state: { subscriptions },
+    getSubscriptions,
+    updateUpNextList,
+    loadPlaylistState
+  } = useContext(PlaylistContext);
+  const { loadRecordings, loadRecorderState } = useContext(RecorderContext);
+  const {
+    state: { soundObject, currentEpisode },
+    loadSoundObject,
+    loadMusicPlayerState
+  } = useContext(MusicPlayerContext);
+
+  useEffect(() => {
+    loadPlaylistState();
+    loadRecorderState();
+    loadMusicPlayerState();
+  }, []);
+
+  useEffect(() => {
+    loadSoundObject(currentEpisode, soundObject);
+  }, [currentEpisode]);
+
+  useEffect(() => {
+    updateUpNextList(subscriptions);
+  }, [subscriptions]);
+
   return (
     <AppContainer
       ref={navigatorRef => {

@@ -17,7 +17,7 @@ const ContinuePlaying = () => {
   } = useContext(MusicPlayerContext);
 
   useEffect(() => {
-    loadSoundObject();
+    // loadSoundObject();
   }, []);
 
   const onPress = async () => {

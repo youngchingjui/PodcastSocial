@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import * as MailComposer from "expo-mail-composer";
-import * as FileSystem from "expo-file-system";
 import { Audio } from "expo-av";
 import * as Permissions from "expo-permissions";
 
@@ -10,19 +8,6 @@ export default function App() {
   const [audioURI, setAudioURI] = useState("");
   const [textURI, setTextURI] = useState("");
   const [recordObject, setRecordObject] = useState(null);
-
-  const createTestFile = async () => {
-    console.log("Creating new test file");
-    const uri = FileSystem.cacheDirectory + "test.txt";
-    const writeResponse = await FileSystem.writeAsStringAsync(
-      uri,
-      "testing text"
-    );
-    console.log("Finished creating document");
-    console.log(writeResponse);
-
-    setTextURI(uri);
-  };
 
   const onPressRecording = async () => {
     if (isRecording) {
@@ -66,25 +51,6 @@ export default function App() {
         console.log(error);
       }
     }
-  };
-  const sendEmail = async audioURI => {
-    console.log("sendEmailPushed");
-
-    // First check if the file is there
-    const dirResponse = await FileSystem.readDirectoryAsync(
-      FileSystem.documentDirectory
-    );
-    console.log(dirResponse);
-
-    options = {
-      recipients: ["testing@email.com"],
-      subject: "Testing sending mail and attachment with Expo",
-      body: "This is a test body message",
-      isHtml: true,
-      attachments: [audioURI]
-    };
-    const response = await MailComposer.composeAsync(options);
-    console.log(response);
   };
 
   const checkRecordingPermissions = () => {

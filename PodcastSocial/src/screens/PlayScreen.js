@@ -19,7 +19,7 @@ const PlayScreen = () => {
   } = useContext(MusicPlayerContext);
 
   useEffect(() => {
-    loadSoundObject();
+    // loadSoundObject();
   }, []);
 
   return (

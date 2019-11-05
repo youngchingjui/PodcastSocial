@@ -1,17 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  ScrollView,
-  FlatList
-} from "react-native";
+import { StyleSheet, ScrollView, FlatList } from "react-native";
 
 import { Context as MusicPlayerContext } from "../context/MusicPlayerContext";
 import { Context as PlaylistContext } from "../context/PlaylistContext";
 
-import PlayButton from "../components/PlayButton";
 import EpisodeCard from "../components/EpisodeCard";
 
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -23,7 +15,6 @@ const UpNext = () => {
 
   const {
     state: { upNextList, subscriptions },
-    loadUpNextList,
     updateUpNextList,
     getSubscriptions
   } = useContext(PlaylistContext);
@@ -31,10 +22,6 @@ const UpNext = () => {
   useEffect(() => {
     getSubscriptions();
   }, []);
-
-  useEffect(() => {
-    updateUpNextList(subscriptions);
-  }, [subscriptions]);
 
   const onPress = episode => {
     console.log("Pressed upcoming podcast");
