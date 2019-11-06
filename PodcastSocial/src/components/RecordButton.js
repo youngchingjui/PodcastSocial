@@ -33,10 +33,8 @@ const RecordButton = () => {
           requestRecordingPermission();
         } else if (recordingPermissionStatus == "granted") {
           if (!isRecording) {
-            console.log("start recording");
             startRecording();
           } else {
-            console.log("stop recording");
             stopRecording(recordObject, recordings, currentEpisode);
           }
         } else if (recordingPermissionStatus == "denied") {

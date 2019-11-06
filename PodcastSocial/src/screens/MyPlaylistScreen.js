@@ -14,6 +14,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import { Auth } from "aws-amplify";
+
 const MyPlaylistScreen = () => {
   return (
     <View style={styles.root}>

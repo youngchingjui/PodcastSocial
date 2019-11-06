@@ -37,7 +37,7 @@ const musicPlayerReducer = (state, action) => {
 
 const startRecording = dispatch => {
   return async () => {
-    console.log("Trying to record");
+    console.log("Start recording");
 
     //TODO: Stop podcast from playing
     Audio.setAudioModeAsync({
@@ -70,11 +70,9 @@ const startRecording = dispatch => {
 
 const stopRecording = dispatch => {
   return async (recordObject, recordings, currentEpisode) => {
-    console.log("Trying to stop recording");
+    console.log("Stop recording");
     try {
       const newRecording = await recordObject.stopAndUnloadAsync();
-      console.log("Stopped recording, here's response:");
-      console.log(newRecording);
       newRecording["uri"] = recordObject._uri;
       newRecording["episode"] = currentEpisode;
 
@@ -155,8 +153,8 @@ const recordIntentToSend = dispatch => async (
 };
 
 const deleteRecording = dispatch => {
-  console.log("Deleting recording");
   return async (recording, recordings) => {
+    console.log("Deleting recording");
     // Delete from state
     recordings = recordings.filter(rec => rec.uri != recording.uri);
     dispatch({ type: "deleteRecording", payload: recordings });
@@ -218,7 +216,7 @@ const uploadRecording = async payload => {
     const fileResponse = await fetch(uri);
     const blob = await fileResponse.blob();
     const filename = uri.replace(/^.*[\\\/]/, "");
-    const response = await Storage.put(filename, blob);
+    const response = await Storage.put(filename, blob, { level: "private" });
     console.log(response);
   } catch (err) {
     console.log(err);
