@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import { Auth } from "aws-amplify";
 
 const AccountScreen = ({ navigation }) => {
@@ -29,5 +31,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   }
 });
+
+AccountScreen.navigationOptions = {
+  title: "Account",
+  tabBarIcon: <MaterialCommunityIcons name="account" size={25} />
+};
 
 export default AccountScreen;

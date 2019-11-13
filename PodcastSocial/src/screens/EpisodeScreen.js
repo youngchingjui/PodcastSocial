@@ -1,9 +1,12 @@
 import React, { useEffect, useContext } from "react";
 import { Image, StyleSheet, View, Text, FlatList } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
 import PurpleBackdrop from "../components/PurpleBackdrop";
 import ScreenTitle from "../components/ScreenTitle";
+
 import { Context as MusicPlayerContext } from "../context/MusicPlayerContext";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Context as RecorderContext } from "../context/RecorderContext";
 
 const EpisodeScreen = ({ navigation }) => {
   const {
@@ -11,6 +14,9 @@ const EpisodeScreen = ({ navigation }) => {
     getEpisodeList,
     updateCurrentEpisode
   } = useContext(MusicPlayerContext);
+
+  const { msToTime } = useContext(RecorderContext);
+
   const podcast = navigation.getParam("podcast_channel");
 
   useEffect(() => {
@@ -43,7 +49,9 @@ const EpisodeScreen = ({ navigation }) => {
               <Text style={styles.title} numberOfLines={2}>
                 {item.title}
               </Text>
-              <Text style={styles.pubDate}>{item.pub_date_ms}</Text>
+              <Text style={styles.pubDate}>
+                {msToTime(item.pub_date_ms, "date")}
+              </Text>
               <Text style={styles.description} numberOfLines={2}>
                 {item.description}
               </Text>
@@ -60,8 +68,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   episodeList: {
-    left: "7.47%",
-    width: 358
+    marginTop: 20
   },
   podcastArtwork: {
     width: 300,
@@ -71,6 +78,7 @@ const styles = StyleSheet.create({
   },
   item: {
     marginVertical: 10,
+    marginHorizontal: 28,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

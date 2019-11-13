@@ -114,8 +114,8 @@ searchFlow.navigationOptions = {
 // Creating main bottomTabNavigator
 const tabNavigatorRoute = {
   MyPlaylist: MyPlaylistScreen,
-  Play: PlayScreen,
   searchFlow,
+  Play: PlayScreen,
   Recordings: RecordingsScreen,
   Account: AccountScreen
 };
@@ -158,7 +158,8 @@ const App = () => {
   const {
     state: { soundObject, currentEpisode },
     loadSoundObject,
-    loadMusicPlayerState
+    loadMusicPlayerState,
+    unloadCurrentEpisodeSoundObject
   } = useContext(MusicPlayerContext);
 
   useEffect(() => {
@@ -168,7 +169,8 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    loadSoundObject(currentEpisode, soundObject);
+    unloadCurrentEpisodeSoundObject(soundObject);
+    loadSoundObject(currentEpisode);
   }, [currentEpisode]);
 
   useEffect(() => {

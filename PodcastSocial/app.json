@@ -1,19 +1,19 @@
 {
   "expo": {
-    "name": "Podcast Social",
-    "slug": "PodcastSocial",
+    "name": "Social Podcast",
+    "description": "Listen to your favorite podcasts and respond to the podcasters with your own private messages.",
+    "slug": "social-podcast",
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": [
-      "ios",
-      "android",
-      "web"
+      "ios"
     ],
+    "githubUrl": "https://github.com/youngchingjui/PodcastSocial",
     "version": "0.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Logo.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/Logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -24,11 +24,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.youngandai.podcastsocial"
+      "supportsTablet": false,
+      "bundleIdentifier": "com.youngandai.socialpodcast",
+      "buildNumber": "1"
     },
     "android": {
-      "package": "com.youngandai.podcastsocial"
+      "package": "com.youngandai.socialpodcast"
     }
   }
 }

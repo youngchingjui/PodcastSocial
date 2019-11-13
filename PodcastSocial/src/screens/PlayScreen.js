@@ -14,13 +14,8 @@ const PlayScreen = () => {
   const {
     state: { currentEpisode },
     forward,
-    rewind,
-    loadSoundObject
+    rewind
   } = useContext(MusicPlayerContext);
-
-  useEffect(() => {
-    // loadSoundObject();
-  }, []);
 
   return (
     <View style={styles.root}>

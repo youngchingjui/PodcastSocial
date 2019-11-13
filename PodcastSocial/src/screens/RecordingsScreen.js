@@ -6,11 +6,6 @@ import {
   TouchableOpacity
 } from "react-native-gesture-handler";
 
-import PurpleBackdrop from "../components/PurpleBackdrop";
-import ScreenTitle from "../components/ScreenTitle";
-
-import { Context as RecorderContext } from "../context/RecorderContext";
-
 import {
   Feather,
   FontAwesome,
@@ -18,9 +13,15 @@ import {
   MaterialIcons
 } from "@expo/vector-icons";
 
+import PurpleBackdrop from "../components/PurpleBackdrop";
+import ScreenTitle from "../components/ScreenTitle";
+
+import { Context as RecorderContext } from "../context/RecorderContext";
+import { Context as MusicPlayerContext } from "../context/MusicPlayerContext";
+
 const RecordingsScreen = () => {
   const {
-    state: { recordings, uri },
+    state: { recordings },
     loadRecordings,
     deleteRecording,
     playRecording,
@@ -28,10 +29,27 @@ const RecordingsScreen = () => {
     recordIntentToSend
   } = useContext(RecorderContext);
 
+  const {
+    state: { soundObject, isPlaying },
+    changeIsPlaying
+  } = useContext(MusicPlayerContext);
+
   useEffect(() => {
     loadRecordings();
   }, []);
 
+  const pressPlayRecording = async recording => {
+    if (isPlaying) {
+      console.log("Pausing audio");
+      try {
+        await soundObject.pauseAsync();
+        changeIsPlaying(false);
+      } catch (e) {
+        console.log(`Could not pause sound player`, e);
+      }
+    }
+    playRecording(recording, recordings);
+  };
   return (
     <View style={styles.root}>
       <PurpleBackdrop />
@@ -46,11 +64,11 @@ const RecordingsScreen = () => {
               <View style={styles.item}>
                 <TouchableOpacity
                   style={styles.details}
-                  onPress={playRecording}
+                  onPress={() => pressPlayRecording(item)}
                 >
                   <Feather name="play" size={40} />
                   <Text style={styles.duration}>
-                    {msToTime(item.durationMillis)}
+                    {msToTime(item.durationMillis, "time")}
                   </Text>
                   <View style={styles.textDetails}>
                     <Text>While playing</Text>
@@ -72,12 +90,7 @@ const RecordingsScreen = () => {
                 <TouchableOpacity
                   style={styles.email}
                   onPress={() => {
-                    recordIntentToSend(
-                      file_name,
-                      podcaster_email,
-                      recording_address,
-                      user_id
-                    );
+                    recordIntentToSend(item.uri, item.episode.podcast.email);
                   }}
                 >
                   <FontAwesome name="send" size={30} />
@@ -98,15 +111,19 @@ RecordingsScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
-  scrollView: { marginHorizontal: 35 },
+  scrollView: {
+    // marginHorizontal: 35,
+    marginTop: 20
+  },
   flatList: {},
   item: {
     height: 110,
     marginVertical: 10,
+    marginHorizontal: 28,
     backgroundColor: "white",
     shadowColor: "black",
     shadowOffset: {
-      width: 0,
+      width: 1,
       height: 2
     },
     shadowOpacity: 0.5,
@@ -118,8 +135,8 @@ const styles = StyleSheet.create({
   },
   details: {
     height: "100%",
-    flexDirection: "row",
     width: "100%",
+    flexDirection: "row",
     alignItems: "center"
   },
   duration: {

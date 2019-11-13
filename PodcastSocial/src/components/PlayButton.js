@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
-import { StyleSheet, TouchableOpacity} from "react-native";
-import { Context } from "../context/MusicPlayerContext";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { Context as MusicPlayerContext } from "../context/MusicPlayerContext";
 import { AntDesign } from "@expo/vector-icons";
 
 const PlayButton = () => {
-  const { state, changeIsPlaying } = useContext(Context);
-  const { soundObject, isPlaying } = state;
+  const {
+    state: { soundObject, isPlaying },
+    changeIsPlaying
+  } = useContext(MusicPlayerContext);
 
   const onPress = async () => {
     console.log("Sound Object within onPress:");
@@ -13,18 +15,18 @@ const PlayButton = () => {
     if (!isPlaying) {
       // Audio is currently not playing. Start playing podcast
       console.log("Playing audio");
-      changeIsPlaying(true);
       try {
         await soundObject.playAsync();
+        changeIsPlaying(true);
       } catch (e) {
         console.log(`Could not play sound player`, e);
       }
     } else {
       // Audio is currently playing. Pause it
       console.log("Pausing audio");
-      changeIsPlaying(false);
       try {
         await soundObject.pauseAsync();
+        changeIsPlaying(false);
       } catch (e) {
         console.log(`Could not pause sound player`, e);
       }

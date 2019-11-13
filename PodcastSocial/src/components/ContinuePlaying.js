@@ -12,13 +12,8 @@ import NavigationService from "../../NavigationService";
 const ContinuePlaying = () => {
   const {
     state: { currentEpisode, isPlaying, isCurrentEpisodeLoaded, soundObject },
-    loadSoundObject,
     changeIsPlaying
   } = useContext(MusicPlayerContext);
-
-  useEffect(() => {
-    // loadSoundObject();
-  }, []);
 
   const onPress = async () => {
     if (!isPlaying) {

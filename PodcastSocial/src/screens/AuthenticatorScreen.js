@@ -22,7 +22,8 @@ const AuthenticatorScreen = ({ navigation }) => {
           console.log("User needs to sign in.");
         } else {
           console.warn(
-            "Something strange happened with signing in within AuthenticatorScreen"
+            "Something strange happened with signing in within AuthenticatorScreen: " +
+              authState
           );
         }
       }}

@@ -1,7 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { Context as PlaylistContext } from "../context/PlaylistContext";
+import React from "react";
+import { StyleSheet, View, Text, Image } from "react-native";
 
 const Content = ({ episode }) => {
   return (

@@ -10,7 +10,8 @@ import { Audio } from "expo-av";
 import * as Permissions from "expo-permissions";
 import * as FileSystem from "expo-file-system";
 
-import { Storage } from "aws-amplify";
+import { Storage, Auth } from "aws-amplify";
+import { createSwitchNavigator } from "react-navigation";
 
 const musicPlayerReducer = (state, action) => {
   switch (action.type) {
@@ -30,6 +31,8 @@ const musicPlayerReducer = (state, action) => {
       return { ...state, recordings: action.payload };
     case "loadRecorderState":
       return { ...state, recordings: action.payload.recordings };
+    case "playRecording":
+      return { ...state, recordings: action.payload };
     default:
       return state;
   }
@@ -130,19 +133,35 @@ const sendRecording = dispatch => async (recipients, uri) => {
   //TODO: Implementation on hold.
 };
 
-const recordIntentToSend = dispatch => async (
-  file_name,
-  podcaster_email,
-  recording_address,
-  user_id
-) => {
+const recordIntentToSend = dispatch => async (uri, podcaster_email) => {
+  var username = null;
+  var user_email = null;
+  var user_phone = null;
+  var identityId = null;
+  try {
+    const user = await Auth.currentAuthenticatedUser();
+    username = user.username;
+    user_email = user.attributes.email;
+    if (user.attributes.phone_number) {
+      user_phone = user.attributes.phone_number;
+    }
+
+    const credentials = await Auth.currentCredentials();
+    identityId = credentials._identityId;
+  } catch (err) {
+    console.log(err);
+  }
+
+  const filename = uri.replace(/^.*[\\\/]/, "");
   try {
     const data = {
       fields: {
-        file_name,
+        filename,
+        identityId,
         podcaster_email,
-        recording_address,
-        user_id
+        username,
+        user_email,
+        user_phone
       }
     };
     const response = await airtable.post("/send_recording_logs", data);
@@ -155,6 +174,7 @@ const recordIntentToSend = dispatch => async (
 const deleteRecording = dispatch => {
   return async (recording, recordings) => {
     console.log("Deleting recording");
+
     // Delete from state
     recordings = recordings.filter(rec => rec.uri != recording.uri);
     dispatch({ type: "deleteRecording", payload: recordings });
@@ -170,30 +190,79 @@ const deleteRecording = dispatch => {
     await AsyncStorage.setItem("recordings", JSON.stringify(recordings));
 
     // Delete from S3
+    const filename = recording.uri.replace(/^.*[\\\/]/, "");
+    try {
+      const response = await Storage.remove(filename, { level: "private" });
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
-const playRecording = dispatch => () => {
+const playRecording = dispatch => async (recording, recordings) => {
   console.log("Playing recording");
-};
+  const soundObject = new Audio.Sound();
+  const _onPlaybackStatusUpdate = async playbackStatus => {
+    if (!playbackStatus.isLoaded) {
+      // Update your UI for the unloaded state
+      if (playbackStatus.error) {
+        console.log(
+          `Encountered a fatal error during playback: ${playbackStatus.error}`
+        );
+        // Send Expo team the error on Slack or the forums so we can help you debug!
+      }
+    } else {
+      // Update your UI for the loaded state
 
-const msToTime = dispatch => s => {
-  const pad = (n, z) => {
-    z = z || 2;
-    return ("00" + n).slice(-z);
+      if (playbackStatus.isPlaying) {
+        // Update your UI for the playing state
+      } else {
+        // Update your UI for the paused state
+      }
+
+      if (playbackStatus.isBuffering) {
+        // Update your UI for the buffering state
+      }
+
+      if (playbackStatus.didJustFinish && !playbackStatus.isLooping) {
+        // The player has just finished playing and will stop. Maybe you want to play something else?
+        await soundObject.unloadAsync();
+      }
+    }
   };
 
-  var ms = s % 1000;
-  s = (s - ms) / 1000;
-  var secs = s % 60;
-  s = (s - secs) / 60;
-  var mins = s % 60;
-  var hrs = (s - mins) / 60;
+  soundObject.setOnPlaybackStatusUpdate(_onPlaybackStatusUpdate);
+  await soundObject.loadAsync({ uri: recording.uri });
+  await soundObject.playAsync();
+};
 
-  if (hrs == 0) {
-    return pad(mins) + ":" + pad(secs);
-  } else {
-    return pad(hrs) + ":" + pad(mins) + ":" + pad(secs);
+const msToTime = dispatch => (s, format) => {
+  switch (format) {
+    case "time":
+      const pad = (n, z) => {
+        z = z || 2;
+        return ("00" + n).slice(-z);
+      };
+
+      var ms = s % 1000;
+      s = (s - ms) / 1000;
+      var secs = s % 60;
+      s = (s - secs) / 60;
+      var mins = s % 60;
+      var hrs = (s - mins) / 60;
+
+      if (hrs == 0) {
+        return pad(mins) + ":" + pad(secs);
+      } else {
+        return pad(hrs) + ":" + pad(mins) + ":" + pad(secs);
+      }
+    case "date":
+      const date = new Date(s);
+      const options = { weekday: "short", month: "short", day: "numeric" };
+      return date.toLocaleDateString("en-US", options);
+    default:
+      console.warn("Did not provide correct format");
   }
 };
 
@@ -208,7 +277,6 @@ const loadRecorderState = dispatch => async () => {
 };
 
 // Helper functions for RecorderContext. Not exported.
-
 const uploadRecording = async payload => {
   console.log("Uploading recording to S3");
   const { uri } = payload;

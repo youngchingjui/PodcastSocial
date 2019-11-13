@@ -8,7 +8,8 @@ const musicPlayerReducer = (state, action) => {
     case "loadSoundObject":
       return {
         ...state,
-        isCurrentEpisodeLoaded: true
+        isCurrentEpisodeLoaded: true,
+        soundObject: action.payload
       };
     case "changeIsPlaying":
       return { ...state, isPlaying: action.payload };
@@ -26,41 +27,37 @@ const musicPlayerReducer = (state, action) => {
         state.soundObject.playFromPositionAsync(current_position - 10000);
       });
       return state;
-    case "updateAudioURI":
-      return { ...state, audioURI: action.payload };
     case "getEpisodeList":
       return { ...state, episodeList: action.payload };
-
     case "updateCurrentEpisode":
       return { ...state, currentEpisode: action.payload };
     case "loadMusicPlayerState":
       return { ...state, currentEpisode: action.payload.currentEpisode };
+    case "unloadCurrentEpisodeSoundObject":
+      return { ...state, soundObject: null };
     default:
       return state;
   }
 };
 
 const loadSoundObject = dispatch => {
-  return async (currentEpisode, soundObject) => {
+  return async currentEpisode => {
     if (
       Object.entries(currentEpisode).length === 0 &&
       currentEpisode.constructor === Object
     ) {
       console.log("currentEpisode not loaded:" + currentEpisode);
     } else {
-      if (!soundObject._loaded) {
-        console.log("Starting to load sound object");
-        await soundObject.loadAsync({
-          uri: currentEpisode.audio
-        });
-        console.log("soundObject loaded");
-        dispatch({
-          type: "loadSoundObject"
-        });
-      } else {
-        console.warn("soundObject already loaded");
-        console.log(soundObject);
-      }
+      const soundObject = new Audio.Sound();
+      console.log("Starting to load sound object");
+      await soundObject.loadAsync({
+        uri: currentEpisode.audio
+      });
+      console.log("soundObject loaded");
+      dispatch({
+        type: "loadSoundObject",
+        payload: soundObject
+      });
     }
   };
 };
@@ -85,25 +82,10 @@ const rewind = dispatch => {
   };
 };
 
-const updateAudioURI = dispatch => {
-  return uri => {
-    console.log(`Updating Audio URI: ${uri}`);
-    dispatch({ type: "updateAudioURI", payload: uri });
-  };
-};
-
 const getEpisodeList = dispatch => {
   return async podcastId => {
     console.log("getEpisodeList");
     const response = await listenNotes(`/podcasts/${podcastId}`);
-
-    // const text = await response.text();
-
-    // var results;
-    // parseString(text, (err, result) => {
-    //   console.log(result);
-    //   results = result.rss.channel[0];
-    // });
     dispatch({ type: "getEpisodeList", payload: response.data });
   };
 };
@@ -131,6 +113,13 @@ const loadMusicPlayerState = dispatch => async () => {
   dispatch({ type: "loadMusicPlayerState", payload: { currentEpisode } });
 };
 
+const unloadCurrentEpisodeSoundObject = dispatch => async soundObject => {
+  if (soundObject) {
+    await soundObject.unloadAsync();
+    dispatch({ type: "unloadCurrentEpisodeSoundObject" });
+  }
+};
+
 export const initialState = {
   currentUser: {},
   soundObject: new Audio.Sound(),
@@ -153,9 +142,9 @@ export const { Context, Provider } = createDataContext(
     rewind,
     loadSoundObject,
     getEpisodeList,
-    updateAudioURI,
     updateCurrentEpisode,
-    loadMusicPlayerState
+    loadMusicPlayerState,
+    unloadCurrentEpisodeSoundObject
   },
   initialState
 );
