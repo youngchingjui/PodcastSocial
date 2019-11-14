@@ -43,8 +43,9 @@ const musicPlayerReducer = (state, action) => {
 const loadSoundObject = dispatch => {
   return async currentEpisode => {
     if (
-      Object.entries(currentEpisode).length === 0 &&
-      currentEpisode.constructor === Object
+      !currentEpisode ||
+      (Object.entries(currentEpisode).length === 0 &&
+        currentEpisode.constructor === Object)
     ) {
       console.log("currentEpisode not loaded:" + currentEpisode);
     } else {

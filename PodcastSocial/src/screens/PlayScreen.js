@@ -21,18 +21,24 @@ const PlayScreen = () => {
     <View style={styles.root}>
       <PurpleBackdrop />
       <ScreenTitle title="Now Playing" />
-      <Image
-        source={{ uri: currentEpisode.image }}
-        style={styles.podcastArtwork}
-      />
+      {currentEpisode ? (
+        <Image
+          source={{ uri: currentEpisode.image }}
+          style={styles.podcastArtwork}
+        />
+      ) : null}
       <View style={styles.playPodcastBottom}>
         <View style={styles.episodeDetails}>
-          <Text style={styles.episodeTitle} numberOfLines={2}>
-            {currentEpisode.title}
-          </Text>
-          <Text style={styles.episodeDescription} numberOfLines={2}>
-            {currentEpisode.description}
-          </Text>
+          {currentEpisode ? (
+            <>
+              <Text style={styles.episodeTitle} numberOfLines={2}>
+                {currentEpisode.title}
+              </Text>
+              <Text style={styles.episodeDescription} numberOfLines={2}>
+                {currentEpisode.description}
+              </Text>
+            </>
+          ) : null}
         </View>
         <View style={styles.recordButton}>
           <RecordButton />

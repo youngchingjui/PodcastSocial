@@ -42,6 +42,9 @@ const getSubscriptions = dispatch => {
 
 const updateSubscriptions = dispatch => {
   return async (subscription, subscriptions, action) => {
+    if (!subscriptions) {
+      subscriptions = new Array();
+    }
     if (action == "add") {
       console.log("Adding subscription");
       subscriptions.push(subscription);
@@ -92,29 +95,36 @@ const updateUpNextList = dispatch => {
   console.log("Updating upNext List");
   return async subscriptions => {
     var allPodcastEpisodes = [];
-    for (var subscription of subscriptions) {
-      try {
-        const response = await listenNotes.get(`podcasts/${subscription.id}`);
-        const { episodes, ...podcast } = response.data;
-        for (const episode of episodes.slice(0, 3)) {
-          allPodcastEpisodes.push({ ...episode, podcast });
-        }
-      } catch (err) {
-        console.log("Error in getting recent podcasts");
-        console.log(err.message);
-      }
+    if (!subscriptions) {
+      subscriptions = new Array();
     }
-    allPodcastEpisodes = allPodcastEpisodes.sort((a, b) =>
-      new Date(a.pub_date_ms[0]) > new Date(b.pub_date_ms[0]) ? 1 : -1
-    );
-    await AsyncStorage.setItem(
-      "upNext",
-      JSON.stringify(allPodcastEpisodes.slice(0, 10))
-    );
-    dispatch({
-      type: "updateUpNextList",
-      payload: allPodcastEpisodes.slice(0, 10)
-    });
+    if (subscriptions.length > 1) {
+      for (var subscription of subscriptions) {
+        try {
+          const response = await listenNotes.get(`podcasts/${subscription.id}`);
+          const { episodes, ...podcast } = response.data;
+          for (const episode of episodes.slice(0, 3)) {
+            allPodcastEpisodes.push({ ...episode, podcast });
+          }
+        } catch (err) {
+          console.log("Error in getting recent podcasts");
+          console.log(err.message);
+        }
+      }
+      allPodcastEpisodes = allPodcastEpisodes.sort((a, b) =>
+        new Date(a.pub_date_ms[0]) > new Date(b.pub_date_ms[0]) ? 1 : -1
+      );
+      await AsyncStorage.setItem(
+        "upNext",
+        JSON.stringify(allPodcastEpisodes.slice(0, 10))
+      );
+      dispatch({
+        type: "updateUpNextList",
+        payload: allPodcastEpisodes.slice(0, 10)
+      });
+    } else {
+      console.log("No subscriptions");
+    }
   };
 };
 

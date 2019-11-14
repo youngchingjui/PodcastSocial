@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 
 import { Context as RecorderContext } from "../context/RecorderContext";
@@ -38,6 +38,11 @@ const RecordButton = () => {
             stopRecording(recordObject, recordings, currentEpisode);
           }
         } else if (recordingPermissionStatus == "denied") {
+          Alert.alert(
+            "Require recording permissions",
+            "Please go to Settings and Allow Recording for Social Podcast",
+            [{ text: "OK", onPress: () => console.log("Pushed OK") }]
+          );
           console.log("Please go to settings and allow recording");
         } else {
           console.log("Could not determine if recording permissions were set");

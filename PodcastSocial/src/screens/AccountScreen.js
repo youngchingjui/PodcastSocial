@@ -5,6 +5,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { Auth } from "aws-amplify";
 
+import ScreenTitle from "../components/ScreenTitle";
+import PurpleBackdrop from "../components/PurpleBackdrop";
+
 const AccountScreen = ({ navigation }) => {
   const signOut = async () => {
     console.log("Pushed sign out button");
@@ -14,8 +17,9 @@ const AccountScreen = ({ navigation }) => {
 
   return (
     <View style={styles.root}>
-      <Text style={styles.title}>My Account</Text>
-      <Button onPress={signOut} title="Sign out"></Button>
+      <PurpleBackdrop />
+      <ScreenTitle title="My Account" />
+      <Button onPress={signOut} title="Sign out" color="black"></Button>
     </View>
   );
 };
@@ -24,11 +28,6 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: "white"
-  },
-  title: {
-    marginTop: 30,
-    fontSize: 30,
-    fontWeight: "bold"
   }
 });
 

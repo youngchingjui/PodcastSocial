@@ -11,7 +11,6 @@ import * as Permissions from "expo-permissions";
 import * as FileSystem from "expo-file-system";
 
 import { Storage, Auth } from "aws-amplify";
-import { createSwitchNavigator } from "react-navigation";
 
 const musicPlayerReducer = (state, action) => {
   switch (action.type) {

@@ -7,14 +7,14 @@ const SearchResultDetail = ({ podcast_channel }) => {
   const {
     state: { subscriptions },
     updateSubscriptions
-    // removeSubscription
   } = useContext(PlaylistContext);
 
   var isSubscribed = false;
-  const subscription = subscriptions.filter(
-    pod => pod.id == podcast_channel.id
-  );
-  subscription.length > 0 ? (isSubscribed = true) : (isSubscribed = false);
+  var subscription = null;
+  if (subscriptions) {
+    subscription = subscriptions.filter(pod => pod.id == podcast_channel.id);
+    subscription.length > 0 ? (isSubscribed = true) : (isSubscribed = false);
+  }
   return (
     <View style={styles.root}>
       <Image

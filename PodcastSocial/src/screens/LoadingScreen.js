@@ -4,14 +4,15 @@ import {
   View,
   Text,
   ActivityIndicator,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from "react-native";
 
 import { AppLoading } from "expo";
 import { Asset } from "expo-asset";
 
 const LoadingScreen = ({ navigation }) => {
-  const { isReady, setIsReady } = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const checkAuth = async () => {
     const userToken = await AsyncStorage.getItem("userToken");
     console.log("userToken: " + userToken);

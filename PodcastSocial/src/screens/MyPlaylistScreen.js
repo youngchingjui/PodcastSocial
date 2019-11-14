@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, Text } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -8,14 +8,37 @@ import PurpleBackdrop from "../components/PurpleBackdrop";
 import ScreenTitle from "../components/ScreenTitle";
 import UpNext from "../components/UpNext";
 
+import { Context as MusicPlayerContext } from "../context/MusicPlayerContext";
+import { Context as PlaylistContext } from "../context/PlaylistContext";
+
 const MyPlaylistScreen = () => {
+  const {
+    state: { currentEpisode }
+  } = useContext(MusicPlayerContext);
+
+  const {
+    state: { upNextList }
+  } = useContext(PlaylistContext);
+
   return (
     <View style={styles.root}>
       <PurpleBackdrop />
       <ScreenTitle title="My Playlist" />
-      <ContinuePlaying />
-      <Text style={styles.upNextHeader}>Up Next</Text>
-      <UpNext />
+      {currentEpisode ? (
+        <ContinuePlaying />
+      ) : (
+        <>
+          <Text style={styles.welcomeText}>Welcome to Social Podcast!</Text>
+        </>
+      )}
+      {upNextList && upNextList.length > 0 ? (
+        <UpNext />
+      ) : (
+        <Text style={styles.noSubsText}>
+          After you subscribe to some channels, your list of upcoming podcast
+          episodes will be displayed here
+        </Text>
+      )}
     </View>
   );
 };
@@ -25,11 +48,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "transparent"
   },
-  upNextHeader: {
+
+  welcomeText: {
     fontSize: 24,
-    marginTop: 15,
-    marginBottom: 10,
-    marginLeft: 28
+    marginLeft: 28,
+    marginTop: 150
+  },
+  noSubsText: {
+    marginHorizontal: 28
   }
 });
 

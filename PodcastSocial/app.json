@@ -9,7 +9,7 @@
       "ios"
     ],
     "githubUrl": "https://github.com/youngchingjui/PodcastSocial",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "orientation": "portrait",
     "icon": "./assets/Logo.png",
     "splash": {
@@ -26,7 +26,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.youngandai.socialpodcast",
-      "buildNumber": "1"
+      "buildNumber": "2"
     },
     "android": {
       "package": "com.youngandai.socialpodcast"
