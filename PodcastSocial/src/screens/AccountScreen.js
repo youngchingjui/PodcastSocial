@@ -3,7 +3,8 @@ import { StyleSheet, View, Text, Button } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { Auth } from "aws-amplify";
+// import { Auth } from "aws-amplify";
+import Auth from "@aws-amplify/auth";
 
 import ScreenTitle from "../components/ScreenTitle";
 import PurpleBackdrop from "../components/PurpleBackdrop";

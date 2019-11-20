@@ -1,26 +1,7 @@
-import React, { useContext, useEffect } from "react";
-import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  TouchableOpacity,
-  Button
-} from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet, View, Text, Button } from "react-native";
 
-import PlayButton from "../components/PlayButton";
-import PurpleBackdrop from "../components/PurpleBackdrop";
-import RecordButton from "../components/RecordButton";
-import ScreenTitle from "../components/ScreenTitle";
-
-import { Context as MusicPlayerContext } from "../context/MusicPlayerContext";
 import { Context as RecorderContext } from "../context/RecorderContext";
-
-import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
-
-import Storage from "@aws-amplify/storage";
-import { API } from "aws-amplify";
 
 import { AsyncStorage } from "react-native";
 const PlaygroundScreen = () => {

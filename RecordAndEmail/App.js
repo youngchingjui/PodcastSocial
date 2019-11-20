@@ -60,7 +60,6 @@ export default function App() {
   };
 
   useEffect(() => {
-    createTestFile();
     checkRecordingPermissions();
   }, []);
 

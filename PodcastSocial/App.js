@@ -31,7 +31,7 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 
 import NavigationService from "./NavigationService";
 
-import Amplify from "aws-amplify";
+import Amplify from "@aws-amplify/core";
 import awsconfig from "./aws-exports";
 
 const MEMORY_KEY_PREFIX = "@MyStorage:";

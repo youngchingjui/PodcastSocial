@@ -10,7 +10,9 @@ import { Audio } from "expo-av";
 import * as Permissions from "expo-permissions";
 import * as FileSystem from "expo-file-system";
 
-import { Storage, Auth } from "aws-amplify";
+// import { Storage, Auth } from "aws-amplify";
+import Storage from "@aws-amplify/storage";
+import Auth from "@aws-amplify/auth";
 
 const musicPlayerReducer = (state, action) => {
   switch (action.type) {
