@@ -10,6 +10,7 @@ npm-debug.*
 environment.js
 web-build/
 web-report/
+.vscode
 
 #amplify
 amplify/\#current-cloud-backend

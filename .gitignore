@@ -56,3 +56,10 @@ buck-out/
 *.jsbundle
 PodcastSocial/package-lock.json
 PodcastSocial/.vscode/.react/debuggerWorker.js
+
+# Regular
+react-native
+__tests__
+Sketch to Code
+Sketch Files
+.vscode
