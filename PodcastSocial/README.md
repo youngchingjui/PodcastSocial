@@ -1,5 +1,20 @@
 # PodcastSocial
 
+A podcast app where you can listen to podcasts and also respond back to podcasters.
+
+Currently, in this app you can:
+
+- Listen to podcast episodes
+- Search for podcast channels
+- Subscribe to podcast channels
+- Fast forward and rewind by 10 seconds
+- Record audio recordings
+- Send a notification that you'd like your recording to be sent to the podcaster
+
+There's still a lot more to build out, but I'm just getting ready to submit this to the App Store.
+
+There is a major bug that occurs when we `minify` the project and bundle it to an `.ipa` file, so I'm working through that now.
+
 ### Folder structure
 
 ```
