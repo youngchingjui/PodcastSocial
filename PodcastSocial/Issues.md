@@ -289,24 +289,24 @@ Currently, in my environment.js file:
 const ENV = {
   dev: {
     apiUrl: localhost,
-    AIRTABLE_API_KEY: "keyDm2XbBComwG6aO",
-    LISTEN_NOTES_API_KEY: "34694360e16041b898d7866a967391e7"
+    AIRTABLE_API_KEY: "xxxxx",
+    LISTEN_NOTES_API_KEY: "xxxxxx"
   },
   staging: {
     apiUrl: "https://staging.herokuapp.com",
     amplitudeApiKey: "[Enter your key here]",
 
     // Add other keys you want here
-    AIRTABLE_API_KEY: "keyDm2XbBComwG6aO",
-    LISTEN_NOTES_API_KEY: "34694360e16041b898d7866a967391e7"
+    AIRTABLE_API_KEY: "xxxxx",
+    LISTEN_NOTES_API_KEY: "xxxxxx"
   },
   prod: {
     apiUrl: "https://prod.herokuapp.com",
     amplitudeApiKey: "[Enter your key here]",
 
     // Add other keys you want here
-    AIRTABLE_API_KEY: "keyDm2XbBComwG6aO",
-    LISTEN_NOTES_API_KEY: "34694360e16041b898d7866a967391e7"
+    AIRTABLE_API_KEY: "xxxxx",
+    LISTEN_NOTES_API_KEY: "xxxxxx"
   }
 };
 ```
