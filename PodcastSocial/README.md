@@ -15,6 +15,10 @@ There's still a lot more to build out, but I'm just getting ready to submit this
 
 There is a major bug that occurs when we `minify` the project and bundle it to an `.ipa` file, so I'm working through that now.
 
+### Current issues
+
+Current issues can be found in [this markdown file](Issues.md)
+
 ### Folder structure
 
 ```
@@ -40,6 +44,10 @@ There is a major bug that occurs when we `minify` the project and bundle it to a
 - Fix bug from minifying code
 
 ### Notes
+
+### AWS Amplify
+
+This app is configured with AWS Amplify, specifically for Auth and Storage.
 
 #### environment.js
 
